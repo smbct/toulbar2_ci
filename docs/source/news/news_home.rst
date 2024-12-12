@@ -17,3 +17,17 @@
         
     </div>
 
+    <script src="https://giscus.app/client.js"
+        data-repo="smbct/toulbar2"
+        data-repo-id="R_kgDONcu2lQ"
+        data-mapping="number"
+        data-term="1"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+    </script>
+
