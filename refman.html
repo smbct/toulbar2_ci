@@ -1,0 +1,365 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reference Manual &mdash; toulbar2 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/toulbar2.css?v=77a8b5b1" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=af2ce170"></script>
+      <script src="_static/doctools.js?v=888ff710"></script>
+      <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            toulbar2
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="presentation.html">Presentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloads.html">Downloads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/command_line_interface.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/usecases.html">Use cases</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="reference_manual/ref_modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_manual/library.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_manual/command_line_options.html">Command line options</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="reference_manual/formats.html">Problem formats</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmark libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pdfmanuals.html">Documentation in pdf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publications.html">Publications</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">toulbar2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div class=toulbar2header>
+
+  <div class="toulbar2logo">
+
+    <h1>toulbar2</h1>
+    <h2>An exact solver for cost function networks</h2>
+
+    <!-- badges -->
+    <div style="margin-top: 1.5rem; display: flex;justify-content: center;">
+
+    <!-- build status -->
+    <div style="padding-right: 0.5rem;">
+    <a href="https://app.travis-ci.com/github/toulbar2/toulbar2">
+    <img alt="Build Status" src="https://travis-ci.com/toulbar2/toulbar2.svg?branch=master">
+    </a>
+    </div>
+
+    <!-- PyPi version -->
+    <div style="padding-right: 0.5rem;">
+    <a href="https://pypi.org/project/pytoulbar2">
+    <img alt="PyPi version" src="https://img.shields.io/pypi/v/pytoulbar2.svg">
+    </a>
+    </div>
+
+    <!-- PyPi wheel -->
+    <div style="padding-right: 0.5rem;">
+    <a href="https://pypi.org/project/pytoulbar2">
+    <img alt="PyPi wheel" src="https://img.shields.io/pypi/wheel/pytoulbar2.svg">
+    </a>
+    </div>
+
+    <!-- PyPi python versions -->
+    <div style="padding-right: 0.5rem;">
+    <a href="https://pypi.org/project/pytoulbar2">
+    <img alt="PyPi python versions" src="https://img.shields.io/pypi/pyversions/pytoulbar2.svg">
+    </a>
+    </div>
+
+    </div>
+
+    <!-- github buttons, from https://buttons.github.io/ -->
+    <div style="text-align:center; margin-top: 1.5rem; display: flex; justify-content: center">
+
+      <!-- Place this tag in your head or just before your close body tag. -->
+      <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
+      <div style="padding-right: 2rem;">
+      <a class="github-button" href="https://github.com/toulbar2/toulbar2" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star toulbar2/toulbar2 on GitHub">Star</a>
+      </div>
+
+      <div style="padding-right: 2rem;">
+      <a class="github-button" href="https://github.com/buttons/github-buttons/subscription" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-eye" data-size="large" data-show-count="true" aria-label="Watch buttons/github-buttons on GitHub">Watch</a>
+      </div>
+
+      <div style="padding-right: 2rem;">
+      <a class="github-button" href="https://github.com/buttons/github-buttons/fork" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-repo-forked" data-size="large" data-show-count="true" aria-label="Fork buttons/github-buttons on GitHub">Fork</a>
+      </div>
+
+      <div style="padding-right: 2rem;">
+      <a class="github-button" href="https://github.com/toulbar2" data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" data-show-count="true" aria-label="Follow @toulbar2 on GitHub">Follow @toulbar2</a>
+      </div>
+
+      </div>
+
+  </div>
+
+  <div class=toulbar2headerline>
+
+    <a href=presentation.html>Presentation</a> |
+    <a href=downloads.html>Downloads</a> |
+    <a href=benchmarks.html>Benchmarks</a> |
+    <a href=examples/tutorials.html>Tutorials</a> |
+    <a href=examples/usecases.html>Use cases</a> |
+    <a href=userdoc.html>User</a> |
+    <a href=#>Reference</a> |
+    <a href=pdfmanuals.html>Doc in pdf</a> |
+    <a href=publications.html>Publications</a>
+
+  </div>
+
+</div>
+
+<!-- News : see news_*.rst pages -->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="reference-manual">
+<span id="refman"></span><h1>Reference Manual<a class="headerlink" href="#reference-manual" title="Permalink to this heading"></a></h1>
+</section>
+<section id="introduction">
+<span id="ref-intro"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h1>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>Cost Function Network Solver</strong></p></td>
+<td><p>toulbar2</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Copyright</strong></p></td>
+<td><p>toulbar2 team</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Source</strong></p></td>
+<td><p><a class="reference external" href="https://github.com/toulbar2/toulbar2">https://github.com/toulbar2/toulbar2</a></p></td>
+</tr>
+</tbody>
+</table>
+<p>toulbar2 can be used as a stand-alone solver reading various problem file formats (wcsp, uai, wcnf, qpbo) or as a C++ library.</p>
+<p>This document describes the WCSP native file format and the toulbar2 C++ library API.</p>
+<dl class="simple">
+<dt>Note</dt><dd><p>Use cmake flags <code class="code docutils literal notranslate"><span class="pre">LIBTB2=ON</span></code> and <code class="code docutils literal notranslate"><span class="pre">TOULBAR2_ONLY=OFF</span></code> to get the toulbar2 C++
+library libtb2.so and toulbar2test executable example.</p>
+</dd>
+</dl>
+<p><strong>See also</strong> : <a class="reference download internal" download="" href="_downloads/af18470515498cdbc4f5e516f6664a2b/toulbar2test.cpp"><code class="xref download docutils literal notranslate"><span class="pre">src/toulbar2test.cpp</span></code></a>.</p>
+<p># Exact optimization for cost function networks and additive graphical models</p>
+<p>[![Build Status](<a class="reference external" href="https://travis-ci.com/toulbar2/toulbar2.svg?branch=master)](https://app.travis-ci.com/github/toulbar2/toulbar2">https://travis-ci.com/toulbar2/toulbar2.svg?branch=master)](https://app.travis-ci.com/github/toulbar2/toulbar2</a>)
+[![PyPi version](<a class="reference external" href="https://img.shields.io/pypi/v/pytoulbar2.svg)](https://pypi.org/project/pytoulbar2)[![PyPi">https://img.shields.io/pypi/v/pytoulbar2.svg)](https://pypi.org/project/pytoulbar2)[![PyPi</a> wheel](<a class="reference external" href="https://img.shields.io/pypi/wheel/pytoulbar2.svg)](https://pypi.org/project/pytoulbar2)[![PyPi">https://img.shields.io/pypi/wheel/pytoulbar2.svg)](https://pypi.org/project/pytoulbar2)[![PyPi</a> python versions](<a class="reference external" href="https://img.shields.io/pypi/pyversions/pytoulbar2.svg)](https://pypi.org/project/pytoulbar2">https://img.shields.io/pypi/pyversions/pytoulbar2.svg)](https://pypi.org/project/pytoulbar2</a>)</p>
+<p>(_README_1)=
+## What is toulbar2?</p>
+<p>toulbar2 is an open-source black-box C++ optimizer for cost function
+networks and discrete additive graphical models. This also covers Max-SAT, Max-Cut, QUBO (and constrained variants), among others. It can read a variety
+of formats. The optimized criteria and feasibility should be provided
+factorized in local cost functions on discrete variables. Constraints
+are represented as functions that produce costs that exceed a
+user-provided primal bound. toulbar2 looks for a non-forbidden assignment
+of all variables that optimizes the sum of all functions (a decision
+NP-complete problem).</p>
+<p>toulbar2 won several competitions on deterministic and probabilistic
+graphical models:</p>
+<ul class="simple">
+<li><p>Max-CSP 2008 Competition [CPAI08][cpai08] (winner on 2-ARY-EXT and N-ARY-EXT)</p></li>
+<li><p>Probabilistic Inference Evaluation [UAI 2008][uai2008] (winner on several MPE tasks, inra entries)</p></li>
+<li><p>2010 UAI APPROXIMATE INFERENCE CHALLENGE [UAI 2010][uai2010] (winner on 1200-second MPE task)</p></li>
+<li><p>The Probabilistic Inference Challenge [PIC 2011][pic2011] (second place by ficolofo on 1-hour MAP task)</p></li>
+<li><p>UAI 2014 Inference Competition [UAI 2014][uai2014] (winner on all MAP task categories, see Proteus, Robin, and IncTb entries)</p></li>
+<li><p>[XCSP3][xcsp] Competitions (second place on Mini COP and Parallel COP tracks in 2022, first place on Mini COP in 2023, third place in 2024)</p></li>
+<li><p>UAI 2022 Inference Competition [UAI 2022][uai2022] (winner on all MPE and MMAP task categories)</p></li>
+</ul>
+<p>[cpai08]: <a class="reference external" href="http://www.cril.univ-artois.fr/CPAI08/">http://www.cril.univ-artois.fr/CPAI08/</a>
+[uai2008]: <a class="reference external" href="http://graphmod.ics.uci.edu/uai08/Evaluation/Report">http://graphmod.ics.uci.edu/uai08/Evaluation/Report</a>
+[uai2010]: <a class="reference external" href="http://www.cs.huji.ac.il/project/UAI10/summary.php">http://www.cs.huji.ac.il/project/UAI10/summary.php</a>
+[pic2011]: <a class="reference external" href="http://www.cs.huji.ac.il/project/PASCAL/board.php">http://www.cs.huji.ac.il/project/PASCAL/board.php</a>
+[uai2014]: <a class="reference external" href="https://personal.utdallas.edu/~vibhav.gogate/uai14-competition/leaders.html">https://personal.utdallas.edu/~vibhav.gogate/uai14-competition/leaders.html</a>
+[xcsp]: <a class="reference external" href="https://xcsp.org/competitions">https://xcsp.org/competitions</a>
+[uai2022]: <a class="reference external" href="https://uaicompetition.github.io/uci-2022/results/final-leader-board">https://uaicompetition.github.io/uci-2022/results/final-leader-board</a></p>
+<p>toulbar2 is now also able to collaborate with ML code that can learn
+an additive graphical model (with constraints) from data (see the
+associated
+[paper](<a class="reference external" href="https://miat.inrae.fr/schiex/Export/Pushing_Data_in_your_CP_model.pdf">https://miat.inrae.fr/schiex/Export/Pushing_Data_in_your_CP_model.pdf</a>),
+[slides](<a class="reference external" href="https://miat.inrae.fr/schiex/Export/Pushing_Data_in_your_CP_model-Slides.pdf">https://miat.inrae.fr/schiex/Export/Pushing_Data_in_your_CP_model-Slides.pdf</a>)
+and [video](<a class="reference external" href="https://www.youtube.com/watch?v=IpUr6KIEjMs">https://www.youtube.com/watch?v=IpUr6KIEjMs</a>) where it is
+shown how it can learn user preferences or how to play the Sudoku
+without knowing the rules). The current CFN learning code is available
+on [GitHub](<a class="reference external" href="https://github.com/toulbar2/CFN-learn">https://github.com/toulbar2/CFN-learn</a>).</p>
+<p>(_README_2)=
+## Installation from binaries</p>
+<p>You can install toulbar2 directly using the package manager in Debian
+and Debian derived Linux distributions (Ubuntu, Mint,…):</p>
+<blockquote>
+<div><p>sudo apt-get update
+sudo apt-get install toulbar2 toulbar2-doc</p>
+</div></blockquote>
+<p>For the most recent binary or the Python API, compile from source.</p>
+<p>(_README_3)=
+## Python interface</p>
+<p>An alpha-release Python interface can be tested through pip on Linux and MacOS:</p>
+<blockquote>
+<div><p>python3 -m pip install –upgrade pip
+python3 -m pip install pytoulbar2</p>
+</div></blockquote>
+<p>The first line is only useful for Linux distributions that ship “old” versions of pip.</p>
+<p>Commands for compiling the Python API on Linux/MacOS with cmake (Python module in lib/*/pytb2.cpython*.so):</p>
+<blockquote>
+<div><p>pip3 install pybind11
+mkdir build
+cd build
+cmake -DPYTB2=ON ..
+make</p>
+</div></blockquote>
+<p>Move the cpython library and the experimental [pytoulbar2.py](<a class="reference external" href="https://github.com/toulbar2/toulbar2/raw/master/pytoulbar2/pytoulbar2.py">https://github.com/toulbar2/toulbar2/raw/master/pytoulbar2/pytoulbar2.py</a>) python class wrapper in the folder of the python script that does “import pytoulbar2”.</p>
+<p>(_README_4)=
+## Download</p>
+<p>Download the latest release from GitHub
+(<a class="reference external" href="https://github.com/toulbar2/toulbar2">https://github.com/toulbar2/toulbar2</a>) or similarly use tag versions,
+e.g.:</p>
+<blockquote>
+<div><p>git clone –branch 1.2.0 <a class="reference external" href="https://github.com/toulbar2/toulbar2.git">https://github.com/toulbar2/toulbar2.git</a></p>
+</div></blockquote>
+<p>(_README_5)=
+## Installation from sources</p>
+<p>Compilation requires git, cmake and a C++-20 capable compiler (in C++20 mode).</p>
+<p>Required library:
+* libgmp-dev
+* bc (used during cmake)</p>
+<p>Recommended libraries (default use):
+* libboost-graph-dev
+* libboost-iostreams-dev
+* libboost-serialization-dev
+* zlib1g-dev
+* liblzma-dev
+* libbz2-dev
+* libeigen3-dev</p>
+<p>Optional libraries:
+* libjemalloc-dev
+* pybind11-dev
+* libopenmpi-dev
+* libboost-mpi-dev
+* libicuuc
+* libicui18n
+* libicudata
+* libxml2-dev
+* libxcsp3parser</p>
+<p>On MacOS, run ./misc/script/MacOS-requirements-install.sh to install the recommended libraries. For Mac with ARM64, add option -DBoost=OFF to cmake.</p>
+<p>Commands for compiling toulbar2 on Linux/MacOS with cmake (binary in build/bin/*/toulbar2):</p>
+<blockquote>
+<div><p>mkdir build
+cd build
+cmake ..
+make</p>
+</div></blockquote>
+<p>Commands for statically compiling toulbar2 on Linux in directory toulbar2/src without cmake:</p>
+<blockquote>
+<div><p>bash
+cd src
+echo ‘#define Toulbar_VERSION “1.2.0”’ &gt; ToulbarVersion.hpp
+g++ -o toulbar2 -std=c++20 -O3 -DNDEBUG -march=native -flto -static -static-libgcc -static-libstdc++ -DBOOST -DLONGDOUBLE_PROB -DLONGLONG_COST -DWCSPFORMATONLY </p>
+<blockquote>
+<div><p>-I. -I./pils/src tb2*.cpp applis/<em>.cpp convex/</em>.cpp core/<em>.cpp globals/</em>.cpp incop/<em>.cpp mcriteria/</em>.cpp pils/src/exe/<em>.cpp search/</em>.cpp utils/<em>.cpp vns/</em>.cpp ToulbarVersion.cpp -lboost_graph -lboost_iostreams -lboost_serialization -lgmp -lz -lbz2 -llzma</p>
+</div></blockquote>
+</div></blockquote>
+<p>Use OPENMPI flag and MPI compiler for a parallel version of toulbar2:</p>
+<blockquote>
+<div><p>bash
+cd src
+echo ‘#define Toulbar_VERSION “1.2.0”’ &gt; ToulbarVersion.hpp
+mpicxx -o toulbar2 -std=c++20 -O3 -DNDEBUG -march=native -flto -DBOOST -DLONGDOUBLE_PROB -DLONGLONG_COST -DWCSPFORMATONLY -DOPENMPI </p>
+<blockquote>
+<div><p>-I. -I./pils/src tb2*.cpp applis/<em>.cpp convex/</em>.cpp core/<em>.cpp globals/</em>.cpp incop/<em>.cpp mcriteria/</em>.cpp pils/src/exe/<em>.cpp search/</em>.cpp utils/<em>.cpp vns/</em>.cpp ToulbarVersion.cpp -lboost_graph -lboost_iostreams -lboost_serialization -lboost_mpi -lgmp -lz -lbz2 -llzma</p>
+</div></blockquote>
+</div></blockquote>
+<p>Replace LONGLONG_COST by INT_COST to reduce memory usage by two and reduced cost range (costs must be smaller than 10^8).</p>
+<p>Replace WCSPFORMATONLY by XMLFLAG3 and add libxcsp3parser.a from xcsp.org in your current directory for reading XCSP3 files:</p>
+<blockquote>
+<div><p>bash
+cd src
+echo ‘#define Toulbar_VERSION “1.2.0”’ &gt; ToulbarVersion.hpp
+mpicxx -o toulbar2 -std=c++20 -O3 -DNDEBUG -march=native -flto -DBOOST -DLONGDOUBLE_PROB -DLONGLONG_COST -DXMLFLAG3 -DOPENMPI </p>
+<blockquote>
+<div><p>-I/usr/include/libxml2 -I. -I./pils/src -I./xmlcsp3 tb2*.cpp applis/<em>.cpp convex/</em>.cpp core/<em>.cpp globals/</em>.cpp incop/<em>.cpp mcriteria/</em>.cpp pils/src/exe/<em>.cpp search/</em>.cpp utils/<em>.cpp vns/</em>.cpp ToulbarVersion.cpp -lboost_graph -lboost_iostreams -lboost_serialization -lboost_mpi -lxml2 -licuuc -licui18n -licudata libxcsp3parser.a -lgmp -lz -lbz2 -llzma -lm -lpthread -ldl</p>
+</div></blockquote>
+</div></blockquote>
+<p>Copyright (C) 2006-2024, toulbar2 team.
+toulbar2 is currently maintained by Simon de Givry, INRAE - MIAT, Toulouse, France (<a class="reference external" href="mailto:simon&#46;de-givry&#37;&#52;&#48;inrae&#46;fr">simon<span>&#46;</span>de-givry<span>&#64;</span>inrae<span>&#46;</span>fr</a>)</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, INRAE.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
