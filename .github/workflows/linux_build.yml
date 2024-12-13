@@ -18,7 +18,7 @@ jobs:
     steps:
 
     - name: install dependencies
-      run: sudo apt install libboost-all-dev libgmp-dev zlib1g-dev liblzma-dev libjemalloc-dev libopenmpi-dev openmpi-bin
+      run: sudo apt install libboost-all-dev libgmp-dev zlib1g-dev liblzma-dev libjemalloc-dev libopenmpi-dev openmpi-bin libeigen3-dev
 
     - uses: actions/checkout@v4
 
