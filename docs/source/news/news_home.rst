@@ -7,7 +7,7 @@
 
     <legend style="width:fit-content; height:fit-content; margin-left: 1.2rem; padding-left: 1rem; padding-right: 1rem; margin-bottom: 0rem;">News 📣</legend>
 
-    <div style="margin-left: 1.2rem; margin-right: 1.2rem; padding-top: -2rem; margin-bottom: 1.2rem;">
+    <div style="margin-left: 1.2rem; margin-right: 1.2rem; padding-top: -2rem; margin-bottom: -3rem; position: relative; top: -2.9rem;">
 
     <script src="https://giscus.app/client.js"
         data-repo="smbct/toulbar2"
