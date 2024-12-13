@@ -1,4 +1,4 @@
-name: Linux
+name: Linux build/test
 
 on:
   workflow_dispatch:
