@@ -17,6 +17,9 @@ jobs:
 
     steps:
 
+    - name: install dependencies
+      run: sudo apt install libboost-all-dev libgmp-dev zlib1g-dev liblzma-dev libjemalloc-dev libopenmpi-dev openmpi-bin
+
     - uses: actions/checkout@v4
 
     - name: Create Build Environment
