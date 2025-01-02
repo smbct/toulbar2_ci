@@ -235,7 +235,7 @@ At this point, the solution is not correct yet since sub-grids of size 3x3 may c
    | 1 9 8 |
    ---------
 
-The constraint will be decomposed **pairwise**, meaning that a cost function will be define for each pair of variables in the row.
+Additional constraints are added for each of the 9 sub-gris :
 
 .. code-block:: python
 
