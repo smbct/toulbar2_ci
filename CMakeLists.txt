@@ -309,7 +309,14 @@ IF(TOULBAR2)
     TARGET_LINK_LIBRARIES(toulbar2${EXE} PUBLIC "-static")
   ENDIF(STATIC)
   ADD_LIBRARY(tb2-archive STATIC $<TARGET_OBJECTS:tb2-objects>)
-  ADD_CUSTOM_TARGET(gen_version ALL /bin/sh ${CMAKE_CURRENT_SOURCE_DIR}/cmake-script/genVersionFile.sh)
+
+
+  IF(NOT WIN32)
+  	ADD_CUSTOM_TARGET(gen_version ALL "/bin/sh" ${CMAKE_CURRENT_SOURCE_DIR}/cmake-script/genVersionFile.sh)
+  ELSE()
+  	ADD_CUSTOM_TARGET(gen_version ALL "sh" "${CMAKE_CURRENT_SOURCE_DIR}/cmake-script/genVersionFile.sh")
+  ENDIF()
+
   SET_SOURCE_FILES_PROPERTIES(ToulbarVersion.hpp PROPERTIES GENERATED 1)
   ADD_DEPENDENCIES(toulbar2${EXE} gen_version)
   IF(MPI)
