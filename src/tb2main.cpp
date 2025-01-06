@@ -47,7 +47,11 @@ const string LRBCD_cmd = "5 -2 3";
 //*definition of  windows include for command line.
 #ifdef __WIN32__
 #include <windows.h>
-#define _tprintf wprintf // re-defining as wprintf since mbs is not supported anymore by Windows
+#include <tchar.h>
+#undef _tprintf
+#define _tprintf printf // re-defining as wprintf since mbs is not supported anymore by Windows
+#define TCHAR char
+#include <codecvt>
 #else
 #define TCHAR char
 #define _T(x) x
@@ -74,6 +78,8 @@ inline void clean_ToulBar2_varOrder() {
         ToulBar2::varOrder = NULL;
     }
 }
+
+
 
 #ifdef PARETOPAIR_COST
 void initCosts()
@@ -673,14 +679,31 @@ void ShowFiles(int argc, TCHAR** argv)
 {
     // glob files to catch expand wildcards
     CSimpleGlob glob(SG_GLOB_NODOT | SG_GLOB_NOCHECK);
-    if (SG_SUCCESS != glob.Add(argc, argv)) {
-        _tprintf(_T("Error while globbing files\n"));
-        return;
-    }
+    #ifdef __WIN32__ // conversion to wchar_t*
+        std::vector<std::wstring> wstr_params;
+        vector<const wchar_t*> wchar_params;
+        for(int ind = 0; ind < argc; ind ++) {
+            wstr_params.emplace_back(std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>>().from_bytes(argv[ind]));
+            wchar_params.emplace_back(wstr_params.back().c_str());
+    	}
+	if (SG_SUCCESS != glob.Add(argc, wchar_params.data())) {
+            _tprintf(_T("Error while globbing files\n"));
+            return;
+        }
+        for (int n = 0; n < glob.FileCount(); ++n) {
+	    std::string fname = std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>>().to_bytes(glob.File(n));
+            _tprintf(_T("file %2d: '%s'\n"), n, fname.c_str());
+        }
 
-    for (int n = 0; n < glob.FileCount(); ++n) {
-        _tprintf(_T("file %2d: '%s'\n"), n, glob.File(n));
-    }
+    #else
+        if (SG_SUCCESS != glob.Add(argc, argv)) {
+            _tprintf(_T("Error while globbing files\n"));
+            return;
+        }
+        for (int n = 0; n < glob.FileCount(); ++n) {
+            _tprintf(_T("file %2d: '%s'\n"), n, glob.File(n));
+        }
+    #endif	
 }
 
 static const TCHAR* GetLastErrorText(int a_nError)
@@ -2635,10 +2658,26 @@ int _tmain(int argc, TCHAR* argv[])
     // into valid filenames (e.g. *.cpp -> a.cpp, b.cpp, c.cpp, etc)
     // See the SimpleGlob.h header file for details of the flags.
     CSimpleGlob glob(SG_GLOB_NODOT | SG_GLOB_NOCHECK);
+    
+    #ifdef __WIN32__
+    std::vector<std::wstring> wstr_params;
+    vector<const wchar_t*> wchar_params;
+    for(int ind = 0; ind < args.FileCount(); ind ++) {
+        wstr_params.emplace_back(std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>>().from_bytes(args.Files()[ind]));
+        wchar_params.emplace_back(wstr_params.back().c_str());
+    } 
+    if (SG_SUCCESS != glob.Add(args.FileCount(), wchar_params.data())) {
+        _tprintf(_T("Error while globbing files\n"));
+        return 1;
+    }
+    #else
     if (SG_SUCCESS != glob.Add(args.FileCount(), args.Files())) {
         _tprintf(_T("Error while globbing files\n"));
         return 1;
     }
+    #endif
+    
+    
     // SHOW VERSION and command line option
     if (ToulBar2::verbose >= 0) {
         cout << VER << endl;
@@ -2657,7 +2696,11 @@ int _tmain(int argc, TCHAR* argv[])
         for (int n = 0; n < glob.FileCount() + ((ToulBar2::stdin_format.size() > 0) ? 1 : 0); ++n) {
             string problem = "";
             if (n < glob.FileCount())
+		#ifdef __WIN32__
+		problem = std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>>().to_bytes(glob.File(n));
+		#else
                 problem = to_string(glob.File(n));
+	    	#endif
 
             if (check_file_ext(problem, file_extension_map["wcsp_ext"]) || ToulBar2::stdin_format.compare("wcsp") == 0) {
                 if (ToulBar2::verbose >= 0)

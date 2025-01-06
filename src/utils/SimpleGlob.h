@@ -165,6 +165,7 @@ enum SG_Error {
 // on Windows we want to use MBCS aware string functions and mimic the
 // Unix glob functionality. On Unix we just use glob.
 #ifdef __WIN32__
+#define _UNICODE // mbs strings are not supported anymore, switching to unicode
 #include <mbstring.h>
 #define sg_strchr ::_mbschr
 #define sg_strrchr ::_mbsrchr
