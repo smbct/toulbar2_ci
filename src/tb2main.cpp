@@ -47,7 +47,7 @@ const string LRBCD_cmd = "5 -2 3";
 //*definition of  windows include for command line.
 #ifdef __WIN32__
 #include <windows.h>
-#include <tchar.h>
+#define _tprintf wprintf // re-defining as wprintf since mbs is not supported anymore by Windows
 #else
 #define TCHAR char
 #define _T(x) x
