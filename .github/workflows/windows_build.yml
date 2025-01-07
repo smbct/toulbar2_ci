@@ -18,10 +18,10 @@ jobs:
           install: mingw-w64-ucrt-x86_64-gcc ucrt64/mingw-w64-ucrt-x86_64-cmake
 
       - name: test1
-        run: cygpath -u ${{runner.workspace}}
+        run: cygpath -m ${{runner.workspace}}
 
       - name: test4
-        run: ls $(cygpath -u ${{runner.workspace}})
+        run: ls $(cygpath -m ${{runner.workspace}})
 
 
       - name: test3
