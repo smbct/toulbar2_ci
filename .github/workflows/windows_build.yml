@@ -16,19 +16,12 @@ jobs:
           update: true
           install: git mingw-w64-ucrt-x86_64-gcc ucrt64/mingw-w64-ucrt-x86_64-cmake ucrt64/mingw-w64-ucrt-x86_64-pybind11 ucrt64/mingw-w64-ucrt-x86_64-boost ucrt64/mingw-w64-ucrt-x86_64-bc ucrt64/mingw-w64-ucrt-x86_64-eigen3
 
-      - name: test1
-        run: which sh
-      
-      - name: test2
-        run: cygpath -w /bin/sh
-
       - name: Create Build Environment
         run: cmake -E make_directory "${{runner.workspace}}/toulbar2/build"
 
       - name: Configure CMake
         working-directory: "${{runner.workspace}}/toulbar2/build"
         run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLIBT2B=ON ..
-
 
       - name: Build ToulBar2
         working-directory: "${{runner.workspace}}/toulbar2/build"
