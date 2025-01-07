@@ -15,13 +15,13 @@ jobs:
           msystem: UCRT64
           update: true
           # install: git mingw-w64-ucrt-x86_64-gcc ucrt64/mingw-w64-ucrt-x86_64-cmake ucrt64/mingw-w64-ucrt-x86_64-pybind11 ucrt64/mingw-w64-ucrt-x86_64-boost ucrt64/mingw-w64-ucrt-x86_64-bc
-          install: mingw-w64-ucrt-x86_64-gcc ucrt64/mingw-w64-ucrt-x86_64-cmake
+          #install: mingw-w64-ucrt-x86_64-gcc ucrt64/mingw-w64-ucrt-x86_64-cmake
 
       - name: test1
-        run: cygpath -m ${{runner.workspace}}
+        run: cygpath -m "${{runner.workspace}}"
 
       - name: test4
-        run: ls $(cygpath -m ${{runner.workspace}})
+        run: ls $(cygpath -m "${{runner.workspace}})"
 
 
       - name: test3
