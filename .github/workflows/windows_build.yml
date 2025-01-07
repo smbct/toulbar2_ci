@@ -21,6 +21,7 @@ jobs:
 
 
       - name: Configure CMake
+        shell: msys2 {0}
         # Use a bash shell so we can use the same syntax for environment variable
         # access regardless of the host operating system
         working-directory: ${{runner.workspace}}/toulbar2/build
