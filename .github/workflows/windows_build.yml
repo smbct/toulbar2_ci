@@ -25,10 +25,8 @@ jobs:
 
       - name: Build ToulBar2
         working-directory: "${{runner.workspace}}/toulbar2/build"
-        shell: bash
         run: cmake --build . --verbose
   
       - name: Run Test
         working-directory: "${{runner.workspace}}/toulbar2/build"
-        shell: bash
         run: ctest .
