@@ -15,7 +15,7 @@ jobs:
           msystem: UCRT64
           update: true
           # install: git mingw-w64-ucrt-x86_64-gcc ucrt64/mingw-w64-ucrt-x86_64-cmake ucrt64/mingw-w64-ucrt-x86_64-pybind11 ucrt64/mingw-w64-ucrt-x86_64-boost ucrt64/mingw-w64-ucrt-x86_64-bc
-          # install mingw-w64-ucrt-x86_64-gcc ucrt64/mingw-w64-ucrt-x86_64-cmake
+          install: mingw-w64-ucrt-x86_64-gcc ucrt64/mingw-w64-ucrt-x86_64-cmake
       - name: Create Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/toulbar2/build && cygpath -w ${{runner.workspace}} && echo ${{runner.workspace}} && ls ${{runner.workspace}} && ls ${{runner.workspace}}/toulbar2
 
