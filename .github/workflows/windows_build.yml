@@ -21,7 +21,7 @@ jobs:
         run: cygpath -m "${{runner.workspace}}"
 
       - name: test4
-        run: ls $(cygpath -m "${{runner.workspace}})"
+        run: ls "${{runner.workspace}})"
 
 
       - name: test3
