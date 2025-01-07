@@ -8,6 +8,10 @@ IF(APPLE)
     cmake_minimum_required(VERSION 3.13)
 ENDIF(APPLE)
 cmake_policy(SET CMP0054 NEW)
+IF(CMAKE_VERSION VERSION_GREATER "3.27.0") 
+cmake_policy(SET CMP0057 NEW)
+cmake_policy(SET CMP0167 NEW)
+ENDIF()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set (My_cmake_script "${CMAKE_CURRENT_SOURCE_DIR}/cmake-script") # location of cmake script needed 
@@ -236,21 +240,22 @@ IF(PYTB2)
 
   MESSAGE(STATUS "Python3 suffix: ${Python3_SUFFIX}")
 
-  EXECUTE_PROCESS(
-    COMMAND ${Python3_EXECUTABLE} -m pybind11 --includes 
-    OUTPUT_VARIABLE Pybind11_INCLUDES OUTPUT_STRIP_TRAILING_WHITESPACE)
-  
-    IF ("${Pybind11_INCLUDES}" STREQUAL "" )
-      MESSAGE(FATAL_ERROR "Error, Pybind11 not found.")
-    ELSE()
-      MESSAGE(STATUS "Pybind11 includes: ${Pybind11_INCLUDES}")
-    ENDIF()
+  IF(CMAKE_VERSION VERSION_GREATER "3.27.0") ### New cmake and python and pybind11
+	MESSAGE("Current CMake version >= 3.27.0")
+	FIND_PACKAGE(pybind11 CONFIG)
+  ELSE()
+	EXECUTE_PROCESS(
+    		COMMAND ${Python3_EXECUTABLE} -m pybind11 --includes 
+    		OUTPUT_VARIABLE Pybind11_INCLUDES OUTPUT_STRIP_TRAILING_WHITESPACE)
+        IF ("${Pybind11_INCLUDES}" STREQUAL "" )
+            MESSAGE(FATAL_ERROR "Error, Pybind11 not found.")
+        ELSE()
+            MESSAGE(STATUS "Pybind11 includes: ${Pybind11_INCLUDES}")
+        ENDIF()
+  ENDIF()
 
-    
-### New cmake and python and pybind11
-#  FIND_PACKAGE(pybind11 CONFIG)
-###
 ENDIF(PYTB2)
+
 
 IF(WITH_MEM_JEMALLOC)
   find_package(JeMalloc)
@@ -312,7 +317,8 @@ IF(TOULBAR2)
 
 
   IF(NOT WIN32)
-  	ADD_CUSTOM_TARGET(gen_version ALL "/bin/sh" ${CMAKE_CURRENT_SOURCE_DIR}/cmake-script/genVersionFile.sh)
+	EXECUTE_PROCESS(COMMAND "cygpath -w /bin/sh" OUTPUT_VARIABLE ${SH_PATH})
+	ADD_CUSTOM_TARGET(gen_version ALL ${SH_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake-script/genVersionFile.sh)
   ELSE()
   	ADD_CUSTOM_TARGET(gen_version ALL "sh" "${CMAKE_CURRENT_SOURCE_DIR}/cmake-script/genVersionFile.sh")
   ENDIF()
@@ -363,19 +369,21 @@ IF(LIBTB2)
   ADD_LIBRARY(tb2 SHARED $<TARGET_OBJECTS:tb2-PIC-objects>)
 
   IF(PYTB2)
-### Old cmake, python and pybind11
-    ADD_LIBRARY(pytb2 SHARED ${My_Source}/pytoulbar2.cpp $<TARGET_OBJECTS:tb2-PIC-objects>)
+    
+    if(CMAKE_VERSION VERSION_GREATER "3.27.0") 
+	pybind11_add_module(pytb2 MODULE ${My_Source}/pytoulbar2.cpp $<TARGET_OBJECTS:tb2-PIC-objects>)
+    ELSE()	    
+        ADD_LIBRARY(pytb2 SHARED ${My_Source}/pytoulbar2.cpp $<TARGET_OBJECTS:tb2-PIC-objects>)
+        SET_TARGET_PROPERTIES(pytb2 PROPERTIES COMPILE_FLAGS ${Pybind11_INCLUDES})
+    ENDIF()
+    
     SET_TARGET_PROPERTIES(pytb2 PROPERTIES PREFIX "")
     SET_TARGET_PROPERTIES(pytb2 PROPERTIES OUTPUT_NAME "pytb2")
     SET_TARGET_PROPERTIES(pytb2 PROPERTIES SUFFIX ${Python3_SUFFIX})
-    SET_TARGET_PROPERTIES(pytb2 PROPERTIES COMPILE_FLAGS ${Pybind11_INCLUDES})
+
     IF(APPLE)
         target_link_options(pytb2 PRIVATE -undefined dynamic_lookup) # activate specific linking options. Thanks to alex rudnick 
     ENDIF(APPLE)
-
-### New cmake, python and pybind11
-#    pybind11_add_module(pytb2 MODULE ${My_Source}/pytoulbar2.cpp $<TARGET_OBJECTS:tb2-PIC-objects>)
-###
 
   ### Create a copy of the pytoulbar2 library
   ADD_CUSTOM_TARGET(copy_pytb2 ALL
@@ -389,8 +397,13 @@ IF(LIBTB2)
   # name of the pytb2 binary library
   SET(PYTB2_BINARY ${PYTB2_BINARY_NAME}${PYTB2_BINARY_SUFFIX})
 
+  IF(WIN32) # using hardlink instead of symlink because of privilege issues
+ADD_CUSTOM_TARGET(link_pytb2_ex ALL
+                  COMMAND ${CMAKE_COMMAND} -E create_hardlink ${CMAKE_CURRENT_BINARY_DIR}/${LIBRARY_OUTPUT_PATH}/${PYTB2_BINARY} ${CMAKE_CURRENT_BINARY_DIR}/pytoulbar2/${PYTB2_BINARY} BYPRODUCTS ${CMAKE_CURRENT_BINARY_DIR}/pytoulbar2/${PYTB2_BINARY})
+  ELSE()
   ADD_CUSTOM_TARGET(link_pytb2_ex ALL
                   COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_CURRENT_BINARY_DIR}/${LIBRARY_OUTPUT_PATH}/${PYTB2_BINARY} ${CMAKE_CURRENT_BINARY_DIR}/pytoulbar2/${PYTB2_BINARY} BYPRODUCTS ${CMAKE_CURRENT_BINARY_DIR}/pytoulbar2/${PYTB2_BINARY})
+  ENDIF()
   ADD_DEPENDENCIES(link_pytb2_ex copy_pytb2)
 
   ###
@@ -407,7 +420,7 @@ IF(LIBTB2)
   ELSE(MPI)
     TARGET_LINK_LIBRARIES(tb2 ${all_depends})
     IF(PYTB2)
-      TARGET_LINK_LIBRARIES(pytb2 ${all_depends})
+      TARGET_LINK_LIBRARIES(pytb2 PUBLIC ${all_depends})
     ENDIF(PYTB2)
   ENDIF(MPI)
   
