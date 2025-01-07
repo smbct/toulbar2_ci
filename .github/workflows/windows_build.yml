@@ -17,6 +17,9 @@ jobs:
           # install: git mingw-w64-ucrt-x86_64-gcc ucrt64/mingw-w64-ucrt-x86_64-cmake ucrt64/mingw-w64-ucrt-x86_64-pybind11 ucrt64/mingw-w64-ucrt-x86_64-boost ucrt64/mingw-w64-ucrt-x86_64-bc
           install: mingw-w64-ucrt-x86_64-gcc ucrt64/mingw-w64-ucrt-x86_64-cmake
 
+      - name: test3
+        run: ls ${{ github.workspace }}
+
       - name: test1
         run: cygpath -w ${{runner.workspace}}
 
