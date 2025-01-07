@@ -14,44 +14,22 @@ jobs:
         with:
           msystem: UCRT64
           update: true
-          # install: git mingw-w64-ucrt-x86_64-gcc ucrt64/mingw-w64-ucrt-x86_64-cmake ucrt64/mingw-w64-ucrt-x86_64-pybind11 ucrt64/mingw-w64-ucrt-x86_64-boost ucrt64/mingw-w64-ucrt-x86_64-bc
-          #install: mingw-w64-ucrt-x86_64-gcc ucrt64/mingw-w64-ucrt-x86_64-cmake
-
-      - name: test1
-        run: cygpath -u "${{runner.workspace}}"
-
-      - name: test4
-        run: ls "${{runner.workspace}}"
-
-
-      - name: test3
-        run: ls ${{ github.workspace }}
-
-      - name: test2
-        run: RUNNER_WORKSPACE=$(cygpath -w ${{runner.workspace}}) && echo $RUNNER_WORKSPACE
+          install: git mingw-w64-ucrt-x86_64-gcc ucrt64/mingw-w64-ucrt-x86_64-cmake ucrt64/mingw-w64-ucrt-x86_64-pybind11 ucrt64/mingw-w64-ucrt-x86_64-boost ucrt64/mingw-w64-ucrt-x86_64-bc ucrt64/mingw-w64-ucrt-x86_64-eigen3
 
       - name: Create Build Environment
-        run: cmake -E make_directory ${{runner.workspace}}/toulbar2/build && cygpath -w ${{runner.workspace}} && echo ${{runner.workspace}} && ls ${{runner.workspace}} && ls ${{runner.workspace}}/toulbar2
+        run: cmake -E make_directory "${{runner.workspace}}/toulbar2/build"
+
+      - name: Configure CMake
+        working-directory: "${{runner.workspace}}/toulbar2/build"
+        run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLIBT2B=ON ..
 
 
-      # - name: Configure CMake
-      #   shell: msys2 {0}
-      #   # Use a bash shell so we can use the same syntax for environment variable
-      #   # access regardless of the host operating system
-      #   working-directory: ${{runner.workspace}}/toulbar2/build
-      #   # Note the current convention is to use the -S and -B options here to specify source 
-      #   # and build directories, but this is only available with CMake 3.13 and higher.  
-      #   # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
-      #   run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLIBT2B=ON ..
-
-
-      # - name: Build ToulBar2
-      #   working-directory: ${{runner.workspace}}/toulbar2/build
-      #   shell: bash
-      #   run: cmake --build .
+      - name: Build ToulBar2
+        working-directory: "${{runner.workspace}}/toulbar2/build"
+        shell: bash
+        run: cmake --build .
   
-
-      # - name: Run Test
-      #   working-directory: ${{runner.workspace}}/toulbar2/build
-      #   shell: bash
-      #   run: ctest .
+      - name: Run Test
+        working-directory: "${{runner.workspace}}/toulbar2/build"
+        shell: bash
+        run: ctest .
