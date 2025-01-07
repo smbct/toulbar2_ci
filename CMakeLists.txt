@@ -323,8 +323,9 @@ IF(TOULBAR2)
 
 
   IF(WIN32)
-	EXECUTE_PROCESS(COMMAND "cygpath -w /bin/sh" OUTPUT_VARIABLE SH_PATH)
-	ADD_CUSTOM_TARGET(gen_version ALL ${SH_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake-script/genVersionFile.sh)
+    MESSAGE(STATUS "Windows platform")
+	  EXECUTE_PROCESS(COMMAND "cygpath -w \"/bin/sh\"" OUTPUT_VARIABLE SH_PATH)
+	  ADD_CUSTOM_TARGET(gen_version ALL ${SH_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake-script/genVersionFile.sh)
   ELSE()
   	ADD_CUSTOM_TARGET(gen_version ALL "sh" "${CMAKE_CURRENT_SOURCE_DIR}/cmake-script/genVersionFile.sh")
   ENDIF()
