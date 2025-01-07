@@ -3,15 +3,20 @@
 # version 0.9 -# David allouche 17/10/10
 ##########################################
 
+MESSAGE("CMake version: ${CMAKE_VERSION}")
+
 cmake_minimum_required(VERSION 2.9)
 IF(APPLE)
     cmake_minimum_required(VERSION 3.13)
 ENDIF(APPLE)
 cmake_policy(SET CMP0054 NEW)
-IF(CMAKE_VERSION VERSION_GREATER "3.27.0") 
+IF(CMAKE_VERSION VERSION_GREATER_EQUAL 3.27.0) 
 cmake_policy(SET CMP0057 NEW)
+ENDIF()
+IF(CMAKE_VERSION VERSION_GREATER_EQUAL 3.29.0) 
 cmake_policy(SET CMP0167 NEW)
 ENDIF()
+
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set (My_cmake_script "${CMAKE_CURRENT_SOURCE_DIR}/cmake-script") # location of cmake script needed 
@@ -240,9 +245,10 @@ IF(PYTB2)
 
   MESSAGE(STATUS "Python3 suffix: ${Python3_SUFFIX}")
 
-  IF(CMAKE_VERSION VERSION_GREATER "3.27.0") ### New cmake and python and pybind11
-	MESSAGE("Current CMake version >= 3.27.0")
-	FIND_PACKAGE(pybind11 CONFIG)
+  MESSAGE(STATUS "CMake version: ${CMAKE_VERSION}")
+
+  IF(CMAKE_VERSION VERSION_GREATER_EQUAL 3.27.0) ### New cmake and python and pybind11
+	FIND_PACKAGE(pybind11 REQUIRED)
   ELSE()
 	EXECUTE_PROCESS(
     		COMMAND ${Python3_EXECUTABLE} -m pybind11 --includes 
@@ -316,7 +322,7 @@ IF(TOULBAR2)
   ADD_LIBRARY(tb2-archive STATIC $<TARGET_OBJECTS:tb2-objects>)
 
 
-  IF(NOT WIN32)
+  IF(WIN32)
 	EXECUTE_PROCESS(COMMAND "cygpath -w /bin/sh" OUTPUT_VARIABLE ${SH_PATH})
 	ADD_CUSTOM_TARGET(gen_version ALL ${SH_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake-script/genVersionFile.sh)
   ELSE()
@@ -369,9 +375,8 @@ IF(LIBTB2)
   ADD_LIBRARY(tb2 SHARED $<TARGET_OBJECTS:tb2-PIC-objects>)
 
   IF(PYTB2)
-    
-    if(CMAKE_VERSION VERSION_GREATER "3.27.0") 
-	pybind11_add_module(pytb2 MODULE ${My_Source}/pytoulbar2.cpp $<TARGET_OBJECTS:tb2-PIC-objects>)
+    if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.27.0)
+	      pybind11_add_module(pytb2 MODULE ${My_Source}/pytoulbar2.cpp $<TARGET_OBJECTS:tb2-PIC-objects>)
     ELSE()	    
         ADD_LIBRARY(pytb2 SHARED ${My_Source}/pytoulbar2.cpp $<TARGET_OBJECTS:tb2-PIC-objects>)
         SET_TARGET_PROPERTIES(pytb2 PROPERTIES COMPILE_FLAGS ${Pybind11_INCLUDES})
