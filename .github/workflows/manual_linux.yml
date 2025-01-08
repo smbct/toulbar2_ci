@@ -1,11 +1,19 @@
-name: Linux manual build & test
+name: Manual build Linux
 on:
   workflow_dispatch:
     inputs:
       
+      platform:
+        type: choice
+        description: "Platform"
+        options: 
+        - Linux
+        - MacOS
+        - Windows
+
       build_type:
         type: choice
-        description: "Build type : debug or release"
+        description: "Build type"
         options: 
         - Release
         - Debug
@@ -20,15 +28,15 @@ on:
 
       boost:
         type: boolean
-        description: "Compile against Boost library"
+        description: "Use Boost library"
 
       mpi:
         type: boolean
-        description: "Compile against MPI library for parallel implementation"
+        description: "Use MPI library (parallel impl.)"
 
       run_tests:
         type: boolean
-        description: "Run unit tests with CMake"
+        description: "Run CMake unit tests"
 
 jobs:
 
@@ -68,6 +76,7 @@ jobs:
           fi
 
       - name: Linux build test
+        if: ${{ github.event.inputs.platform == 'Linux' }}
         uses: ./.github/actions/linux_build
         with:
           build_type: ${{ github.event.inputs.build_type }}
