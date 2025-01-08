@@ -1,0 +1,14 @@
+name: Test macos
+on:
+  workflow_dispatch:
+
+jobs:
+
+  push_test:
+    runs-on: runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build on push
+        uses: ./.github/actions/macos_build
+        with:
+          pytb2: 'OFF'

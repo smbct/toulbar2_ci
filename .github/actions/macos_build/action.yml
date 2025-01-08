@@ -1,0 +1,52 @@
+name: Macos build & test
+description: 'Build and test ToulBar2 on macos platform'
+
+inputs:
+  build_type:
+    default: 'Release'
+  libtb2:
+    default: 'ON'
+  pytb2:
+    default: 'ON'
+  mpi:
+    default: 'OFF'
+  
+runs:
+  using: "composite"
+
+  steps:
+
+  - name: Set up Homebrew
+    id: set-up-homebrew
+    uses: Homebrew/actions/setup-homebrew@master
+
+  # - name: install dependencies
+  #   run: sudo apt install libboost-all-dev libgmp-dev zlib1g-dev liblzma-dev libjemalloc-dev libopenmpi-dev openmpi-bin libeigen3-dev
+
+  - name: install dependencies
+    run: brew install boost gmp zlib jemalloc boost-mpi eigen
+
+  - uses: actions/checkout@v4
+
+  - name: Create Build Environment
+    run: cmake -E make_directory ${{runner.workspace}}/toulbar2/build
+
+  - name: Configure CMake
+    env:
+      BUILD_TYPE: ${{ inputs.build_type }}
+      LIBTB2: ${{ inputs.libtb2 }}
+      MPI: ${{ inputs.mpi }}
+      PYTB2: ${{ inputs.pytb2 }}
+    shell: bash
+    working-directory: ${{runner.workspace}}/toulbar2/build
+    run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
+
+  - name: Build ToulBar2
+    working-directory: ${{runner.workspace}}/toulbar2/build
+    shell: bash
+    run: make -j 4
+
+  - name: Run Test
+    working-directory: ${{runner.workspace}}/toulbar2/build
+    shell: bash
+    run: make test -j 4
