@@ -5,8 +5,10 @@ on:
 
 jobs:
 
-  checkout:
-    - uses: actions/checkout@v4
+  toulbar2-checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
   windows-build:
     runs-on: windows-latest
