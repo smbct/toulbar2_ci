@@ -43,6 +43,11 @@ on:
         description: "Run CMake unit tests"
         default: false
 
+      produce_artifacts:
+        type: boolean
+        description: "Produce build artifacts"
+        default: false
+
 jobs:
 
   manual_build:
@@ -115,3 +120,14 @@ jobs:
           libtb2: ${{env.LIBTB2}}
           boost: ${{env.BOOST}}
           mpi: ${{env.MPI}}
+
+      # upload binaries artifact
+      - name: Upload artifacts
+        if: ${{ github.event.inputs.produce_artifacts == 'true' }}
+        uses: actions/upload-artifact@v4
+          with:
+            name: toulbar2_artifacts
+            path: |
+              ${{runner.workspace}}/toulbar2/build/lib
+              ${{runner.workspace}}/toulbar2/build/bin
+            retention-days: 1

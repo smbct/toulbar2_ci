@@ -2,6 +2,7 @@ name: Linux build & test
 description: 'Build and test ToulBar2 on Linux platform'
 
 inputs:
+  
   build_type:
     default: 'Release'
   run_tests:
