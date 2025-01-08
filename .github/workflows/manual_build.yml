@@ -21,22 +21,27 @@ on:
       libtoulbar2:
         type: boolean
         description: "Compile ToulBar2 C++ library"
+        default: true
 
       pytoulbar2:
         type: boolean
         description: "Compile pytoulbar2"
+        default: false
 
       boost:
         type: boolean
         description: "Use Boost library"
+        default: true
 
       mpi:
         type: boolean
         description: "Use MPI library (parallel impl.)"
+        default: false
 
       run_tests:
         type: boolean
         description: "Run CMake unit tests"
+        default: false
 
 jobs:
 
