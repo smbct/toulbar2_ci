@@ -23,11 +23,13 @@ runs:
     #   run: sudo apt install libboost-all-dev libgmp-dev zlib1g-dev liblzma-dev libjemalloc-dev libopenmpi-dev openmpi-bin libeigen3-dev
 
     - name: install dependencies
+      shell: bash
       run: brew install boost gmp zlib jemalloc boost-mpi eigen
 
     - uses: actions/checkout@v4
 
     - name: Create Build Environment
+      shell: bash
       run: cmake -E make_directory ${{runner.workspace}}/toulbar2/build
 
     - name: Configure CMake
