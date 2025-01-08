@@ -7,8 +7,8 @@ on:
         type: choice
         description: "Build type : debug or Release"
         options: 
-        - Debug
         - Release
+        - Debug
       
       libtoulbar2:
         type: boolean
@@ -32,7 +32,7 @@ jobs:
 
       - name: Set LIBTB2 env var
         run: |
-          if [[ ${{ inputs.libtoulbar2 == "true" }}  ]]; then
+          if [[ ${{ inputs.libtoulbar2 == 'true' }}  ]]; then
               echo "LIBTB2=ON" >> "$GITHUB_ENV"
           else
               echo "LIBTB2=OFF" >> "$GITHUB_ENV"
