@@ -125,9 +125,9 @@ jobs:
       - name: Upload artifacts
         if: ${{ github.event.inputs.produce_artifacts == 'true' }}
         uses: actions/upload-artifact@v4
-          with:
-            name: toulbar2_artifacts
-            path: |
-              ${{runner.workspace}}/toulbar2/build/lib
-              ${{runner.workspace}}/toulbar2/build/bin
-            retention-days: 1
+        with:
+          name: toulbar2_artifacts
+          path: |
+            ${{runner.workspace}}/toulbar2/build/lib
+            ${{runner.workspace}}/toulbar2/build/bin
+          retention-days: 1
