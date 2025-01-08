@@ -1,22 +1,22 @@
 name: Linux build & test
 description: 'Build and test ToulBar2 on Linux platform'
 
-workflow_call:
-  inputs:
-    build_type:
-      default: 'Release'
-    libtb2:
-      default: 'ON'
-    pytb2:
-      default: 'ON'
-
-env:
-  BUILD_TYPE: ${{ inputs.build_type }}
-  LIBTB2: ${{ inputs.libtb2 }}
-  PYTB2: ${{ inputs.pytb2 }}
+inputs:
+  build_type:
+    default: 'Release'
+  libtb2:
+    default: 'ON'
+  pytb2:
+    default: 'ON'
 
 jobs:
   build:
+
+    env:
+      BUILD_TYPE: ${{ inputs.build_type }}
+      LIBTB2: ${{ inputs.libtb2 }}
+      PYTB2: ${{ inputs.pytb2 }}
+
     runs-on: ubuntu-latest
 
     steps:
