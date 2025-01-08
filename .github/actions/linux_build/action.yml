@@ -4,6 +4,8 @@ description: 'Build and test ToulBar2 on Linux platform'
 inputs:
   build_type:
     default: 'Release'
+  run_tests:
+    default: false
   libtb2:
     default: 'ON'
   pytb2:
@@ -53,4 +55,5 @@ runs:
     - name: Run Test
       working-directory: ${{runner.workspace}}/toulbar2/build
       shell: bash
+      if: ${{ inputs.run_tests }}
       run: make test -j 4

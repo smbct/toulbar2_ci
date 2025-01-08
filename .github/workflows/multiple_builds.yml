@@ -15,7 +15,8 @@ jobs:
       - name: Windows build
         uses: ./.github/actions/windows_build
         with:
-          pytb2: 'OFF'
+          pytb2: 'ON'
+          run_tests: true
 
       - uses: actions/upload-artifact@v4
         with:
@@ -39,6 +40,7 @@ jobs:
       - name: Linux debug build
         uses: ./.github/actions/linux_build
         with:
+          build_type: Debug
           pytb2: 'OFF'
           mpi: 'OFF'
 
@@ -47,6 +49,7 @@ jobs:
         uses: ./.github/actions/linux_build
         with:
           build_type: Release
+          run_tests: true
           pytb2: 'OFF'
           mpi: 'OFF'
 
@@ -56,13 +59,13 @@ jobs:
       #     bodyFile: "body.md"
 
       # upload linux binaries artifact
-      - uses: actions/upload-artifact@v4
-        with:
-          name: toulbar2_linux
-          path: |
-            ${{runner.workspace}}/toulbar2/build/lib
-            ${{runner.workspace}}/toulbar2/build/bin
-          retention-days: 1
+      # - uses: actions/upload-artifact@v4
+      #   with:
+      #     name: toulbar2_linux
+      #     path: |
+      #       ${{runner.workspace}}/toulbar2/build/lib
+      #       ${{runner.workspace}}/toulbar2/build/bin
+      #     retention-days: 1
   
 
   # post_build:
