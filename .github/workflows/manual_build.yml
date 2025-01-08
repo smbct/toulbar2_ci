@@ -1,4 +1,4 @@
-name: Manual build Linux
+name: Manual build
 on:
   workflow_dispatch:
     inputs:
@@ -41,12 +41,15 @@ on:
 jobs:
 
   manual_build:
+
     runs-on: ubuntu-latest
+    
     env:
         LIBTB2: 'OFF'
         PYTB2: 'OFF'
         BOOST: 'ON'
         MPI: 'OFF'
+    
     steps:
 
       - uses: actions/checkout@v4
