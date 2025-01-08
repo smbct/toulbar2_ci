@@ -34,9 +34,19 @@ jobs:
     
     steps:
       - uses: actions/checkout@v4
-      - name: Linux build
+
+      # debug build and test
+      - name: Linux debug build
         uses: ./.github/actions/linux_build
         with:
+          pytb2: 'OFF'
+          mpi: 'OFF'
+
+      # release build and test
+      - name: Linux release build
+        uses: ./.github/actions/linux_build
+        with:
+          build_type: Release
           pytb2: 'OFF'
           mpi: 'OFF'
 
@@ -45,6 +55,7 @@ jobs:
       #     artifacts: "release.tar.gz,foo/*.txt"
       #     bodyFile: "body.md"
 
+      # upload linux binaries artifact
       - uses: actions/upload-artifact@v4
         with:
           name: toulbar2_linux

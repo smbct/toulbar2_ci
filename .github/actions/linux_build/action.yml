@@ -2,33 +2,14 @@ name: Linux build & test
 description: 'Build and test ToulBar2 on Linux platform'
 
 inputs:
-
+  build_type:
+    default: 'Release'
   libtb2:
     default: 'ON'
-
   pytb2:
     default: 'ON'
-
   mpi:
     default: 'OFF'
-
-  build_release:
-    default: true
-
-  test_release:
-    default: true
-
-  build_debug:
-    default: false
-
-  test_debug:
-    default: false
-
-strategy:
-  matrix:
-    build_type:
-      - Release
-      - Debug
 
 runs:
   using: "composite"
@@ -52,7 +33,7 @@ runs:
 
     - name: Create Build Environment
       shell: bash
-      run: cmake -E make_directory ${{runner.workspace}}/toulbar2/${{ matrix.build_type }} 
+      run: cmake -E make_directory ${{runner.workspace}}/toulbar2/build
 
     - name: Configure CMake
       env:
@@ -61,15 +42,15 @@ runs:
         MPI: ${{ inputs.mpi }}
         PYTB2: ${{ inputs.pytb2 }}
       shell: bash
-      working-directory: ${{runner.workspace}}/toulbar2/${{ matrix.build_type }} 
-      run: cmake -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DLIBTB2=$LIBDTB2 -DMPI=$MPI -DPYTB2=$PYTB2 ..
+      working-directory: ${{runner.workspace}}/toulbar2/build
+      run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLIBTB2=$LIBDTB2 -DMPI=$MPI -DPYTB2=$PYTB2 ..
 
     - name: Build ToulBar2
-      working-directory: ${{runner.workspace}}/toulbar2/${{ matrix.build_type }} 
+      working-directory: ${{runner.workspace}}/toulbar2/build
       shell: bash
       run: make -j 4
   
     - name: Run Test
-      working-directory: ${{runner.workspace}}/toulbar2/${{ matrix.build_type }} 
+      working-directory: ${{runner.workspace}}/toulbar2/build
       shell: bash
       run: make test -j 4
