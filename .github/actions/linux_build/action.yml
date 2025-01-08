@@ -15,16 +15,11 @@ runs:
 
     - name: install dependencies
 
-      env:
-        BUILD_TYPE: ${{ inputs.build_type }}
-        LIBTB2: ${{ inputs.libtb2 }}
-        PYTB2: ${{ inputs.pytb2 }}
-
       shell: bash
       run: sudo apt install libboost-all-dev libgmp-dev zlib1g-dev liblzma-dev libjemalloc-dev libopenmpi-dev openmpi-bin libeigen3-dev
 
       # pytoulbar2 dependencies  
-      if: ${{ $PYTB2 == 'ON' }}
+      if: ${{  ${{ inputs.pytb2 }} == 'ON' }}
         run: pip install pybind11
 
     - uses: actions/checkout@v4
