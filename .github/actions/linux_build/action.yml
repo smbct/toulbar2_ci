@@ -11,9 +11,9 @@ workflow_call:
       default: 'ON'
 
 env:
-  BUILD_TYPE: ${{ github.event.inputs.build_type }}
-  LIBTB2: ${{ github.event.inputs.libtb2 }}
-  PYTB2: ${{ github.event.inputs.pytb2 }}
+  BUILD_TYPE: ${{ inputs.build_type }}
+  LIBTB2: ${{ inputs.libtb2 }}
+  PYTB2: ${{ inputs.pytb2 }}
 
 jobs:
   build:
