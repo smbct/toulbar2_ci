@@ -1,11 +1,11 @@
-name: Test linux
+name: Linux manual build & test
 on:
   workflow_dispatch:
     inputs:
       
       build_type:
         type: choice
-        description: "Build type : debug or Release"
+        description: "Build type : debug or release"
         options: 
         - Release
         - Debug
@@ -18,6 +18,14 @@ on:
         type: boolean
         description: "Compile pytoulbar2"
 
+      boost:
+        type: boolean
+        description: "Compile against Boost library"
+
+      mpi:
+        type: boolean
+        description: "Compile against MPI library for parallel implementation"
+
       run_tests:
         type: boolean
         description: "Run unit tests with CMake"
@@ -29,6 +37,8 @@ jobs:
     env:
         LIBTB2: 'OFF'
         PYTB2: 'OFF'
+        BOOST: 'ON'
+        MPI: 'OFF'
     steps:
 
       - uses: actions/checkout@v4
@@ -45,12 +55,24 @@ jobs:
               echo "PYTB2=ON" >> "$GITHUB_ENV"
           fi
 
-      # - name: Set PYTB2 env var
+      - name: Set BOOST env var
+        run: |
+          if [[ ${{ inputs.boost == 'false' }}  ]]; then
+              echo "Boost=OFF" >> "$GITHUB_ENV"
+          fi
+
+      - name: Set MPI env var
+        run: |
+          if [[ ${{ inputs.mpi == 'true' }}  ]]; then
+              echo "MPI=ON" >> "$GITHUB_ENV"
+          fi
 
       - name: Linux build test
         uses: ./.github/actions/linux_build
         with:
+          build_type: ${{ github.event.inputs.build_type }}
+          run_tests: ${{ github.event.inputs.run_tests }}
           pytb2: ${{env.PYTB2}}
           libtb2: ${{env.LIBTB2}}
-          build_type: ${{ github.event.inputs.build_type }}
-          run_test: ${{ github.event.inputs.run_tests }}
+          boost: ${{env.BOOST}}
+          mpi: ${{env.MPI}}
