@@ -1,32 +1,42 @@
 name: Windows build & test
-on:
-  workflow_dispatch:
+description: 'Build and test ToulBar2 on Linux platform'
 
-jobs:
-  msys2-ucrt64:
-    runs-on: windows-latest
-    defaults:
-      run:
-        shell: msys2 {0}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: msys2/setup-msys2@v2
-        with:
-          msystem: UCRT64
-          update: true
-          install: git mingw-w64-ucrt-x86_64-gcc ucrt64/mingw-w64-ucrt-x86_64-cmake ucrt64/mingw-w64-ucrt-x86_64-pybind11 ucrt64/mingw-w64-ucrt-x86_64-boost ucrt64/mingw-w64-ucrt-x86_64-bc ucrt64/mingw-w64-ucrt-x86_64-eigen3
+inputs:
+  build_type:
+    default: 'Release'
+  libtb2:
+    default: 'ON'
+  pytb2:
+    default: 'ON'
+  mpi:
+    default: 'OFF'
 
-      - name: Create Build Environment
-        run: cmake -E make_directory "${{runner.workspace}}/toulbar2/build"
-
-      - name: Configure CMake
-        working-directory: "${{runner.workspace}}/toulbar2/build"
-        run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLIBT2B=ON ..
-
-      - name: Build ToulBar2
-        working-directory: "${{runner.workspace}}/toulbar2/build"
-        run: cmake --build . --verbose
+runs:
+using: "composite"
+  steps:
   
-      - name: Run Test
-        working-directory: "${{runner.workspace}}/toulbar2/build"
-        run: ctest .
+    - uses: actions/checkout@v4
+    - uses: msys2/setup-msys2@v2
+      with:
+        msystem: UCRT64
+        update: true
+        install: git mingw-w64-ucrt-x86_64-gcc ucrt64/mingw-w64-ucrt-x86_64-cmake ucrt64/mingw-w64-ucrt-x86_64-pybind11 ucrt64/mingw-w64-ucrt-x86_64-boost ucrt64/mingw-w64-ucrt-x86_64-bc ucrt64/mingw-w64-ucrt-x86_64-eigen3
+
+    - name: Create Build Environment
+      shell: msys2 {0}
+      run: cmake -E make_directory "${{runner.workspace}}/toulbar2/build"
+
+    - name: Configure CMake
+      shell: msys2 {0}
+      working-directory: "${{runner.workspace}}/toulbar2/build"
+      run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLIBT2B=ON ..
+
+    - name: Build ToulBar2
+      shell: msys2 {0}
+      working-directory: "${{runner.workspace}}/toulbar2/build"
+      run: cmake --build . --verbose
+
+    - name: Run Test
+      shell: msys2 {0}
+      working-directory: "${{runner.workspace}}/toulbar2/build"
+      run: ctest .
