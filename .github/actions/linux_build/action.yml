@@ -12,11 +12,6 @@ inputs:
 jobs:
   build:
 
-    env:
-      BUILD_TYPE: ${{ inputs.build_type }}
-      LIBTB2: ${{ inputs.libtb2 }}
-      PYTB2: ${{ inputs.pytb2 }}
-
     runs-on: ubuntu-latest
 
     steps:
@@ -30,6 +25,10 @@ jobs:
       run: cmake -E make_directory ${{runner.workspace}}/toulbar2/build
 
     - name: Configure CMake
+      env:
+        BUILD_TYPE: ${{ inputs.build_type }}
+        LIBTB2: ${{ inputs.libtb2 }}
+        PYTB2: ${{ inputs.pytb2 }}
       shell: bash
       working-directory: ${{runner.workspace}}/toulbar2/build
       run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLIBTB2=ON ..
