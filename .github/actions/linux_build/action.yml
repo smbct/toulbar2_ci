@@ -8,16 +8,26 @@ inputs:
     default: 'ON'
   pytb2:
     default: 'ON'
+  mpi:
+    default: 'OFF'
 
 runs:
   using: "composite"
   steps:
 
     - name: install dependencies
-
       shell: bash
-      run: sudo apt install libboost-all-dev libgmp-dev zlib1g-dev liblzma-dev libjemalloc-dev libopenmpi-dev openmpi-bin libeigen3-dev
-      # pytoulbar2 dependencies
+      run: sudo apt install libboost-all-dev libgmp-dev zlib1g-dev liblzma-dev libjemalloc-dev libeigen3-dev
+
+    # MPI dependencies when applicable
+    - name: install mpi
+      shell: bash
+      if: ${{ inputs.mpi == 'ON' }}
+      run: sudo apt install libopenmpi-dev openmpi-bin
+
+    # pytoulbar2 dependencies when applicable
+    - name: install pybind11
+      shell: bash
       if: ${{ inputs.pytb2 == 'ON' }}
       run: pip install pybind11[global]
 
@@ -31,10 +41,11 @@ runs:
       env:
         BUILD_TYPE: ${{ inputs.build_type }}
         LIBTB2: ${{ inputs.libtb2 }}
+        MPI: ${{ inputs.mpi }}
         PYTB2: ${{ inputs.pytb2 }}
       shell: bash
       working-directory: ${{runner.workspace}}/toulbar2/build
-      run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLIBTB2=$LIBDTB2 -DPYTB2=$PYTB2 ..
+      run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLIBTB2=$LIBDTB2 -DMPI=$MPY -DPYTB2=$PYTB2 ..
 
     - name: Build ToulBar2
       working-directory: ${{runner.workspace}}/toulbar2/build
