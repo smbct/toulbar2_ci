@@ -32,7 +32,7 @@ jobs:
 
       - name: Set LIBTB2 env var
         run: |
-          if [[ ${{ inputs.libtoulbar2 == 'true' }}  ]]; then
+          if [[ ${{ inputs.libtoulbar2 == "true" }}  ]]; then
               echo "LIBTB2=ON" >> "$GITHUB_ENV"
           else
               echo "LIBTB2=OFF" >> "$GITHUB_ENV"
@@ -44,6 +44,6 @@ jobs:
         uses: ./.github/actions/linux_build
         with:
           pytb2: 'OFF'
-          libtb2: $LIBTB2
+          libtb2: ${{env.LIBTB2}}
           build_type: ${{ github.event.inputs.build_type }}
           run_test: ${{ github.event.inputs.run_tests }}
