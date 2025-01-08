@@ -2,12 +2,22 @@ name: Test linux
 on:
   workflow_dispatch:
     inputs:
+      
       build_type:
         type: choice
         description: "Build type : debug or Release"
         options: 
         - Debug
         - Release
+      
+      libtoulbar2:
+        type: boolean
+        description: "Compile ToulBar2 C++ library"
+
+      pytoulbar2:
+        type: boolean
+        description: "Compile pytoulbar2"
+
       run_tests:
         type: boolean
         description: "Run unit tests with CMake"
@@ -17,10 +27,23 @@ jobs:
   test_linux:
     runs-on: ubuntu-latest
     steps:
+
       - uses: actions/checkout@v4
+
+      - name: Set LIBTB2 env var
+        run: |
+          if [[ ${{ inputs.libtoulbar2 == 'true' }}  ]]; then
+              echo "LIBTB2=ON" >> "$GITHUB_ENV"
+          else
+              echo "LIBTB2=OFF" >> "$GITHUB_ENV"
+          fi
+
+      # - name: Set PYTB2 env var
+
       - name: Linux build test
         uses: ./.github/actions/linux_build
         with:
           pytb2: 'ON'
+          libtb2: $LIBTB2
           build_type: ${{ github.event.inputs.build_type }}
           run_test: ${{ github.event.inputs.run_tests }}
