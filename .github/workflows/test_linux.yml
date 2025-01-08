@@ -1,6 +1,16 @@
 name: Test linux
 on:
   workflow_dispatch:
+    inputs:
+      build_type:
+        type: choice
+        description: "Build type : debug or Release"
+        options: 
+        - Debug
+        - Release
+      run_tests:
+        type: boolean
+        description: "Run unit tests with CMake"
 
 jobs:
 
@@ -12,3 +22,5 @@ jobs:
         uses: ./.github/actions/linux_build
         with:
           pytb2: 'ON'
+          build_type: ${{ github.event.inputs.build_type }}
+          run_test: ${{ github.event.inputs.run_tests }}
