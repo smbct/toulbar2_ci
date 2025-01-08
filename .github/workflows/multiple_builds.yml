@@ -5,6 +5,9 @@ on:
 
 jobs:
 
+  checkout:
+    - uses: actions/checkout@v4
+
   windows-build:
     runs-on: windows-latest
     permissions:
