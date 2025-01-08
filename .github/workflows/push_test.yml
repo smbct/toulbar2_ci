@@ -1,8 +1,9 @@
 name: Push build & test
 on:
-  push: # check Linux build and test on push
-    branches:
-      - 'ci-cd'
+  # push: # check Linux build and test on push
+  #   branches:
+  #     - 'ci-cd'
+  workflow_dispatch:
 
 jobs:
 
