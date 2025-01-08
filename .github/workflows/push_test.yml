@@ -1,0 +1,15 @@
+name: Push build & test
+on:
+  push: # check Linux build and test on push
+    branches:
+      - 'ci-cd'
+
+jobs:
+
+  push_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build on push
+      uses: .github/actions/linux_build
+      with:
+        pytb2: 'OFF'
