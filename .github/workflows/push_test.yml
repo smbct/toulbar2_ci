@@ -11,6 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build on push
-        uses: .github/actions/linux_build
+        use: .github/actions/linux_build
         with:
           pytb2: 'OFF'
