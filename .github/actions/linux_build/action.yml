@@ -19,9 +19,11 @@ runs:
       run: sudo apt install libboost-all-dev libgmp-dev zlib1g-dev liblzma-dev libjemalloc-dev libopenmpi-dev openmpi-bin libeigen3-dev
 
     - name: test
+      env:
+        PYTB2: ${{ inputs.pytb2 }}
       shell: bash
       # pytoulbar2 dependencies  
-      if: ${{  ${{ inputs.pytb2 }} == 'ON' }}
+      if: ${{  $PYTB2 == 'ON' }}
       run: pip install pybind11
 
     - uses: actions/checkout@v4
