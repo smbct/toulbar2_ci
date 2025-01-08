@@ -9,8 +9,8 @@ jobs:
   push_test:
     runs-on: ubuntu-latest
     steps:
-      - use: actions/checkout@v4
+      - uses: actions/checkout@v4
       - name: Build on push
-        uses: .github/actions/linux_build
+        uses: ./actions/linux_build
         with:
           pytb2: 'OFF'
