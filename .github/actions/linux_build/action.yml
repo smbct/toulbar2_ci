@@ -1,8 +1,4 @@
 name: Linux build & test
-on:
-  push: # check build and test on push
-    branches:
-      - 'ci-cd'
 inputs:
   build_type:
     default: 'Release'
