@@ -6,9 +6,11 @@ on:
 
 jobs:
 
-  push-test:
+  push_test:
+    runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Build on push
-      uses: .github/actions/linux_build
-      with:
-        pytb2: 'OFF'
+        uses: .github/actions/linux_build
+        with:
+          pytb2: 'OFF'
