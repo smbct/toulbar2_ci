@@ -30,7 +30,6 @@ jobs:
   linux-build:
     runs-on: ubuntu-latest
     needs: toulbar2-checkout
-    working-directory: ${{runner.workspace}}/toulbar2/build
     permissions:
       contents: write
     
