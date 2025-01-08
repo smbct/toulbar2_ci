@@ -1,12 +1,19 @@
 name: Linux build & test
-
 on:
   push: # check build and test on push
     branches:
       - 'ci-cd'
-
+inputs:
+  build_type:
+    default: 'Release'
+  libtb2:
+    default: 'ON'
+  pytb2:
+    default: 'ON'
 env:
-  BUILD_TYPE: Release
+  BUILD_TYPE: ${{ inputs.build_type }}
+  LIBTB2: ${{ inputs.libtb2 }}
+  PYTB2: ${{ inputs.pytb2 }}
 
 jobs:
   build:
