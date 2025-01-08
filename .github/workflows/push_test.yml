@@ -7,7 +7,6 @@ on:
 jobs:
 
   push_test:
-    runs-on: ubuntu-latest
     steps:
       - name: Build on push
       uses: .github/actions/linux_build
