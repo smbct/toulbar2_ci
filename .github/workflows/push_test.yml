@@ -13,4 +13,4 @@ jobs:
       - name: Build on push
         uses: ./.github/actions/linux_build
         with:
-          pytb2: 'OFF'
+          pytb2: 'ON'

@@ -30,7 +30,7 @@ runs:
         PYTB2: ${{ inputs.pytb2 }}
       shell: bash
       working-directory: ${{runner.workspace}}/toulbar2/build
-      run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLIBTB2=ON ..
+      run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLIBTB2=$LIBDTB2 -DPYTB2=$PYTB2 ..
 
     - name: Build ToulBar2
       working-directory: ${{runner.workspace}}/toulbar2/build
