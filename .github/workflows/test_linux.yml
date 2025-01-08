@@ -26,6 +26,9 @@ jobs:
 
   test_linux:
     runs-on: ubuntu-latest
+    env:
+        LIBTB2: 'OFF'
+        PYTB2: 'OFF'
     steps:
 
       - uses: actions/checkout@v4
@@ -34,8 +37,12 @@ jobs:
         run: |
           if [[ ${{ inputs.libtoulbar2 == 'true' }}  ]]; then
               echo "LIBTB2=ON" >> "$GITHUB_ENV"
-          else
-              echo "LIBTB2=OFF" >> "$GITHUB_ENV"
+          fi
+
+      - name: Set PYTB2 env var
+        run: |
+          if [[ ${{ inputs.pytoulbar2 == 'true' }}  ]]; then
+              echo "PYTB2=ON" >> "$GITHUB_ENV"
           fi
 
       # - name: Set PYTB2 env var
@@ -43,7 +50,7 @@ jobs:
       - name: Linux build test
         uses: ./.github/actions/linux_build
         with:
-          pytb2: 'OFF'
+          pytb2: ${{env.PYTB2}}
           libtb2: ${{env.LIBTB2}}
           build_type: ${{ github.event.inputs.build_type }}
           run_test: ${{ github.event.inputs.run_tests }}
