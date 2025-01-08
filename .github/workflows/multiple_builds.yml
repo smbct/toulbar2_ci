@@ -1,0 +1,41 @@
+name: Releases
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  windows-build:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Windows build
+        uses: ./.github/actions/windows_build
+        with:
+          pytb2: 'OFF'
+
+  # macos-build:
+
+  linux-build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Linux build
+        uses: ./.github/actions/linux_build
+        with:
+          pytb2: 'ON'
+          mpi: 'ON'
+
+      # - uses: ncipollo/release-action@v1
+      #   with:
+      #     artifacts: "release.tar.gz,foo/*.txt"
+      #     bodyFile: "body.md"
+  
