@@ -1,0 +1,14 @@
+name: Test linux
+on:
+  workflow_dispatch:
+
+jobs:
+
+  test_linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Linux build test
+        uses: ./.github/actions/linux_build
+        with:
+          pytb2: 'ON'

@@ -26,8 +26,6 @@ runs:
       shell: bash
       run: brew install boost gmp zlib jemalloc boost-mpi eigen
 
-    - uses: actions/checkout@v4
-
     - name: Create Build Environment
       shell: bash
       run: cmake -E make_directory ${{runner.workspace}}/toulbar2/build

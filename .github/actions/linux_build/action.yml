@@ -31,8 +31,6 @@ runs:
       if: ${{ inputs.pytb2 == 'ON' }}
       run: pip install pybind11[global]
 
-    - uses: actions/checkout@v4
-
     - name: Create Build Environment
       shell: bash
       run: cmake -E make_directory ${{runner.workspace}}/toulbar2/build
