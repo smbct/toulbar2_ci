@@ -9,12 +9,9 @@ inputs:
   pytb2:
     default: 'ON'
 
-jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
+runs:
+  using: "composite"
+  steps:
 
     - name: install dependencies
       run: sudo apt install libboost-all-dev libgmp-dev zlib1g-dev liblzma-dev libjemalloc-dev libopenmpi-dev openmpi-bin libeigen3-dev
