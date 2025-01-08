@@ -6,7 +6,7 @@ on:
 
 jobs:
 
-  push_test:
+  push-test:
     steps:
       - name: Build on push
       uses: .github/actions/linux_build
