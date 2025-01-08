@@ -93,6 +93,7 @@ jobs:
     needs: setup_env
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/linux_build
         with:
           build_type: ${{ github.event.inputs.build_type }}
@@ -101,12 +102,22 @@ jobs:
           libtb2: ${{env.LIBTB2}}
           boost: ${{env.BOOST}}
           mpi: ${{env.MPI}}
+      - name: Upload artifacts
+        if: ${{ github.event.inputs.produce_artifacts == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: "toulbar2_linux_artifacts"
+          path: |
+            ${{runner.workspace}}/toulbar2/build/lib
+            ${{runner.workspace}}/toulbar2/build/bin
+            retention-days: 1
 
   macos_build:
     if: ${{ github.event.inputs.platform == 'MacOS' }}
     needs: setup_env
     runs-on: macos-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/macos_build
         with:
           build_type: ${{ github.event.inputs.build_type }}
@@ -115,12 +126,22 @@ jobs:
           libtb2: ${{env.LIBTB2}}
           boost: ${{env.BOOST}}
           mpi: ${{env.MPI}}
+      - name: Upload artifacts
+        if: ${{ github.event.inputs.produce_artifacts == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: "toulbar2_macos_artifacts"
+          path: |
+            ${{runner.workspace}}/toulbar2/build/lib
+            ${{runner.workspace}}/toulbar2/build/bin
+            retention-days: 1
 
   windows_build:
     if: ${{ github.event.inputs.platform == 'Windows' }}
     needs: setup_env
     runs-on: windows-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/windows_build
         with:
           build_type: ${{ github.event.inputs.build_type }}
@@ -129,14 +150,12 @@ jobs:
           libtb2: ${{env.LIBTB2}}
           boost: ${{env.BOOST}}
           mpi: ${{env.MPI}}
-
-  # upload binaries artifact
-      # - name: Upload artifacts
-      #   if: ${{ github.event.inputs.produce_artifacts == 'true' }}
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: "toulbar2_${{github.event.inputs.platform}}_artifacts"
-      #     path: |
-      #       ${{runner.workspace}}/toulbar2/build/lib
-      #       ${{runner.workspace}}/toulbar2/build/bin
-      #     retention-days: 1
+      - name: Upload artifacts
+        if: ${{ github.event.inputs.produce_artifacts == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: "toulbar2_windows_artifacts"
+          path: |
+            ${{runner.workspace}}/toulbar2/build/lib
+            ${{runner.workspace}}/toulbar2/build/bin
+            retention-days: 1
