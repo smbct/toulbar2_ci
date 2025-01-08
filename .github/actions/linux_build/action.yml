@@ -22,7 +22,7 @@ runs:
       shell: bash
       # pytoulbar2 dependencies  
       if: ${{  ${{ inputs.pytb2 }} == 'ON' }}
-        run: echo test
+      run: pip install pybind11
 
     - uses: actions/checkout@v4
 
