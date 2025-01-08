@@ -40,7 +40,7 @@ on:
 
 jobs:
 
-  test_linux:
+  manual_build:
     runs-on: ubuntu-latest
     env:
         LIBTB2: 'OFF'
@@ -75,8 +75,30 @@ jobs:
               echo "MPI=ON" >> "$GITHUB_ENV"
           fi
 
-      - name: Linux build test
+      - name: Linux build & test
         if: ${{ github.event.inputs.platform == 'Linux' }}
+        uses: ./.github/actions/linux_build
+        with:
+          build_type: ${{ github.event.inputs.build_type }}
+          run_tests: ${{ github.event.inputs.run_tests }}
+          pytb2: ${{env.PYTB2}}
+          libtb2: ${{env.LIBTB2}}
+          boost: ${{env.BOOST}}
+          mpi: ${{env.MPI}}
+
+      - name: MacOS build & test
+        if: ${{ github.event.inputs.platform == 'MacOS' }}
+        uses: ./.github/actions/linux_build
+        with:
+          build_type: ${{ github.event.inputs.build_type }}
+          run_tests: ${{ github.event.inputs.run_tests }}
+          pytb2: ${{env.PYTB2}}
+          libtb2: ${{env.LIBTB2}}
+          boost: ${{env.BOOST}}
+          mpi: ${{env.MPI}}
+
+      - name: Windows build & test
+        if: ${{ github.event.inputs.platform == 'Windows' }}
         uses: ./.github/actions/linux_build
         with:
           build_type: ${{ github.event.inputs.build_type }}
