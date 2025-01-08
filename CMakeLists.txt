@@ -38,6 +38,11 @@ project("toulbar2")
 MESSAGE(STATUS "##########################################")
 MESSAGE(STATUS "project: ${PROJECT_NAME} toolkit compilation cmake file version 0.99")
 MESSAGE(STATUS "source: ${CMAKE_CURRENT_SOURCE_DIR} ")
+IF(NOT CMAKE_BUILD_TYPE)
+  SET(CMAKE_BUILD_TYPE Release CACHE STRING
+      "Choose the build type, options are: None Debug Release RelWithDebInfo MinSizeRel."
+    FORCE)
+ENDIF(NOT CMAKE_BUILD_TYPE)
 MESSAGE(STATUS "MAKE_BUILD_TYPE : ${CMAKE_BUILD_TYPE}")
 MESSAGE(STATUS "##########################################")
 
@@ -94,12 +99,6 @@ IF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/conan_paths.cmake)
 ELSE()
    message("Conan file not found in ${CMAKE_CURRENT_SOURCE_DIR} - assuming conan free build.")
 ENDIF()
-
-IF(NOT CMAKE_BUILD_TYPE)
-  SET(CMAKE_BUILD_TYPE Release CACHE STRING
-      "Choose the build type, options are: None Debug Release RelWithDebInfo MinSizeRel."
-    FORCE)
-ENDIF(NOT CMAKE_BUILD_TYPE)
 
 IF(QUAD_PROBABILITY)
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=gnu++20" )
