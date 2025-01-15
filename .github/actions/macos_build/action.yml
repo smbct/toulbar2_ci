@@ -51,8 +51,8 @@ runs:
       shell: bash
       run: make -j 4
 
-    - name: Run Test
+    - name: Run Tests
       working-directory: ${{runner.workspace}}/toulbar2/build
       shell: bash
-      if: ${{ inputs.run_tests == true }}
+      if: ${{ inputs.run_tests == 'true' }}
       run: make test -j 4
