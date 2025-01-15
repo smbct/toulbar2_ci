@@ -1,9 +1,9 @@
-name: Push build & test
+name: CI
 on:
-  # push: # check Linux build and test on push
-  #   branches:
-  #     - 'ci-cd'
-  workflow_dispatch:
+  push: # check Linux build and test on push
+    branches:
+      - 'ci-cd'
+  # workflow_dispatch:
 
 jobs:
 
@@ -15,4 +15,5 @@ jobs:
         uses: ./.github/actions/linux_build
         with:
           pytb2: 'ON'
-          mpi: 'ON'
+          mpi: 'OFF'
+          run_tests: true
