@@ -2,14 +2,19 @@ name: Macos build & test
 description: 'Build and test ToulBar2 on macos platform'
 
 inputs:
+
   build_type:
     default: 'Release'
+  run_tests:
+    default: false
   libtb2:
     default: 'ON'
   pytb2:
     default: 'ON'
   mpi:
     default: 'OFF'
+  boost:
+    default: 'ON'
   
 runs:
   using: "composite"
@@ -34,11 +39,12 @@ runs:
       env:
         BUILD_TYPE: ${{ inputs.build_type }}
         LIBTB2: ${{ inputs.libtb2 }}
+        BOOST: ${{ inputs.boost }}
         MPI: ${{ inputs.mpi }}
         PYTB2: ${{ inputs.pytb2 }}
       shell: bash
       working-directory: ${{runner.workspace}}/toulbar2/build
-      run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
+      run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBoost=$BOOST -DLIBTB2=$LIBDTB2 -DMPI=$MPI -DPYTB2=$PYTB2 ..
 
     - name: Build ToulBar2
       working-directory: ${{runner.workspace}}/toulbar2/build
@@ -48,4 +54,5 @@ runs:
     - name: Run Test
       working-directory: ${{runner.workspace}}/toulbar2/build
       shell: bash
+      if: ${{ inputs.run_tests == true }}
       run: make test -j 4

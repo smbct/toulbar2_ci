@@ -4,12 +4,16 @@ description: 'Build and test ToulBar2 on Linux platform'
 inputs:
   build_type:
     default: 'Release'
+  run_tests:
+    default: false
   libtb2:
     default: 'ON'
   pytb2:
     default: 'ON'
   mpi:
     default: 'OFF'
+  boost:
+    default: 'ON'
 
 runs:
   using: "composite"
@@ -26,9 +30,15 @@ runs:
       run: cmake -E make_directory "${{runner.workspace}}/toulbar2/build"
 
     - name: Configure CMake
+      env:
+        BUILD_TYPE: ${{ inputs.build_type }}
+        LIBTB2: ${{ inputs.libtb2 }}
+        BOOST: ${{ inputs.boost }}
+        MPI: ${{ inputs.mpi }}
+        PYTB2: ${{ inputs.pytb2 }}
       shell: msys2 {0}
       working-directory: "${{runner.workspace}}/toulbar2/build"
-      run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLIBT2B=ON ..
+      run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBoost=$BOOST -DLIBTB2=$LIBDTB2 -DMPI=$MPI -DPYTB2=$PYTB2 ..
 
     - name: Build ToulBar2
       shell: msys2 {0}
@@ -38,4 +48,5 @@ runs:
     - name: Run Test
       shell: msys2 {0}
       working-directory: "${{runner.workspace}}/toulbar2/build"
+      if: ${{ inputs.run_tests == true }}
       run: ctest .
