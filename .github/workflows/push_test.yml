@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       
-      - uses: actions/cache@v4
-        id: cache
+      - uses: actions/cache/restore@v4
+        id: toulbar2-push-cache-restore
         with:
           path: ${{runner.workspace}}/toulbar2
           key: toulbar2_ci
@@ -31,6 +31,12 @@ jobs:
       # delete previous cache
       - name: Cleanup cache
         env:
-          SUPER_SECRET: ${{ secrets.SuperSecret }}
           GH_TOKEN: ${{ secrets.GH_CLI_TOKEN }}
         run: gh cache delete toulbar2_ci
+
+      # caching last version for next ci-build
+      - uses: actions/cache/save@v4
+        id: toulbar2-push-cache-save
+        with:
+          path: ${{runner.workspace}}/toulbar2
+          key: toulbar2_ci
