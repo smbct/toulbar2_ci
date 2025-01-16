@@ -32,6 +32,7 @@ jobs:
       - name: Cleanup cache
         env:
           GH_TOKEN: ${{ secrets.GH_CLI_TOKEN }}
+        if: steps.toulbar2-push-cache-restore.outputs.cache-hit == 'true'
         run: gh cache delete toulbar2_ci
 
       # caching last version for next ci-build
