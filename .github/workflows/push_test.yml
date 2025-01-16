@@ -30,4 +30,7 @@ jobs:
 
       # delete previous cache
       - name: Cleanup cache
+        env:
+          SUPER_SECRET: ${{ secrets.SuperSecret }}
+          GH_TOKEN: ${{ secrets.GH_CLI_TOKEN }}
         run: gh cache delete toulbar2_ci
