@@ -21,10 +21,13 @@ jobs:
         with:
           clean: false
 
-
       - name: Build on push
         uses: ./.github/actions/linux_build
         with:
           pytb2: 'ON'
           mpi: 'OFF'
           run_tests: true
+
+      # delete previous cache
+      - name: Cleanup cache
+        run: gh cache delete toulbar2_ci
