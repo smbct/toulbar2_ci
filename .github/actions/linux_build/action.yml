@@ -32,9 +32,9 @@ runs:
 
     # install cached dependencies
     - uses: awalsh128/cache-apt-pkgs-action@latest
-        with:
-          packages: libboost-all-dev libgmp-dev zlib1g-dev liblzma-dev libjemalloc-dev libeigen3-dev libopenmpi-dev openmpi-bin
-          version: 1.0
+      with:
+        packages: libboost-all-dev libgmp-dev zlib1g-dev liblzma-dev libjemalloc-dev libeigen3-dev libopenmpi-dev openmpi-bin
+        version: 1.0
 
     # pytoulbar2 dependencies when applicable
     - name: install pybind11
