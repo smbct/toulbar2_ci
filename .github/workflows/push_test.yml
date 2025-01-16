@@ -18,8 +18,10 @@ jobs:
           key: toulbar2_ci
 
       - uses: actions/checkout@v4
+        with:
+          clean: false
 
-      
+
       - name: Build on push
         uses: ./.github/actions/linux_build
         with:
