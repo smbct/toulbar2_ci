@@ -24,7 +24,7 @@ runs:
       shell: bash
       run: sudo apt install libboost-all-dev libgmp-dev zlib1g-dev liblzma-dev libjemalloc-dev libeigen3-dev
 
-    MPI dependencies when applicable
+    # MPI dependencies when applicable
     - name: install mpi
       shell: bash
       if: ${{ inputs.mpi == 'ON' }}
