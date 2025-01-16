@@ -90,10 +90,35 @@ jobs:
 
   linux_build:
     if: ${{ github.event.inputs.platform == 'Linux' }}
-    needs: setup_env
+    # needs: setup_env
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+      - name: Set LIBTB2 env var
+        run: |
+          if [[ ${{ inputs.libtoulbar2 == 'true' }}  ]]; then
+              echo "LIBTB2=ON" >> "$GITHUB_ENV"
+          fi
+
+      - name: Set PYTB2 env var
+        run: |
+          if [[ ${{ inputs.pytoulbar2 == 'true' }}  ]]; then
+              echo "PYTB2=ON" >> "$GITHUB_ENV"
+          fi
+
+      - name: Set BOOST env var
+        run: |
+          if [[ ${{ inputs.boost == 'false' }}  ]]; then
+              echo "Boost=OFF" >> "$GITHUB_ENV"
+          fi
+
+      - name: Set MPI env var
+        run: |
+          if [[ ${{ inputs.mpi == 'true' }}  ]]; then
+              echo "MPI=ON" >> "$GITHUB_ENV"
+          fi
+
       - uses: ./.github/actions/linux_build
         with:
           build_type: ${{ github.event.inputs.build_type }}
