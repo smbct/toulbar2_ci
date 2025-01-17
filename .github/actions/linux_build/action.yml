@@ -30,6 +30,7 @@ runs:
     #   if: ${{ inputs.mpi == 'ON' }}
     #   run: sudo apt install libopenmpi-dev openmpi-bin
 
+
     # install cached dependencies
     - uses: awalsh128/cache-apt-pkgs-action@v1.4.3
       with:
