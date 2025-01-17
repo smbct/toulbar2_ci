@@ -581,6 +581,7 @@ void Bicriteria::computeSupportedPoints(MultiCFN* multicfn, pair<Bicriteria::Opt
 void Bicriteria::computeSupportedPoints(MultiCFN* multicfn, unsigned int first_cfn_index, unsigned int second_cfn_index, pair<Bicriteria::OptimDir, Bicriteria::OptimDir> optim_dir, Double delta)
 {
 
+
     _first_cfn_index = first_cfn_index;
     _second_cfn_index = second_cfn_index;
 
