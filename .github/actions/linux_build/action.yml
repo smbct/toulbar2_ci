@@ -15,27 +15,29 @@ inputs:
     default: 'OFF'
   boost:
     default: 'ON'
+  xml:
+    default: 'ON'
 
 runs:
   using: "composite"
   steps:
 
-    # - name: install dependencies
-    #   shell: bash
-    #   run: sudo apt install libboost-all-dev libgmp-dev zlib1g-dev liblzma-dev libjemalloc-dev libeigen3-dev
+    - name: install dependencies
+      shell: bash
+      run: sudo apt install libboost-all-dev libgmp-dev zlib1g-dev liblzma-dev libjemalloc-dev libeigen3-dev
 
-    # # MPI dependencies when applicable
-    # - name: install mpi
-    #   shell: bash
-    #   if: ${{ inputs.mpi == 'ON' }}
-    #   run: sudo apt install libopenmpi-dev openmpi-bin
+    # MPI dependencies when applicable
+    - name: install mpi
+      shell: bash
+      if: ${{ inputs.mpi == 'ON' }}
+      run: sudo apt install libopenmpi-dev openmpi-bin
 
 
     # install cached dependencies
-    - uses: awalsh128/cache-apt-pkgs-action@v1.4.3
-      with:
-        packages: libboost-all-dev libgmp-dev zlib1g-dev liblzma-dev libjemalloc-dev libeigen3-dev libopenmpi-dev openmpi-bin
-        version: 1.0
+    # - uses: awalsh128/cache-apt-pkgs-action@v1.4.3
+    #   with:
+    #     packages: libboost-all-dev libgmp-dev zlib1g-dev liblzma-dev libjemalloc-dev libeigen3-dev libopenmpi-dev openmpi-bin
+    #     version: 1.0
 
     # pytoulbar2 dependencies when applicable
     - name: install pybind11
@@ -51,12 +53,13 @@ runs:
       env:
         BUILD_TYPE: ${{ inputs.build_type }}
         LIBTB2: ${{ inputs.libtb2 }}
-        BOOST: ${{ inputs.boost }}
-        MPI: ${{ inputs.mpi }}
         PYTB2: ${{ inputs.pytb2 }}
+        MPI: ${{ inputs.mpi }}
+        BOOST: ${{ inputs.boost }}
+        XML: ${{ inputs.xml }}
       shell: bash
       working-directory: ${{runner.workspace}}/toulbar2/build
-      run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBoost=$BOOST -DLIBTB2=$LIBDTB2 -DMPI=$MPI -DPYTB2=$PYTB2 ..
+      run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBoost=$BOOST -DLIBTB2=$LIBDTB2 -DMPI=$MPI -DPYTB2=$PYTB2 -DXML=$XML ..
 
     - name: Build ToulBar2
       working-directory: ${{runner.workspace}}/toulbar2/build
