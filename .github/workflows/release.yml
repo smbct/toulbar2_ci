@@ -1,12 +1,12 @@
 name: Releases
 
-on:
-  workflow_dispatch:
+# on:
+#   workflow_dispatch:
 
-# on: 
-#   push:
-#     tags:
-#     - '*'
+on: 
+  push:
+    tags:
+    - "v*.*.*"
 
 jobs:
 
@@ -39,15 +39,34 @@ jobs:
           xml: 'OFF'
           make_package: true
 
-      # upload linux binaries artifact
-      - uses: actions/upload-artifact@v4
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: toulbar2_linux
-          path: |
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
             ${{runner.workspace}}/toulbar2/build/*.tar.gz
             ${{runner.workspace}}/toulbar2/build/*.deb
             ${{runner.workspace}}/toulbar2/build/*.rpm
-          retention-days: 1
+
+      # upload linux binaries artifact
+      # - uses: actions/upload-artifact@v4
+      #   with:
+      #     name: toulbar2_linux
+      #     path: |
+      #       ${{runner.workspace}}/toulbar2/build/*.tar.gz
+      #       ${{runner.workspace}}/toulbar2/build/*.deb
+      #       ${{runner.workspace}}/toulbar2/build/*.rpm
+      #     retention-days: 1
 
       # - uses: ncipollo/release-action@v1
       #   with:
