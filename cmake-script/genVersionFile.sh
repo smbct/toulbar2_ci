@@ -2,9 +2,9 @@
 
 if command -v git >/dev/null 2>&1 && git rev-parse --git-dir >/dev/null 2>&1;
 then 
+    TB2_NAME="$1" # release toulbar2 as base or parallel (MPI) version
     ROOT=`git rev-parse --show-toplevel`
     cd $ROOT
-    git config --local core.hooksPath $ROOT/git-hooks
     FILE=$ROOT/src/ToulbarVersion.hpp
     PCKGVER=$ROOT/src/MyCPackConf.cmake
     VERSION=`git describe --abbrev=0 --tags --always`
@@ -25,11 +25,11 @@ then
     echo "#define Toulbar_VERSION \"$LONG_VERSION-$BRANCH$TAINTED ($CTIME)\"" >> $FILE
 
     echo "SET(CPACK_PACKAGE_VERSION \"$VERSION\")" > $PCKGVER
-    echo "SET(CPACK_NSIS_DISPLAY_NAME \"toulbar2 $VERSION\")" >> $PCKGVER
-    echo "SET(CPACK_NSIS_PACKAGE_NAME \"toulbar2 $VERSION\")" >> $PCKGVER
-    echo "SET(CPACK_PACKAGE_FILE_NAME \"toulbar2-$VERSION-x86_64\")" >> $PCKGVER
-    echo "SET(CPACK_PACKAGE_INSTALL_DIRECTORY \"toulbar2 $VERSION\")" >> $PCKGVER
-    echo "SET(CPACK_PACKAGE_INSTALL_REGISTRY_KEY \"toulbar2 $VERSION\")" >> $PCKGVER
+    echo "SET(CPACK_NSIS_DISPLAY_NAME \"$TB2_NAME $VERSION\")" >> $PCKGVER
+    echo "SET(CPACK_NSIS_PACKAGE_NAME \"$TB2_NAME $VERSION\")" >> $PCKGVER
+    echo "SET(CPACK_PACKAGE_FILE_NAME \"$TB2_NAME-$VERSION-x86_64\")" >> $PCKGVER
+    echo "SET(CPACK_PACKAGE_INSTALL_DIRECTORY \"$TB2_NAME $VERSION\")" >> $PCKGVER
+    echo "SET(CPACK_PACKAGE_INSTALL_REGISTRY_KEY \"$TB2_NAME $VERSION\")" >> $PCKGVER
     echo "SET(CPACK_PACKAGE_VERSION_MAJOR \"$MAJOR\")" >> $PCKGVER
     echo "SET(CPACK_PACKAGE_VERSION_MINOR \"$MINOR\")" >> $PCKGVER
     echo "SET(CPACK_PACKAGE_VERSION_PATCH \"$PATCH\")" >> $PCKGVER
