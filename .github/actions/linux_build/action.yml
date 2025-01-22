@@ -7,6 +7,8 @@ inputs:
     default: 'Release'
   run_tests:
     default: false
+  make_package:
+    default: false
   libtb2:
     default: 'ON'
   pytb2:
@@ -71,3 +73,9 @@ runs:
       shell: bash
       if: ${{ inputs.run_tests == 'true' }}
       run: make test -j 4
+
+    - name: Make Packages
+      working-directory: ${{runner.workspace}}/toulbar2/build
+      shell: bash
+      if: ${{ inputs.make_package == 'true' }}
+      run: make package
