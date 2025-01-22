@@ -6,7 +6,7 @@ name: Releases
 on: 
   push:
     tags:
-    - "v*.*.*"
+      - "v*"
 
 jobs:
 
