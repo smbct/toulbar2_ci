@@ -26,6 +26,7 @@ jobs:
         with:
           pytb2: 'ON'
           mpi: 'OFF'
+          XML: 'OFF' # temporary
           run_tests: true
 
 
