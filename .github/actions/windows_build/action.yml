@@ -50,6 +50,13 @@ runs:
       working-directory: "${{runner.workspace}}/toulbar2/build"
       run: cmake --build . --verbose
 
+   - name: Test ls
+      shell: msys2 {0}
+      working-directory: "${{runner.workspace}}/toulbar2/build"
+      if: ${{ inputs.run_tests == 'true' }}
+      # run: ctest .
+      run: ls pytoulbar2 
+
     - name: Run Tests
       shell: msys2 {0}
       working-directory: "${{runner.workspace}}/toulbar2/build"
