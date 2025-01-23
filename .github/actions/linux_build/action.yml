@@ -22,7 +22,16 @@ inputs:
 
 runs:
   using: "composite"
+  env:
+    BUILD_DIR: 'build'
   steps:
+
+    - name: Set BUILD_DIR env variable
+      shell: bash
+      run: |
+        if [[ ${{ inputs.build_type == 'Debug' }}  ]]; then
+            echo "BUILD_DIR=Debug" >> "$GITHUB_ENV"
+        fi
 
     - name: install dependencies
       shell: bash
@@ -60,22 +69,22 @@ runs:
         BOOST: ${{ inputs.boost }}
         XML: ${{ inputs.xml }}
       shell: bash
-      working-directory: ${{runner.workspace}}/toulbar2/build
+      working-directory: ${{runner.workspace}}/toulbar2/${{env.BUILD_DIR}}
       run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBoost=$BOOST -DLIBTB2=$LIBDTB2 -DMPI=$MPI -DPYTB2=$PYTB2 -DXML=$XML ..
 
     - name: Build ToulBar2
-      working-directory: ${{runner.workspace}}/toulbar2/build
+      working-directory: ${{runner.workspace}}/toulbar2/${{env.BUILD_DIR}}
       shell: bash
       run: make -j 4
   
     - name: Run Tests
-      working-directory: ${{runner.workspace}}/toulbar2/build
+      working-directory: ${{runner.workspace}}/toulbar2/${{env.BUILD_DIR}}
       shell: bash
       if: ${{ inputs.run_tests == 'true' }}
       run: make test -j 4
 
     - name: Make Packages
-      working-directory: ${{runner.workspace}}/toulbar2/build
+      working-directory: ${{runner.workspace}}/toulbar2/${{env.BUILD_DIR}}
       shell: bash
       if: ${{ inputs.make_package == 'true' }}
       run: make package

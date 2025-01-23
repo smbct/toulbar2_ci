@@ -16,6 +16,12 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+      - name: Linux debug test
+        uses: ./.github/actions/linux_build
+        with:
+          build_type: 'Debug'
+          xml: 'OFF'
+          run_tests: true
       - name: Linux build
         uses: ./.github/actions/linux_build
         with:

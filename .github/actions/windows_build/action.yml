@@ -60,9 +60,9 @@ runs:
       shell: msys2 {0}
       working-directory: ${{runner.workspace}}/toulbar2/build
       if: ${{ inputs.make_package == 'true' }}
-      run: make package
+      run: cpack --config CPackConfig.cmake
 
-    - name: test package files
+    - name: Test package files
       working-directory: ${{runner.workspace}}/toulbar2/build
       shell: msys2 {0}
       if: ${{ inputs.make_package == 'true' }}
