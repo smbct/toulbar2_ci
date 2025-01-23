@@ -62,7 +62,7 @@ runs:
       if: ${{ inputs.run_tests == 'true' }}
       run: make test -j 4
 
-     - name: Make Packages
+    - name: Make Packages
       working-directory: ${{runner.workspace}}/toulbar2/build
       shell: bash
       if: ${{ inputs.make_package == 'true' }}
