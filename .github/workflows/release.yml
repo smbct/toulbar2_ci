@@ -25,6 +25,7 @@ jobs:
       - name: Linux build
         uses: ./.github/actions/linux_build
         with:
+          build_type: 'Release'
           xml: 'OFF'
           make_package: true
           run_tests: true
