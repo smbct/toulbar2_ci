@@ -58,7 +58,7 @@ runs:
 
     - name: Test pytb2
       shell: msys2 {0}
-      working-directory: "${{runner.workspace}}/toulbar2/build/pytoulbar2"
+      working-directory: "${{runner.workspace}}/toulbar2/build/lib/Windows"
       if: ${{ inputs.run_tests == 'true' }}
       run: python -c "import pytb2;print(pytb2)"
 
