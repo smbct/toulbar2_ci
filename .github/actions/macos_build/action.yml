@@ -39,6 +39,12 @@ runs:
       shell: bash
       run: cmake -E make_directory ${{runner.workspace}}/toulbar2/build
 
+    # pytoulbar2 dependencies when applicable
+    - name: install pybind11
+      shell: bash
+      if: ${{ inputs.pytb2 == 'ON' }}
+      run: pip install pybind11[global]
+
     - name: Configure CMake
       env:
         BUILD_TYPE: ${{ inputs.build_type }}
