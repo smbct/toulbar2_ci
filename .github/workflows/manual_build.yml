@@ -48,6 +48,12 @@ on:
         description: "Produce build artifacts"
         default: false
 
+env:
+  LIBTB2: 'OFF'
+  PYTB2: 'OFF'
+  BOOST: 'ON'
+  MPI: 'OFF'
+
 jobs:
 
   setenv_var:
@@ -178,6 +184,7 @@ jobs:
           libtb2: ${{env.LIBTB2}}
           boost: ${{env.BOOST}}
           mpi: ${{env.MPI}}
+          xml: false
       - name: Upload artifacts
         if: ${{ github.event.inputs.produce_artifacts == 'true' }}
         uses: actions/upload-artifact@v4
