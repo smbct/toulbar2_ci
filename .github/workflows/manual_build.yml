@@ -70,7 +70,7 @@ jobs:
               echo "PYTB2=ON" >> "$GITHUB_ENV"
           fi
           if [[ ${{ inputs.boost == 'false' }}  ]]; then
-              echo "Boost=OFF" >> "$GITHUB_ENV"
+              echo "BOOST=OFF" >> "$GITHUB_ENV"
           fi
           if [[ ${{ inputs.mpi == 'true' }}  ]]; then
               echo "MPI=ON" >> "$GITHUB_ENV"
@@ -114,7 +114,7 @@ jobs:
               echo "PYTB2=ON" >> "$GITHUB_ENV"
           fi
           if [[ ${{ inputs.boost == 'false' }}  ]]; then
-              echo "Boost=OFF" >> "$GITHUB_ENV"
+              echo "BOOST=OFF" >> "$GITHUB_ENV"
           fi
           if [[ ${{ inputs.mpi == 'true' }}  ]]; then
               echo "MPI=ON" >> "$GITHUB_ENV"
@@ -152,7 +152,7 @@ jobs:
               echo "PYTB2=ON" >> "$GITHUB_ENV"
           fi
           if [[ ${{ inputs.boost == 'false' }}  ]]; then
-              echo "Boost=OFF" >> "$GITHUB_ENV"
+              echo "BOOST=OFF" >> "$GITHUB_ENV"
           fi
           if [[ ${{ inputs.mpi == 'true' }}  ]]; then
               echo "MPI=ON" >> "$GITHUB_ENV"
