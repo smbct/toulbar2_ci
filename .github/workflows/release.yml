@@ -89,6 +89,7 @@ jobs:
         with:
           files: |
             ${{runner.workspace}}/toulbar2/build/*.tar.gz
+            ${{runner.workspace}}/toulbar2/build/*.exe
 
 
 
