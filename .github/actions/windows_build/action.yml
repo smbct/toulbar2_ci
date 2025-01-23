@@ -56,6 +56,12 @@ runs:
       if: ${{ inputs.run_tests == 'true' }}
       run: ls pytoulbar2 
 
+    - name: Test pytb2
+      shell: msys2 {0}
+      working-directory: "${{runner.workspace}}/toulbar2/build/pytoulbar2"
+      if: ${{ inputs.run_tests == 'true' }}
+      run: python -c "import pytb2;print(pytb2)"
+
     - name: Run Tests
       shell: msys2 {0}
       working-directory: "${{runner.workspace}}/toulbar2/build"
