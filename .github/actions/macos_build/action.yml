@@ -79,3 +79,9 @@ runs:
       shell: bash
       if: ${{ inputs.make_package == 'true' }}
       run: make package
+
+    - name: test package files
+      working-directory: ${{runner.workspace}}/toulbar2/build
+      shell: bash
+      if: ${{ inputs.make_package == 'true' }}
+      run: ls
