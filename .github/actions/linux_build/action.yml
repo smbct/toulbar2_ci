@@ -22,8 +22,6 @@ inputs:
 
 runs:
   using: "composite"
-  env:
-    BUILD_DIR: 'build'
   steps:
 
     - name: Set BUILD_DIR env variable
@@ -31,8 +29,9 @@ runs:
       run: |
         if [[ ${{ inputs.build_type == 'Debug' }}  ]]; then
             echo "BUILD_DIR=Debug" >> "$GITHUB_ENV"
+        else
+            echo "BUILD_DIR=build" >> "$GITHUB_ENV"
         fi
-
     - name: install dependencies
       shell: bash
       run: sudo apt install libboost-all-dev libgmp-dev zlib1g-dev liblzma-dev libjemalloc-dev libeigen3-dev
