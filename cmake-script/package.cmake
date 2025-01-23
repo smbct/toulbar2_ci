@@ -20,7 +20,10 @@ ENDIF (APPLE)
 	MESSAGE(STATUS " source:${CMAKE_CURRENT_SOURCE_DIR}")
 	MESSAGE(STATUS "#################################")
 
+IF(UNIX AND NOT APPLE)
 	SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6 (>= 2.3.1-6), libgcc1 (>= 1:3.4.2-12), boost (>=1.34.0), xml2, openmpi ")
+ENDIF()
+	
 	SET(CPACK_STRIP_FILES "bin/toulbar2;bin/iloglue;bin/mendelsoft")
 	SET(CPACK_GENERATOR "STGZ;TGZ;DEB;TBZ2;RPM")
 	SET(CPACK_SOURCE_GENERATOR "ZIP;TGZ;TBZ2;DEB")
@@ -49,7 +52,7 @@ ENDIF (APPLE)
 	SET(CPACK_SOURCE_IGNORE_FILES "\\\\.swp$;/\\\\.gitignore;/build/;/\\\\.git/;/\\\\.svn/;/build;/bachckup;/_CPack_Packages/;/CMakeFiles/;/old/;\\\\.sh$;\\\\.zip$;\\\\.gz$;\\\\.bz2$")
 
 # CPack DEB configuration
-if (UNIX)
+if (UNIX AND NOT APPLE)
 	SET(CPACK_DEBIAN_PACKAGE_NAME ${Toulbar2_NAME})
 	SET(CPACK_DEBIAN_PACKAGE_VERSION ${CPACK_PACKAGE_VERSION})
 
