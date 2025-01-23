@@ -54,7 +54,13 @@ runs:
       shell: msys2 {0}
       working-directory: "${{runner.workspace}}/toulbar2/build"
       if: ${{ inputs.run_tests == 'true' }}
-      run: ls pytoulbar2 
+      run: ls pytoulbar2
+
+    - name: Test ls2
+      shell: msys2 {0}
+      working-directory: "${{runner.workspace}}/toulbar2/build/lib/Windows"
+      if: ${{ inputs.run_tests == 'true' }}
+      run: ls
 
     - name: Test pytb2
       shell: msys2 {0}
