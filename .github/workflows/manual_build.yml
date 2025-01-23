@@ -48,40 +48,7 @@ on:
         description: "Produce build artifacts"
         default: false
 
-env:
-  LIBTB2: 'OFF'
-  PYTB2: 'OFF'
-  BOOST: 'ON'
-  MPI: 'OFF'
-
 jobs:
-
-  setenv_var:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set env var
-        run: |
-          if [[ ${{ inputs.libtoulbar2 == 'true' }}  ]]; then
-              echo "LIBTB2=ON" >> "$GITHUB_ENV"
-          else
-              echo "LIBTB2=OFF" >> "$GITHUB_ENV"
-          fi
-          if [[ ${{ inputs.pytoulbar2 == 'true' }}  ]]; then
-              echo "PYTB2=ON" >> "$GITHUB_ENV"
-          else
-              echo "PYTB2=OFF" >> "$GITHUB_ENV"
-          fi
-          if [[ ${{ inputs.boost == 'false' }}  ]]; then
-              echo "Boost=OFF" >> "$GITHUB_ENV"
-          else
-              echo "Boost=ON" >> "$GITHUB_ENV"
-          fi
-          if [[ ${{ inputs.mpi == 'true' }}  ]]; then
-              echo "MPI=ON" >> "$GITHUB_ENV"
-          else
-              echo "MPI=OFF" >> "$GITHUB_ENV"
-          fi
-
     
   linux_build:
     if: ${{ github.event.inputs.platform == 'Linux' }}
@@ -173,9 +140,23 @@ jobs:
   windows_build:
     if: ${{ github.event.inputs.platform == 'Windows' }}
     runs-on: windows-latest
-    needs: setenv_var
     steps:
       - uses: actions/checkout@v4
+      - name: Set env var
+        shell: bash
+        run: |
+          if [[ ${{ inputs.libtoulbar2 == 'true' }}  ]]; then
+              echo "LIBTB2=ON" >> "$GITHUB_ENV"
+          fi
+          if [[ ${{ inputs.pytoulbar2 == 'true' }}  ]]; then
+              echo "PYTB2=ON" >> "$GITHUB_ENV"
+          fi
+          if [[ ${{ inputs.boost == 'false' }}  ]]; then
+              echo "Boost=OFF" >> "$GITHUB_ENV"
+          fi
+          if [[ ${{ inputs.mpi == 'true' }}  ]]; then
+              echo "MPI=ON" >> "$GITHUB_ENV"
+          fi
       - uses: ./.github/actions/windows_build
         with:
           build_type: ${{ github.event.inputs.build_type }}
