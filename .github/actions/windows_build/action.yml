@@ -6,6 +6,8 @@ inputs:
     default: 'Release'
   run_tests:
     default: false
+  make_package:
+    default: false
   libtb2:
     default: 'ON'
   pytb2:
@@ -13,6 +15,8 @@ inputs:
   mpi:
     default: 'OFF'
   boost:
+    default: 'ON'
+  xml:
     default: 'ON'
 
 runs:
@@ -33,12 +37,13 @@ runs:
       env:
         BUILD_TYPE: ${{ inputs.build_type }}
         LIBTB2: ${{ inputs.libtb2 }}
-        BOOST: ${{ inputs.boost }}
-        MPI: ${{ inputs.mpi }}
         PYTB2: ${{ inputs.pytb2 }}
+        MPI: ${{ inputs.mpi }}
+        BOOST: ${{ inputs.boost }}
+        XML: ${{ inputs.xml }}
       shell: msys2 {0}
       working-directory: "${{runner.workspace}}/toulbar2/build"
-      run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBoost=$BOOST -DLIBTB2=$LIBDTB2 -DMPI=$MPI -DPYTB2=$PYTB2 ..
+      run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBoost=$BOOST -DLIBTB2=$LIBDTB2 -DMPI=$MPI -DPYTB2=$PYTB2 -DXML=$XML ..
 
     - name: Build ToulBar2
       shell: msys2 {0}
@@ -50,3 +55,15 @@ runs:
       working-directory: "${{runner.workspace}}/toulbar2/build"
       if: ${{ inputs.run_tests == 'true' }}
       run: ctest .
+
+    - name: Make Packages
+      shell: msys2 {0}
+      working-directory: ${{runner.workspace}}/toulbar2/build
+      if: ${{ inputs.make_package == 'true' }}
+      run: make package
+
+    - name: test package files
+      working-directory: ${{runner.workspace}}/toulbar2/build
+      shell: msys2 {0}
+      if: ${{ inputs.make_package == 'true' }}
+      run: ls
