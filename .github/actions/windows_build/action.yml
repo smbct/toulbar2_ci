@@ -48,7 +48,7 @@ runs:
     - name: Build ToulBar2
       shell: msys2 {0}
       working-directory: "${{runner.workspace}}/toulbar2/build"
-      run: cmake --build . --verbose
+      run: cmake --build . --verbose -j 4
 
     - name: Test ls
       shell: msys2 {0}
