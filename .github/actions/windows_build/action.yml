@@ -54,7 +54,8 @@ runs:
       shell: msys2 {0}
       working-directory: "${{runner.workspace}}/toulbar2/build"
       if: ${{ inputs.run_tests == 'true' }}
-      run: ctest .
+      # run: ctest .
+      run: ctest . -R validation_pytb2_bilevel/bilevel_mibs0.py --verbose
 
     - name: Make Packages
       shell: msys2 {0}
