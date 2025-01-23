@@ -82,7 +82,7 @@ jobs:
           run_tests: ${{ github.event.inputs.run_tests }}
           pytb2: ${{env.PYTB2}}
           libtb2: ${{env.LIBTB2}}
-          boost: true
+          boost: ${{env.BOOST}}
           mpi: ${{env.MPI}}
       - name: Upload artifacts
         if: ${{ github.event.inputs.produce_artifacts == 'true' }}
@@ -163,7 +163,7 @@ jobs:
           run_tests: ${{ github.event.inputs.run_tests }}
           pytb2: ${{env.PYTB2}}
           libtb2: ${{env.LIBTB2}}
-          boost: ${{env.BOOST}}
+          boost: 'ON'
           mpi: ${{env.MPI}}
           xml: false
       - name: Upload artifacts
