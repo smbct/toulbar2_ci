@@ -23,18 +23,16 @@ jobs:
   #       with:
   #         pytb2: 'OFF'
 
-  # macos-build:
-
-  linux-build:
-    runs-on: ubuntu-latest
+  macos-build:
+    runs-on: macos-latest
     permissions:
       contents: write
     
     steps:
       - uses: actions/checkout@v4
 
-      - name: Linux build
-        uses: ./.github/actions/linux_build
+      - name: Macos build
+        uses: ./.github/actions/macos_build
         with:
           xml: 'OFF'
           make_package: true
@@ -55,21 +53,39 @@ jobs:
         with:
           files: |
             ${{runner.workspace}}/toulbar2/build/*.tar.gz
+
+  linux-build:
+    runs-on: ubuntu-latest
+    needs: macos-build
+    permissions:
+      contents: write
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Linux build
+        uses: ./.github/actions/linux_build
+        with:
+          xml: 'OFF'
+          make_package: true
+
+      # - name: Create Release
+      #   id: create_release
+      #   uses: actions/create-release@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ github.ref }}
+      #     release_name: Release ${{ github.ref }}
+      #     draft: false
+      #     prerelease: false
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ${{runner.workspace}}/toulbar2/build/*.tar.gz
             ${{runner.workspace}}/toulbar2/build/*.deb
             ${{runner.workspace}}/toulbar2/build/*.rpm
 
-      # upload linux binaries artifact
-      # - uses: actions/upload-artifact@v4
-      #   with:
-      #     name: toulbar2_linux
-      #     path: |
-      #       ${{runner.workspace}}/toulbar2/build/*.tar.gz
-      #       ${{runner.workspace}}/toulbar2/build/*.deb
-      #       ${{runner.workspace}}/toulbar2/build/*.rpm
-      #     retention-days: 1
-
-      # - uses: ncipollo/release-action@v1
-      #   with:
-      #     artifacts: "release.tar.gz,foo/*.txt"
-      #     bodyFile: "body.md"
   

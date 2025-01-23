@@ -7,6 +7,8 @@ inputs:
     default: 'Release'
   run_tests:
     default: false
+  make_package:
+    default: false
   libtb2:
     default: 'ON'
   pytb2:
@@ -14,6 +16,8 @@ inputs:
   mpi:
     default: 'OFF'
   boost:
+    default: 'ON'
+  xml:
     default: 'ON'
   
 runs:
@@ -42,9 +46,10 @@ runs:
         BOOST: ${{ inputs.boost }}
         MPI: ${{ inputs.mpi }}
         PYTB2: ${{ inputs.pytb2 }}
+        XML: ${{ inputs.xml }}
       shell: bash
       working-directory: ${{runner.workspace}}/toulbar2/build
-      run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBoost=$BOOST -DLIBTB2=$LIBDTB2 -DMPI=$MPI -DPYTB2=$PYTB2 ..
+      run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBoost=$BOOST -DLIBTB2=$LIBDTB2 -DMPI=$MPI -DPYTB2=$PYTB2 -DXML=$XML ..
 
     - name: Build ToulBar2
       working-directory: ${{runner.workspace}}/toulbar2/build
@@ -56,3 +61,9 @@ runs:
       shell: bash
       if: ${{ inputs.run_tests == 'true' }}
       run: make test -j 4
+
+     - name: Make Packages
+      working-directory: ${{runner.workspace}}/toulbar2/build
+      shell: bash
+      if: ${{ inputs.make_package == 'true' }}
+      run: make package
