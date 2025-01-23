@@ -49,6 +49,7 @@ ENDIF (APPLE)
 	SET(CPACK_SOURCE_IGNORE_FILES "\\\\.swp$;/\\\\.gitignore;/build/;/\\\\.git/;/\\\\.svn/;/build;/bachckup;/_CPack_Packages/;/CMakeFiles/;/old/;\\\\.sh$;\\\\.zip$;\\\\.gz$;\\\\.bz2$")
 
 # CPack DEB configuration
+if (UNIX)
 	SET(CPACK_DEBIAN_PACKAGE_NAME ${Toulbar2_NAME})
 	SET(CPACK_DEBIAN_PACKAGE_VERSION ${CPACK_PACKAGE_VERSION})
 
@@ -76,7 +77,7 @@ ENDIF (APPLE)
 	SET(CPACK_RPM_PACKAGE_VENDOR "${Toulbar2_NAME} Development Team")
 	SET(CPACK_RPM_PACKAGE_LICENSE "MIT")
 	SET(CPACK_RPM_PACKAGE_DESCRIPTION "${Toulbar_PACKAGE_DESCRIPTION}")
-
+ENDIF()
 
 
 
