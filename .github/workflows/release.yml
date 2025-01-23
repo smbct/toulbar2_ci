@@ -83,6 +83,7 @@ jobs:
           xml: 'OFF'
           run_tests: true
           make_package: true
+          pytb2: 'OFF' # temporary
       - name: Upload windows packages
         uses: softprops/action-gh-release@v2
         with:
