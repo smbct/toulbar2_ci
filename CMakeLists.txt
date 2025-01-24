@@ -235,6 +235,7 @@ IF(PYTB2)
     EXECUTE_PROCESS(COMMAND "which" "python3" OUTPUT_VARIABLE Python3_ROOT_DIR OUTPUT_STRIP_TRAILING_WHITESPACE)
     MESSAGE(STATUS "set Python3_ROOT_DIR to ${Python3_ROOT_DIR}")
     SET(Python3_EXECUTABLE ${Python3_ROOT_DIR})
+    MESSAGE(STATUS "python executable: ${Python3_EXECUTABLE}")
   
   ELSE() # python on unix systems
 
@@ -252,9 +253,11 @@ IF(PYTB2)
   ENDIF()
 
   if(EXISTS "${Python3_EXECUTABLE}-config")
+    MESSAGE(STATUS "python config exe found")
     SET(Python3_config "${Python3_EXECUTABLE}-config")
     EXECUTE_PROCESS(COMMAND ${Python3_config} --extension-suffix OUTPUT_VARIABLE Python3_SUFFIX OUTPUT_STRIP_TRAILING_WHITESPACE)
   else()
+    MESSAGE(STATUS "python config exe not found")
     EXECUTE_PROCESS(COMMAND ${Python3_EXECUTABLE} -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))" OUTPUT_VARIABLE Python3_SUFFIX OUTPUT_STRIP_TRAILING_WHITESPACE)
   endif()
 
