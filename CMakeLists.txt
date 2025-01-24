@@ -232,7 +232,7 @@ IF(PYTB2)
   
   IF(WIN32) # force Windows to use msys python
   
-    EXECUTE_PROCESS(COMMAND "which" "python" OUTPUT_VARIABLE Python3_ROOT_DIR OUTPUT_STRIP_TRAILING_WHITESPACE)
+    EXECUTE_PROCESS(COMMAND "which" "python3" OUTPUT_VARIABLE Python3_ROOT_DIR OUTPUT_STRIP_TRAILING_WHITESPACE)
     MESSAGE(STATUS "set Python3_ROOT_DIR to ${Python3_ROOT_DIR}")
     SET(Python3_EXECUTABLE ${Python3_ROOT_DIR})
     MESSAGE(STATUS "python executable: ${Python3_EXECUTABLE}")
@@ -257,7 +257,9 @@ IF(PYTB2)
 
   # debug
   SET(Python3_config "${Python3_EXECUTABLE}-config")
-  EXECUTE_PROCESS(COMMAND ${Python3_config} --extension-suffix OUTPUT_VARIABLE TEST1)
+  EXECUTE_PROCESS(COMMAND$ {Python3_EXECUTABLE}-config --extension-suffix OUTPUT_VARIABLE TEST1)
+  MESSAGE(STATUS "python config test1: ${TEST1}")
+  EXECUTE_PROCESS(COMMAND$ {Python3_EXECUTABLE}-config OUTPUT_VARIABLE TEST1)
   MESSAGE(STATUS "python config test1: ${TEST1}")
   EXECUTE_PROCESS(COMMAND ${Python3_EXECUTABLE} -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))" OUTPUT_VARIABLE TEST2)
   MESSAGE(STATUS "python config test2: ${TEST2}")
