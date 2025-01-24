@@ -231,7 +231,7 @@ IF(PYTB2)
 
   # force Windows to use msys python
   IF(WIN32)
-    EXECUTE_PROCESS(COMMAND "which python" OUTPUT_VARIABLE Python3_ROOT_DIR)
+    EXECUTE_PROCESS(COMMAND "which" "python" OUTPUT_VARIABLE Python3_ROOT_DIR)
     MESSAGE(STATUS "set Python3_ROOT_DIR to ${Python3_ROOT_DIR}")
   ENDIF()
 
