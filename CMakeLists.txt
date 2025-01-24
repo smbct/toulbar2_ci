@@ -255,7 +255,16 @@ IF(PYTB2)
 
   ENDIF()
 
-  if(EXISTS "${Python3_EXECUTABLE}-config")
+  # debug
+  SET(Python3_config "${Python3_EXECUTABLE}-config")
+  EXECUTE_PROCESS(COMMAND ${Python3_config} --extension-suffix OUTPUT_VARIABLE TEST1)
+  MESSAGE(STATUS "python config test1: ${TEST1}")
+  EXECUTE_PROCESS(COMMAND ${Python3_EXECUTABLE} -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))" OUTPUT_VARIABLE TEST2)
+  MESSAGE(STATUS "python config test2: ${TEST2}")
+    
+
+
+  if(WIN32 OR EXISTS "${Python3_EXECUTABLE}-config")
     MESSAGE(STATUS "python config exe found")
     SET(Python3_config "${Python3_EXECUTABLE}-config")
     EXECUTE_PROCESS(COMMAND ${Python3_config} --extension-suffix OUTPUT_VARIABLE Python3_SUFFIX OUTPUT_STRIP_TRAILING_WHITESPACE)
