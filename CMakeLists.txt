@@ -237,7 +237,7 @@ IF(PYTB2)
     SET(Python3_EXECUTABLE ${Python3_ROOT_DIR})
     MESSAGE(STATUS "python executable: ${Python3_EXECUTABLE}")
   
-    EXECUTE_PROCESS(COMMAND ls "${Python3_config}*" OUTPUT_VARIABLE LS_TEST)
+    EXECUTE_PROCESS(COMMAND ls "${Python3_EXECUTABLE}*" OUTPUT_VARIABLE LS_TEST)
     MESSAGE(STATUS "ls test: ${LS_TEST}")
 
   ELSE() # python on unix systems
