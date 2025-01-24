@@ -228,6 +228,12 @@ IF(PYTB2)
     MESSAGE(WARNING "pytoulbar2 cannot be created with MPI flag: disabling parallel version")
   ENDIF()
   SET(LIBTB2 ON)
+
+  # force Windows to use msys python
+  IF(WIN32)
+    EXECUTE_PROCESS(COMMAND "which python" OUTPUT_VARIABLE Python3_ROOT_DIR)
+  ENDIF()
+
   SET(Python3_FIND_STRATEGY LOCATION)
   SET(Python3_FIND_FRAMEWORK NEVER)
   FIND_PACKAGE(Python3 COMPONENTS Interpreter Development)
