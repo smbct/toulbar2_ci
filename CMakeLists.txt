@@ -229,23 +229,27 @@ IF(PYTB2)
   ENDIF()
   SET(LIBTB2 ON)
 
-  # force Windows to use msys python
-  IF(WIN32)
+  
+  IF(WIN32) # force Windows to use msys python
+  
     EXECUTE_PROCESS(COMMAND "which" "python3" OUTPUT_VARIABLE Python3_ROOT_DIR OUTPUT_STRIP_TRAILING_WHITESPACE)
     MESSAGE(STATUS "set Python3_ROOT_DIR to ${Python3_ROOT_DIR}")
     SET(Python3_EXECUTABLE ${Python3_ROOT_DIR})
+  
+  ELSE() # python on unix systems
+
+    SET(Python3_FIND_STRATEGY LOCATION)
+    SET(Python3_FIND_FRAMEWORK NEVER)
+    FIND_PACKAGE(Python3 COMPONENTS Interpreter Development)
+
+    if(NOT Python3_Interpreter_FOUND)
+      MESSAGE(STATUS "Python3_Interpreter NOT FOUND")
+      SET(Python3_EXECUTABLE /usr/bin/python3)
+    else()
+      MESSAGE(STATUS "Python3_Interpreter FOUND")
+    endif()
+
   ENDIF()
-
-  SET(Python3_FIND_STRATEGY LOCATION)
-  SET(Python3_FIND_FRAMEWORK NEVER)
-  FIND_PACKAGE(Python3 COMPONENTS Interpreter Development)
-
-  if(NOT Python3_Interpreter_FOUND)
-    MESSAGE(STATUS "Python3_Interpreter NOT FOUND")
-    SET(Python3_EXECUTABLE /usr/bin/python3)
-  else()
-    MESSAGE(STATUS "Python3_Interpreter FOUND")
-  endif()
 
   if(EXISTS "${Python3_EXECUTABLE}-config")
     SET(Python3_config "${Python3_EXECUTABLE}-config")
