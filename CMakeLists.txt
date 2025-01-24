@@ -231,8 +231,9 @@ IF(PYTB2)
 
   # force Windows to use msys python
   IF(WIN32)
-    EXECUTE_PROCESS(COMMAND "which" "python" OUTPUT_VARIABLE Python3_ROOT_DIR)
+    EXECUTE_PROCESS(COMMAND "which" "python3" OUTPUT_VARIABLE Python3_ROOT_DIR OUTPUT_STRIP_TRAILING_WHITESPACE)
     MESSAGE(STATUS "set Python3_ROOT_DIR to ${Python3_ROOT_DIR}")
+    SET(Python3_EXECUTABLE ${Python3_ROOT_DIR})
   ENDIF()
 
   SET(Python3_FIND_STRATEGY LOCATION)
@@ -245,7 +246,6 @@ IF(PYTB2)
   else()
     MESSAGE(STATUS "Python3_Interpreter FOUND")
   endif()
-  MESSAGE(STATUS "Python3_EXECUTABLE: ${Python3_EXECUTABLE}")
 
   if(EXISTS "${Python3_EXECUTABLE}-config")
     SET(Python3_config "${Python3_EXECUTABLE}-config")
@@ -253,6 +253,8 @@ IF(PYTB2)
   else()
     EXECUTE_PROCESS(COMMAND ${Python3_EXECUTABLE} -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))" OUTPUT_VARIABLE Python3_SUFFIX OUTPUT_STRIP_TRAILING_WHITESPACE)
   endif()
+
+  MESSAGE(STATUS "python3 config output var: ${Python3_config}")
 
   MESSAGE(STATUS "Python3 suffix: ${Python3_SUFFIX}")
 
