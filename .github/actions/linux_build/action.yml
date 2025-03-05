@@ -34,7 +34,7 @@ runs:
         fi
     - name: install dependencies
       shell: bash
-      run: sudo apt install libboost-all-dev libgmp-dev zlib1g-dev liblzma-dev libjemalloc-dev libeigen3-dev
+      run: sudo apt install gmp-devel boost-devel zlib-devel bzip2-devel xz-devel libxml2-devel
 
     # MPI dependencies when applicable
     - name: install mpi
