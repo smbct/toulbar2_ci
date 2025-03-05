@@ -257,7 +257,7 @@ IF(PYTB2)
 
   # debug
   SET(Python3_config "${Python3_EXECUTABLE}-config")
-  EXECUTE_PROCESS(COMMAN$ {Python3_EXECUTABLE}-config --extension-suffix OUTPUT_VARIABLE TEST1)
+  EXECUTE_PROCESS(COMMAND {Python3_EXECUTABLE}-config --extension-suffix OUTPUT_VARIABLE TEST1)
   MESSAGE(STATUS "python config test1: ${TEST1}")
   EXECUTE_PROCESS(COMMAND {Python3_EXECUTABLE}-config OUTPUT_VARIABLE TEST1)
   MESSAGE(STATUS "python config test1: ${TEST1}")
