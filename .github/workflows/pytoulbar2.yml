@@ -13,6 +13,9 @@ jobs:
 
       - uses: actions/checkout@v4
 
+      - name: install pybind11
+        run: pip install pybind11[global]
+
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.23.0
         env:
