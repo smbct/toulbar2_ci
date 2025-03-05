@@ -29,8 +29,8 @@ class CMakeBuild(build_ext):
             raise RuntimeError("CMake must be installed to build the following extensions: " + ", ".join(e.name for e in self.extensions))
 
         cmake_version = LooseVersion(re.search(r"version\s*([\d.]+)", out.decode()).group(1))
-        # if cmake_version < LooseVersion("3.5.0"):
-        #     raise RuntimeError("CMake >= 3.5.0 is required")
+        if cmake_version < LooseVersion("3.13.0"):
+            raise RuntimeError("CMake >= 3.13.0 is required")
 
         for ext in self.extensions:
             self.build_extension(ext)

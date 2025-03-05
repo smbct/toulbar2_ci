@@ -13,9 +13,6 @@ jobs:
 
       - uses: actions/checkout@v4
 
-      - name: test Cmake version
-        run: cmake --version
-
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.23.0
         env:
