@@ -113,9 +113,13 @@ MESSAGE(STATUS "current CXX flags: ${CMAKE_CXX_FLAGS}")
 
 # -fsanitize=address -fsanitize=undefined -Wconversion -Wsign-conversion
 SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -ftrapping-math -fsanitize-undefined-trap-on-error -fsanitize=signed-integer-overflow -fsanitize=float-cast-overflow -g3" )
+
+MESSAGE(STATUS "current CMAKE_CXX flags release: ${CMAKE_CXX_FLAGS_RELEASE}") 
+
 SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native" ) #  -flto
 
 MESSAGE(STATUS "current CXX flags: ${CMAKE_CXX_FLAGS}") 
+MESSAGE(STATUS "current CMAKE_CXX flags release: ${CMAKE_CXX_FLAGS_RELEASE}") 
 
 
 IF(QUAD_PROBABILITY)
