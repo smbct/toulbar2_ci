@@ -44,9 +44,8 @@ jobs:
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.23.0
         env:
-          CIBW_BEFORE_BUILD: "python --version && softwareupdate -i \"Command Line Tools (macOS High Sierra version 10.13) for Xcode-10.1\" && brew install cmake gmp zlib xz boost pybind11 eigen && python3 -m pip install pybind11"
+          CIBW_BEFORE_BUILD: "python --version && softwareupdate -i \"Command Line Tools (macOS High Sierra version 10.13) for Xcode-10.1\" && brew install cmake gmp zlib xz boost pybind11 eigen && pip install -r dev-requirements.txt"
           HOMEBREW_NO_AUTO_UPDATE: 1
-          CIBW_BEFORE_BUILD: "pip install -r dev-requirements.txt"
           CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
           CIBW_SKIP: "*-manylinux*"
           CIBW_BUILD_VERBOSITY: 1
