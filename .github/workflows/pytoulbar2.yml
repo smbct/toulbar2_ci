@@ -39,12 +39,12 @@ jobs:
 
       - uses: actions/setup-python@v5 
         with:
-          python-version: 'pypy3.7' 
+          python-version: 'pypy3.7'  # 3.6 not compatible with current pybind11 version
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.23.0
         env:
-          CIBW_BEFORE_BUILD: "softwareupdate -i \"Command Line Tools (macOS High Sierra version 10.13) for Xcode-10.1\" && brew install cmake gmp zlib xz boost pybind11 eigen && python3 -m pip install pybind11"
+          CIBW_BEFORE_BUILD: "python --version && softwareupdate -i \"Command Line Tools (macOS High Sierra version 10.13) for Xcode-10.1\" && brew install cmake gmp zlib xz boost pybind11 eigen && python3 -m pip install pybind11"
           CIBW_BUILD_VERBOSITY: 1
 
 
