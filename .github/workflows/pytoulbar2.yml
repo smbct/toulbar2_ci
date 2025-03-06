@@ -25,7 +25,7 @@ jobs:
           CIBW_SKIP: "*-manylinux_i686* *-musllinux*"
           CIBW_BUILD_VERBOSITY: 1
           CIBW_BEFORE_TEST: "pip install pytest"
-          CIBW_TEST_COMMAND: "pip show pytoulbar2 ; pytest {package}/pytoulbar2/tests"
+          CIBW_TEST_COMMAND: "cp -r {package}/pytoulbar2/tests ./ && pytest ./tests"
 
 
 
