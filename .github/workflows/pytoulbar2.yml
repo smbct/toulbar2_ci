@@ -37,17 +37,13 @@ jobs:
 
       - uses: actions/checkout@v4
 
-      # - uses: actions/setup-python@v5 
-      #   with:
-      #     python-version: 'pypy3.7'  # 3.6 not compatible with current pybind11 version
-
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.23.0
         env:
-          CIBW_BEFORE_BUILD: "python --version && softwareupdate -i \"Command Line Tools (macOS High Sierra version 10.13) for Xcode-10.1\" && brew install cmake gmp zlib xz boost eigen && pip install -r dev-requirements.txt"
+          CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=13.0
+          CIBW_BEFORE_BUILD: "brew install cmake gmp zlib xz boost eigen && pip install -r dev-requirements.txt"
           HOMEBREW_NO_AUTO_UPDATE: 1
           CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
-          CIBW_SKIP: "*-manylinux*"
           CIBW_BUILD_VERBOSITY: 1
 
 
