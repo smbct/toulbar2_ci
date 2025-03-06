@@ -31,6 +31,7 @@ jobs:
 
 
   pytb2-macos-intel:
+    if: false
     name: pytoulbar2-macos-intel
     runs-on: macos-13
     steps:
@@ -46,11 +47,18 @@ jobs:
           CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
           CIBW_BUILD_VERBOSITY: 1
 
+  pytb2-macos-arm:
+    if: false
+    name: pytoulbar2-macos-arm
+    runs-on: macos-14
+    steps:
 
-          # CIBW_REPAIR_WHEEL_COMMAND: "bash ./travis/repair_linux_wheels.sh wheelhouse"
-          
-          
-          #   CIBW_SOME_OPTION: value
-          # - python3 -m cibuildwheel --output-dir wheelhouse
-          # - ls wheelhouse/
-          # - bash ./travis/repair_mac_wheels.sh wheelhouse
+      - uses: actions/checkout@v4
+
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.23.0
+        env:
+          CIBW_BEFORE_BUILD: "brew install cmake gmp zlib xz boost eigen && pip install -r dev-requirements.txt"
+          HOMEBREW_NO_AUTO_UPDATE: 1
+          CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
+          CIBW_BUILD_VERBOSITY: 1
