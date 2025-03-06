@@ -14,7 +14,7 @@ IF(CMAKE_VERSION VERSION_GREATER_EQUAL 3.27.0)
 cmake_policy(SET CMP0057 NEW)
 ENDIF()
 # IF(CMAKE_VERSION VERSION_GREATER_EQUAL 3.29.0) 
-# cmake_policy(SET CMP0167 NEW)
+cmake_policy(SET CMP0167 NEW)
 # ENDIF()
 
 
@@ -101,9 +101,9 @@ ELSE()
 ENDIF()
 
 IF(QUAD_PROBABILITY)
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++1z" )
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=gnu++20" )
 ELSE(QUAD_PROBABILITY)
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++1z" )
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++20" )
 ENDIF(QUAD_PROBABILITY)
 # -fsanitize=address -fsanitize=undefined -Wconversion -Wsign-conversion
 SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -ftrapping-math -fsanitize-undefined-trap-on-error -fsanitize=signed-integer-overflow -fsanitize=float-cast-overflow -g3" )
