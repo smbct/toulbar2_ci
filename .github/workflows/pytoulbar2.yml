@@ -48,7 +48,6 @@ jobs:
           CIBW_BUILD_VERBOSITY: 1
 
   pytb2-macos-arm:
-    if: false
     name: pytoulbar2-macos-arm
     runs-on: macos-14
     steps:
