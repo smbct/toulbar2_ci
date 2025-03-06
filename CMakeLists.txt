@@ -90,7 +90,8 @@ MARK_AS_ADVANCED(FORCE BENCH)
 IF(APPLE) # Find homebrew libraries first
   message(STATUS "Apple/MacOS system detected. Selecting homebrew libraries first.")
   set(CMAKE_PREFIX_PATH /usr/local)
-  # SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m64" )
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m64" )
+  MESSAGE(STATUS "current CXX flags: ${CMAKE_CXX_FLAGS}") 
   SET(STATIC OFF)
   SET(WITH_MEM_JEMALLOC OFF)
 ENDIF(APPLE)
@@ -107,9 +108,15 @@ IF(QUAD_PROBABILITY)
 ELSE(QUAD_PROBABILITY)
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++20" )
 ENDIF(QUAD_PROBABILITY)
+
+MESSAGE(STATUS "current CXX flags: ${CMAKE_CXX_FLAGS}") 
+
 # -fsanitize=address -fsanitize=undefined -Wconversion -Wsign-conversion
 SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -ftrapping-math -fsanitize-undefined-trap-on-error -fsanitize=signed-integer-overflow -fsanitize=float-cast-overflow -g3" )
 SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native" ) #  -flto
+
+MESSAGE(STATUS "current CXX flags: ${CMAKE_CXX_FLAGS}") 
+
 
 IF(QUAD_PROBABILITY)
   SET (all_depends  ${all_depends} "quadmath") 
@@ -123,6 +130,8 @@ IF(CPLEX)
   SET(CPLEXFLAGS "-fPIC -fexceptions -fno-strict-aliasing -DILOGCPLEX -DIL_STD -DILOSTRICTPOD -pthread -I${CPLEX_LOCATION}/cplex/include -I${CPLEX_LOCATION}/concert/include")
   SET(CPLEXLIB "-L${CPLEX_LOCATION}/cplex/lib/x86-64_linux/static_pic -L${CPLEX_LOCATION}/concert/lib/x86-64_linux/static_pic") 
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CPLEXFLAGS}")
+  MESSAGE(STATUS "current CXX flags: ${CMAKE_CXX_FLAGS}") 
+
   SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${CPLEXLIB}")
   SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${CPLEXLIB}")
   SET (all_depends  ${all_depends} "ilocplex") 
@@ -485,6 +494,8 @@ ADD_CUSTOM_TARGET(link_pytb2_ex ALL
 ELSE(LIBTB2)
   IF(NOT(XCSP3 AND XML))
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DWCSPFORMATONLY" )
+    MESSAGE(STATUS "current CXX flags: ${CMAKE_CXX_FLAGS}") 
+
   ENDIF(NOT(XCSP3 AND XML))
 ENDIF(LIBTB2)
 
