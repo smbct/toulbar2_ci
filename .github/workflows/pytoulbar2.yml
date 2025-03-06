@@ -5,29 +5,30 @@ on:
 
 jobs:
 
+
+
   pytb2-linux:
-    if: false
+    # if: false
     name: pytoulbar2-linux
     runs-on: ubuntu-latest
     steps:
-
       - uses: actions/checkout@v4
-
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.23.0
         env:
           CIBW_BEFORE_BUILD: "yum -y install gmp-devel boost169-devel zlib-devel bzip2-devel xz-devel libxml2-devel eigen3-devel && pip install -r dev-requirements.txt"
           CIBW_ENVIRONMENT: BOOST_INCLUDEDIR=/usr/include/boost169 BOOST_LIBRARYDIR=/usr/lib64/boost169
-          CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
+          
+          CIBW_BUILD: "cp36-*"
+          # CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
+
           CIBW_SKIP: "*-manylinux_i686* *-musllinux*"
           CIBW_BUILD_VERBOSITY: 1
-          # CIBW_REPAIR_WHEEL_COMMAND: "bash ./travis/repair_linux_wheels.sh wheelhouse"
-          
-          
-          #   CIBW_SOME_OPTION: value
-          # - python3 -m cibuildwheel --output-dir wheelhouse
-          # - ls wheelhouse/
-          # - bash ./travis/repair_mac_wheels.sh wheelhouse
+          CIBW_BEFORE_TEST: "pip install pytest"
+          CIBW_TEST_COMMAND: "pip show pytoulbar2 ; pytest {package}/pytoulbar2/tests"
+
+
+
 
 
   pytb2-macos-intel:
@@ -35,9 +36,7 @@ jobs:
     name: pytoulbar2-macos-intel
     runs-on: macos-13
     steps:
-
       - uses: actions/checkout@v4
-
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.23.0
         env:
@@ -48,18 +47,19 @@ jobs:
           CIBW_BUILD_VERBOSITY: 1
 
 
+
+
   pytb2-macos-arm:
+    if: false
     name: pytoulbar2-macos-arm
     runs-on: macos-14
     steps:
-
       - uses: actions/checkout@v4
-
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.23.0
         env:
           CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=14.0 CMAKE_APPLE_SILICON_PROCESSOR=arm64
-          CIBW_BEFORE_BUILD: "cmake --system-information | grep CMAKE_HOST_SYSTEM_PROCESSOR && brew install cmake gmp zlib xz boost eigen && pip install -r dev-requirements.txt"
+          CIBW_BEFORE_BUILD: "brew install cmake gmp zlib xz boost eigen && pip install -r dev-requirements.txt"
           HOMEBREW_NO_AUTO_UPDATE: 1
           CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
           CIBW_BUILD_VERBOSITY: 1
