@@ -6,7 +6,7 @@ on:
 jobs:
 
   pytb2-linux:
-    
+    if: false
     name: pytoulbar2-linux
     runs-on: ubuntu-latest
     steps:
@@ -21,6 +21,29 @@ jobs:
           CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
           CIBW_SKIP: "*-manylinux_i686* *-musllinux*"
           CIBW_BUILD_VERBOSITY: 1
+          # CIBW_REPAIR_WHEEL_COMMAND: "bash ./travis/repair_linux_wheels.sh wheelhouse"
+          
+          
+          #   CIBW_SOME_OPTION: value
+          # - python3 -m cibuildwheel --output-dir wheelhouse
+          # - ls wheelhouse/
+          # - bash ./travis/repair_mac_wheels.sh wheelhouse
+
+
+    pytb2-macos-intel:
+    name: pytoulbar2-macos-intel
+    runs-on: macos-13
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.23.0
+        env:
+          CIBW_BEFORE_BUILD: "softwareupdate -i \"Command Line Tools (macOS High Sierra version 10.13) for Xcode-10.1\" && travis_wait && brew install cmake gmp zlib xz boost pybind11 && python3 -m pip install pybind11"
+          CIBW_BUILD_VERBOSITY: 1
+
+
           # CIBW_REPAIR_WHEEL_COMMAND: "bash ./travis/repair_linux_wheels.sh wheelhouse"
           
           
