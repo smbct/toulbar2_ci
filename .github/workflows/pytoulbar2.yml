@@ -30,7 +30,7 @@ jobs:
           # - bash ./travis/repair_mac_wheels.sh wheelhouse
 
 
-    pytb2-macos-intel:
+  pytb2-macos-intel:
     name: pytoulbar2-macos-intel
     runs-on: macos-13
     steps:
