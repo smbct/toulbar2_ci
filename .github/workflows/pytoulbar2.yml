@@ -46,9 +46,9 @@ jobs:
           CIBW_BEFORE_BUILD: "brew install cmake gmp zlib xz boost eigen && pip3 install --upgrade pip && pip install -r dev-requirements.txt && python3 -c \"from distutils import util; print(util.get_platform())\""
           HOMEBREW_NO_AUTO_UPDATE: 1
 
-          # CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
+          CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
           
-          CIBW_BUILD: "cp36-*"
+          # CIBW_BUILD: "cp36-*"
 
           CIBW_BUILD_VERBOSITY: 1
 
