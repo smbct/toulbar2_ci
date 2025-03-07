@@ -45,7 +45,7 @@ jobs:
 
 
 
-          CIBW_PROJECT_REQUIRES_PYTHON: "=3.6.8"
+          CIBW_PROJECT_REQUIRES_PYTHON: "==3.6.8"
 
 
 
