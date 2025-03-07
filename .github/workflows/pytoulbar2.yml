@@ -32,7 +32,7 @@ jobs:
 
 
   pytb2-macos-intel:
-    if: false
+    # if: false
     name: pytoulbar2-macos-intel
     runs-on: macos-13
     steps:
@@ -43,14 +43,20 @@ jobs:
           CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=13.0
           CIBW_BEFORE_BUILD: "brew install cmake gmp zlib xz boost eigen && pip install -r dev-requirements.txt"
           HOMEBREW_NO_AUTO_UPDATE: 1
+
+          # CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
           CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
+
           CIBW_BUILD_VERBOSITY: 1
+
+          CIBW_BEFORE_TEST: "pip install pytest"
+          CIBW_TEST_COMMAND: "cp -r {package}/pytoulbar2/tests ./ && pytest ./tests"
 
 
 
 
   pytb2-macos-arm:
-    if: false
+    # if: false
     name: pytoulbar2-macos-arm
     runs-on: macos-14
     steps:
@@ -61,5 +67,11 @@ jobs:
           CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=14.0 CMAKE_APPLE_SILICON_PROCESSOR=arm64
           CIBW_BEFORE_BUILD: "brew install cmake gmp zlib xz boost eigen && pip install -r dev-requirements.txt"
           HOMEBREW_NO_AUTO_UPDATE: 1
-          CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
+          
+          # CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
+          CIBW_BUILD: "cp36-*"
+
           CIBW_BUILD_VERBOSITY: 1
+
+          CIBW_BEFORE_TEST: "pip install pytest"
+          CIBW_TEST_COMMAND: "cp -r {package}/pytoulbar2/tests ./ && pytest ./tests"
