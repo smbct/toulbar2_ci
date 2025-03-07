@@ -41,18 +41,19 @@ jobs:
         uses: pypa/cibuildwheel@v2.23.0
         env:
           
-          # CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=10.9
+          CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=13.0
+
 
           CIBW_BEFORE_BUILD: "brew install cmake gmp zlib xz boost eigen && pip3 install --upgrade pip && pip install -r dev-requirements.txt && python3 -c \"from distutils import util; print(util.get_platform())\" && python -sSc 'import platform; print(platform.machine())'"
           HOMEBREW_NO_AUTO_UPDATE: 1
 
           # CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
           
-          CIBW_BUILD: "cp37-*"
+          CIBW_BUILD: "cp36-*"
 
           CIBW_BUILD_VERBOSITY: 1
 
-          CIBW_REPAIR_WHEEL_COMMAND: "delocate-listdeps --all {wheel} && export MACOSX_DEPLOYMENT_TARGET=$(python -sSc \"from distutils import util; print(util.get_platform().split('-')[1])\") && echo $MACOSX_DEPLOYMENT_TARGET && delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel}"
+          # CIBW_REPAIR_WHEEL_COMMAND: "delocate-listdeps --all {wheel} && export MACOSX_DEPLOYMENT_TARGET=$(python -sSc \"from distutils import util; print(util.get_platform().split('-')[1])\") && echo $MACOSX_DEPLOYMENT_TARGET && delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel}"
 
           CIBW_BEFORE_TEST: "pip install pytest"
 
