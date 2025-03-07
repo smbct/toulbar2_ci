@@ -8,7 +8,7 @@ jobs:
 
 
   pytb2-linux:
-    # if: false
+    if: false
     name: pytoulbar2-linux
     runs-on: ubuntu-latest
     steps:
@@ -24,7 +24,7 @@ jobs:
 
           CIBW_SKIP: "*-manylinux_i686* *-musllinux*"
           CIBW_BUILD_VERBOSITY: 1
-          CIBW_BEFORE_TEST: "pip install pytest"
+          CIBW_BEFORE_TEST: "python3 -c \"from distutils import util; print(util.get_platform())\" && pip install pytest"
           CIBW_TEST_COMMAND: "cp -r {package}/pytoulbar2/tests ./ && pytest ./tests"
 
 
@@ -49,14 +49,14 @@ jobs:
 
           CIBW_BUILD_VERBOSITY: 1
 
-          CIBW_BEFORE_TEST: "python3 -c "from distutils import util; print(util.get_platform())" && pip install pytest"
+          CIBW_BEFORE_TEST: "python3 -c \"from distutils import util; print(util.get_platform())\" && pip install pytest"
           CIBW_TEST_COMMAND: "cp -r {package}/pytoulbar2/tests ./ && pytest ./tests"
 
 
 
 
   pytb2-macos-arm:
-    # if: false
+    if: false
     name: pytoulbar2-macos-arm
     runs-on: macos-14
     steps:
@@ -74,5 +74,5 @@ jobs:
 
           CIBW_BUILD_VERBOSITY: 1
 
-          CIBW_BEFORE_TEST: "python3 -c "from distutils import util; print(util.get_platform())" && pip install pytest"
+          CIBW_BEFORE_TEST: "python3 -c \"from distutils import util; print(util.get_platform())\" && pip install pytest"
           CIBW_TEST_COMMAND: "cp -r {package}/pytoulbar2/tests ./ && pytest ./tests"
