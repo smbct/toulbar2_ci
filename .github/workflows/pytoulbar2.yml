@@ -52,7 +52,7 @@ jobs:
 
           CIBW_BUILD_VERBOSITY: 1
 
-          CIBW_BEFORE_TEST: "python3 -c \"from distutils import util; print(util.get_platform())\" && lipo -info /usr/bin/python && pip install pytest"
+          CIBW_BEFORE_TEST: "python3 -c \"from distutils import util; print(util.get_platform())\" && lipo -info $(which python) && pip install pytest && delocate-listdeps --all {wheel}"
           CIBW_TEST_COMMAND: "cp -r {package}/pytoulbar2/tests ./ && pytest ./tests"
 
 
