@@ -8,7 +8,7 @@ jobs:
 
 
   pytb2-linux:
-    if: false
+    # if: false
     name: pytoulbar2-linux
     runs-on: ubuntu-latest
     steps:
@@ -56,7 +56,7 @@ jobs:
 
 
   pytb2-macos-arm:
-    if: false
+    # if: false
     name: pytoulbar2-macos-arm
     runs-on: macos-14
     steps:
