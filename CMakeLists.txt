@@ -43,6 +43,9 @@ IF(NOT CMAKE_BUILD_TYPE)
       "Choose the build type, options are: None Debug Release RelWithDebInfo MinSizeRel."
     FORCE)
 ENDIF(NOT CMAKE_BUILD_TYPE)
+
+MESSAGE(STATUS "Host system processor architecture: ${CMAKE_HOST_SYSTEM_PROCESSOR}")
+
 MESSAGE(STATUS "MAKE_BUILD_TYPE : ${CMAKE_BUILD_TYPE}")
 MESSAGE(STATUS "##########################################")
 
@@ -114,9 +117,9 @@ MESSAGE(STATUS "current CXX flags: ${CMAKE_CXX_FLAGS}")
 # -fsanitize=address -fsanitize=undefined -Wconversion -Wsign-conversion
 SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -ftrapping-math -fsanitize-undefined-trap-on-error -fsanitize=signed-integer-overflow -fsanitize=float-cast-overflow -g3" )
 
-MESSAGE(STATUS "current CMAKE_CXX flags release: ${CMAKE_CXX_FLAGS_RELEASE}") 
+MESSAGE(STATUS "current CMAKE_CXX flags release: ${CMAKE_CXX_FLAGS_RELEASE}")
 
-MESSAGE(STATUS "test cmake_host_system_processor: ${CMAKE_HOST_SYSTEM_PROCESSOR}")
+
 IF(NOT CMAKE_HOST_SYSTEM_PROCESSOR STREQUAL "arm64")
   SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native" ) #  -flto
 ENDIF()
