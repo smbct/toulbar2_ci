@@ -52,7 +52,7 @@ jobs:
 
           CIBW_BUILD_VERBOSITY: 1
 
-          CIBW_REPAIR_WHEEL_COMMAND: "delocate-listdeps --all {wheel} && export MACOSX_DEPLOYMENT_TARGET=$(python -sSc 'import platform; print(platform.mac_ver()[0])') && echo $MACOSX_DEPLOYMENT_TARGET && delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel}"
+          CIBW_REPAIR_WHEEL_COMMAND: "delocate-listdeps --all {wheel} &&  export MACOSX_DEPLOYMENT_TARGET=$(python3 -sSc 'from distutils import util; print(util.get_platform().split('-')[1])') && echo $MACOSX_DEPLOYMENT_TARGET && delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel}"
 
           CIBW_BEFORE_TEST: "pip install pytest"
 
