@@ -8,7 +8,7 @@ jobs:
 
 
   pytb2-linux:
-    # if: false
+    if: false
     name: pytoulbar2-linux
     runs-on: ubuntu-latest
     steps:
@@ -49,14 +49,14 @@ jobs:
 
           CIBW_BUILD_VERBOSITY: 1
 
-          CIBW_BEFORE_TEST: "pip install pytest"
+          CIBW_BEFORE_TEST: "python3 -c "from distutils import util; print(util.get_platform())" && pip install pytest"
           CIBW_TEST_COMMAND: "cp -r {package}/pytoulbar2/tests ./ && pytest ./tests"
 
 
 
 
   pytb2-macos-arm:
-    # if: false
+    if: false
     name: pytoulbar2-macos-arm
     runs-on: macos-14
     steps:
@@ -68,10 +68,11 @@ jobs:
           CIBW_BEFORE_BUILD: "brew install cmake gmp zlib xz boost eigen && pip install -r dev-requirements.txt"
           HOMEBREW_NO_AUTO_UPDATE: 1
           
-          # CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
-          CIBW_BUILD: "cp36-* cp37-*"
+          # starts from cpython 3.9
+          # CIBW_BUILD: "cp39-* cp310-* cp311-*"
+          CIBW_BUILD: "cp39-*"
 
           CIBW_BUILD_VERBOSITY: 1
 
-          CIBW_BEFORE_TEST: "pip install pytest"
+          CIBW_BEFORE_TEST: "python3 -c "from distutils import util; print(util.get_platform())" && pip install pytest"
           CIBW_TEST_COMMAND: "cp -r {package}/pytoulbar2/tests ./ && pytest ./tests"
