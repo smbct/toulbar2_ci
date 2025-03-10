@@ -45,7 +45,8 @@ jobs:
 
           # with cpython 3.7, the min macos version cannot be 10.9
 
-          CIBW_BEFORE_BUILD: "softwareupdate --list && softwareupdate -i \"Command Line Tools (macOS High Sierra version 10.13) for Xcode-10.1\" && brew install cmake gmp zlib xz boost eigen && pip install -r dev-requirements.txt && python3 -c \"from distutils import util; print(util.get_platform())\" && python -sSc 'import platform; print(platform.machine())'"
+          CIBW_BEFORE_BUILD: "brew install cmake gmp zlib xz boost eigen && pip install -r dev-requirements.txt && python3 -c \"from distutils import util; print(util.get_platform())\" && python -sSc 'import platform; print(platform.machine())'"
+
           HOMEBREW_NO_AUTO_UPDATE: 1
 
           # CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
@@ -56,7 +57,10 @@ jobs:
 
           # CIBW_REPAIR_WHEEL_COMMAND: "delocate-listdeps --all {wheel} && export MACOSX_DEPLOYMENT_TARGET=13 && delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel}"
 
-          CIBW_REPAIR_WHEEL_COMMAND: "bash {package}/travis/repair_mac_wheels_mod.sh {wheel}"
+          # CIBW_REPAIR_WHEEL_COMMAND: "bash {package}/travis/repair_mac_wheels_mod.sh {wheel}"
+
+          CIBW_REPAIR_WHEEL_COMMAND: "pwd && ls"
+
 
           CIBW_BEFORE_TEST: "pip install pytest"
 
