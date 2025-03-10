@@ -32,7 +32,7 @@ jobs:
 
 
   pytb2-macos-intel:
-    if: false
+    # if: false
     name: pytoulbar2-macos-intel
     runs-on: macos-13
     steps:
@@ -56,9 +56,9 @@ jobs:
 
           CIBW_BUILD_VERBOSITY: 1
 
-          CIBW_REPAIR_WHEEL_COMMAND: "delocate-listdeps --all {wheel} && export MACOSX_DEPLOYMENT_TARGET=13 && delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel}"
+          # CIBW_REPAIR_WHEEL_COMMAND: "delocate-listdeps --all {wheel} && export MACOSX_DEPLOYMENT_TARGET=13 && delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel}"
 
-          # CIBW_REPAIR_WHEEL_COMMAND: "bash {package}/travis/repair_mac_wheels.sh {wheel}"
+          CIBW_REPAIR_WHEEL_COMMAND: "bash {package}/travis/repair_mac_wheels_mod.sh {wheel}"
 
           CIBW_BEFORE_TEST: "pip install pytest"
 
@@ -91,46 +91,22 @@ jobs:
 
 
 
-  # pytb2-windows:
-  #   # if: false
-  #   name: pytoulbar2-windows
-  #   runs-on: windows-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
 
-  #     - name: Build wheels
-  #       uses: pypa/cibuildwheel@v2.23.0
-  #       env:
-
-  #         CIBW_BEFORE_BUILD: "choco install boost-msvc-14.2 -f -y && pip install pybind11[global]"
-          
-  #         HOMEBREW_NO_AUTO_UPDATE: 1
-          
-  #         # CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
-  #         CIBW_BUILD: "cp36-*"
-
-  #         CIBW_BUILD_VERBOSITY: 1
-
-  #         # CIBW_BEFORE_TEST: "python3 -c \"from distutils import util; print(util.get_platform())\" && pip install pytest"
-  #         # CIBW_TEST_COMMAND: "cp -r {package}/pytoulbar2/tests ./ && pytest ./tests"
 
 
   pytb2-windows:
-
+    if: false
     name: pytoulbar2-windows
-
     runs-on: windows-latest
-
     steps:
 
       - uses: actions/checkout@v4
-
       - uses: msys2/setup-msys2@v2
         with:
           msystem: UCRT64
           update: true
           install: git mingw-w64-ucrt-x86_64-gcc ucrt64/mingw-w64-ucrt-x86_64-cmake mingw-w64-ucrt-x86_64-python mingw-w64-ucrt-x86_64-python-pip ucrt64/mingw-w64-ucrt-x86_64-pybind11 ucrt64/mingw-w64-ucrt-x86_64-boost ucrt64/mingw-w64-ucrt-x86_64-bc ucrt64/mingw-w64-ucrt-x86_64-eigen3
-
+          
       - name: build
         shell: msys2 {0}
         run: "which python3 && python3 -m venv build_env && source ./build_env/bin/activate && pip3 debug --verbose && pip3 wheel ./ --no-deps -w wheelhouse -v"
