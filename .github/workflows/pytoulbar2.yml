@@ -130,10 +130,11 @@ jobs:
           # install: git mingw-w64-ucrt-x86_64-gcc ucrt64/mingw-w64-ucrt-x86_64-cmake python ucrt64/mingw-w64-ucrt-x86_64-pybind11 ucrt64/mingw-w64-ucrt-x86_64-boost ucrt64/mingw-w64-ucrt-x86_64-bc ucrt64/mingw-w64-ucrt-x86_64-eigen3
 
       - name: dep
+        shell: msys2 {0}
         run: pip install cibuildwheel
 
       - name: build pytb2
-
+        shell: msys2 {0}
         env:
           # CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
           CIBW_BUILD: "cp36-*"
