@@ -257,9 +257,6 @@ IF(PYTB2)
     MESSAGE(STATUS "set Python3_ROOT_DIR to ${Python3_ROOT_DIR}")
     SET(Python3_EXECUTABLE ${Python3_ROOT_DIR})
     MESSAGE(STATUS "python executable: ${Python3_EXECUTABLE}")
-  
-    EXECUTE_PROCESS(COMMAND ls -la "${Python3_EXECUTABLE}*" OUTPUT_VARIABLE LS_TEST)
-    MESSAGE(STATUS "ls test: ${LS_TEST}")
 
   ELSE() # python on unix systems
 
@@ -276,62 +273,19 @@ IF(PYTB2)
 
   ENDIF()
 
-  # debug
-  SET(Python3_config "${Python3_EXECUTABLE}-config")
-  EXECUTE_PROCESS(COMMAND {Python3_EXECUTABLE}-config --extension-suffix OUTPUT_VARIABLE TEST1)
-  MESSAGE(STATUS "python config test1: ${TEST1}")
-
-  EXECUTE_PROCESS(COMMAND "cygpath" "-m" "${Python3_config}" OUTPUT_VARIABLE PYCONF_PATH)
-  MESSAGE(STATUS "python config windows path: ${PYCONF_PATH}")
-
-  EXECUTE_PROCESS(COMMAND {Python3_EXECUTABLE}-config OUTPUT_VARIABLE TEST1 OUTPUT_STRIP_TRAILING_WHITESPACE ECHO_OUTPUT_VARIABLE)
-  MESSAGE(STATUS "python config test1: ${TEST1}")
-
-  EXECUTE_PROCESS(COMMAND ${Python3_EXECUTABLE} -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))" OUTPUT_VARIABLE TEST2 OUTPUT_STRIP_TRAILING_WHITESPACE ECHO_OUTPUT_VARIABLE)
-  MESSAGE(STATUS "python config test2: ${TEST2}")
-
-  EXECUTE_PROCESS(COMMAND python3-config --extension-suffix OUTPUT_VARIABLE TEST1 ECHO_OUTPUT_VARIABLE)
-  MESSAGE(STATUS "python config test1: ${TEST1}")
-
-
-  # if(WIN32 OR EXISTS "${Python3_EXECUTABLE}-config")
-  #   MESSAGE(STATUS "python config exe found")
-  #   SET(Python3_config "${Python3_EXECUTABLE}-config")
-  #   EXECUTE_PROCESS(COMMAND ${Python3_config} --extension-suffix OUTPUT_VARIABLE Python3_SUFFIX OUTPUT_STRIP_TRAILING_WHITESPACE)
-  # else()
-  #   MESSAGE(STATUS "python config exe not found")
-  #   EXECUTE_PROCESS(COMMAND ${Python3_EXECUTABLE} -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))" OUTPUT_VARIABLE Python3_SUFFIX OUTPUT_STRIP_TRAILING_WHITESPACE)
-  # endif()
-
-  # if(EXISTS "${Python3_EXECUTABLE}-config")
+  if(EXISTS "${Python3_EXECUTABLE}-config")
     SET(Python3_config "${Python3_EXECUTABLE}-config")
-    EXECUTE_PROCESS(COMMAND ${Python3_config} --extension-suffix OUTPUT_VARIABLE Python3_SUFFIX OUTPUT_STRIP_TRAILING_WHITESPACE ECHO_OUTPUT_VARIABLE)
-  # else()
-    EXECUTE_PROCESS(COMMAND ${Python3_EXECUTABLE} -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))" OUTPUT_VARIABLE Python3_SUFFIX OUTPUT_STRIP_TRAILING_WHITESPACE ECHO_OUTPUT_VARIABLE)
-  # endif()
-
-  MESSAGE(STATUS "\n\n")
-
-  MESSAGE(STATUS "python3 config output var: ${Python3_config}")
-  
-  EXECUTE_PROCESS(COMMAND sh -c "${Python3_config} --extension-suffix" OUTPUT_VARIABLE TEST1 RESULT_VARIABLE TEST2 ERROR_VARIABLE TEST3 ECHO_OUTPUT_VARIABLE ECHO_OUTPUT_VARIABLE ECHO_ERROR_VARIABLE OUTPUT_STRIP_TRAILING_WHITESPACE)
-
-  MESSAGE(STATUS "test command python config: ${TEST1} ${TEST2} ${TEST3}")
-
-  EXECUTE_PROCESS(COMMAND sh -c "info ${PYCONF_PATH}" ECHO_OUTPUT_VARIABLE OUTPUT_STRIP_TRAILING_WHITESPACE)
-
-  MESSAGE(STATUS "info cmd: ${TEST1} ${TEST2} ${TEST3}")
+    EXECUTE_PROCESS(COMMAND sh -c "${Python3_config} --extension-suffix" OUTPUT_VARIABLE Python3_SUFFIX OUTPUT_STRIP_TRAILING_WHITESPACE ECHO_OUTPUT_VARIABLE)
+  else()
+    EXECUTE_PROCESS(COMMAND sh -c "${Python3_EXECUTABLE} -c \"import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))\"" OUTPUT_VARIABLE Python3_SUFFIX OUTPUT_STRIP_TRAILING_WHITESPACE ECHO_OUTPUT_VARIABLE)
+  endif()
 
 
   MESSAGE(STATUS "\n\n")
-  
- 
-
   MESSAGE(STATUS "Python3 suffix: ${Python3_SUFFIX}")
-
   MESSAGE(STATUS "CMake version: ${CMAKE_VERSION}")
 
-  SET(Python3_SUFFIX ".test")
+  
 
   IF(CMAKE_VERSION VERSION_GREATER_EQUAL 3.27.0) ### New cmake and python and pybind11
 	FIND_PACKAGE(pybind11 REQUIRED)
