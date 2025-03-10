@@ -135,7 +135,11 @@ jobs:
         shell: msys2 {0}
         run: "pip3 wheel ./ --no-deps -w wheelhouse -v"
 
+      - name: wheel repair
+        shell: msys2 {0}
+        run: pip install delvewheel && delvewheel show ./wheelhouse/*.whl && delvewheel repair ./wheelhouse/*.whl
+
       - uses: actions/upload-artifact@v4
         with:
-          name: wheels
+          name: pytoulbar2-windows
           path: ./wheelhouse/*.whl
