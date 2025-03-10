@@ -101,7 +101,7 @@ jobs:
         uses: pypa/cibuildwheel@v2.23.0
         env:
 
-          CIBW_BEFORE_BUILD: ""
+          CIBW_BEFORE_BUILD: "pip install pybind11"
           
           HOMEBREW_NO_AUTO_UPDATE: 1
           
