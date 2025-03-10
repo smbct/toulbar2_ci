@@ -116,7 +116,7 @@ jobs:
 
 
   pytb2-windows:
-
+  
     name: pytoulbar2-windows
 
     runs-on: windows-latest
