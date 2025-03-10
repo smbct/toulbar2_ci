@@ -280,10 +280,13 @@ IF(PYTB2)
   SET(Python3_config "${Python3_EXECUTABLE}-config")
   EXECUTE_PROCESS(COMMAND {Python3_EXECUTABLE}-config --extension-suffix OUTPUT_VARIABLE TEST1)
   MESSAGE(STATUS "python config test1: ${TEST1}")
+
   EXECUTE_PROCESS(COMMAND {Python3_EXECUTABLE}-config OUTPUT_VARIABLE TEST1 OUTPUT_STRIP_TRAILING_WHITESPACE ECHO_OUTPUT_VARIABLE)
   MESSAGE(STATUS "python config test1: ${TEST1}")
+
   EXECUTE_PROCESS(COMMAND ${Python3_EXECUTABLE} -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))" OUTPUT_VARIABLE TEST2 OUTPUT_STRIP_TRAILING_WHITESPACE ECHO_OUTPUT_VARIABLE)
   MESSAGE(STATUS "python config test2: ${TEST2}")
+
   EXECUTE_PROCESS(COMMAND python3-config --extension-suffix OUTPUT_VARIABLE TEST1 ECHO_OUTPUT_VARIABLE)
   MESSAGE(STATUS "python config test1: ${TEST1}")
 
@@ -304,6 +307,11 @@ IF(PYTB2)
     EXECUTE_PROCESS(COMMAND ${Python3_EXECUTABLE} -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))" OUTPUT_VARIABLE Python3_SUFFIX OUTPUT_STRIP_TRAILING_WHITESPACE ECHO_OUTPUT_VARIABLE)
   # endif()
 
+  EXECUTE_PROCESS(COMMAND ${Python3_config} --extension-suffix OUTPUT_VARIABLE TEST1 OUTPUT_STRIP_TRAILING_WHITESPACE ECHO_OUTPUT_VARIABLE)
+  MESSAGE(STATUS "test command python config: ${TEST1}")
+
+
+  
   MESSAGE(STATUS "python3 config output var: ${Python3_config}")
 
   MESSAGE(STATUS "Python3 suffix: ${Python3_SUFFIX}")
