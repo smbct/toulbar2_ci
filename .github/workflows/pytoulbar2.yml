@@ -128,6 +128,7 @@ jobs:
           msystem: UCRT64
           update: true
           # install: git mingw-w64-ucrt-x86_64-gcc ucrt64/mingw-w64-ucrt-x86_64-cmake python ucrt64/mingw-w64-ucrt-x86_64-pybind11 ucrt64/mingw-w64-ucrt-x86_64-boost ucrt64/mingw-w64-ucrt-x86_64-bc ucrt64/mingw-w64-ucrt-x86_64-eigen3
+          install: python python-pip
 
       - name: dep
         shell: msys2 {0}
