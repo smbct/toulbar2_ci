@@ -91,25 +91,41 @@ jobs:
 
 
 
+  # pytb2-windows:
+  #   # if: false
+  #   name: pytoulbar2-windows
+  #   runs-on: windows-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+
+  #     - name: Build wheels
+  #       uses: pypa/cibuildwheel@v2.23.0
+  #       env:
+
+  #         CIBW_BEFORE_BUILD: "choco install boost-msvc-14.2 -f -y && pip install pybind11[global]"
+          
+  #         HOMEBREW_NO_AUTO_UPDATE: 1
+          
+  #         # CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
+  #         CIBW_BUILD: "cp36-*"
+
+  #         CIBW_BUILD_VERBOSITY: 1
+
+  #         # CIBW_BEFORE_TEST: "python3 -c \"from distutils import util; print(util.get_platform())\" && pip install pytest"
+  #         # CIBW_TEST_COMMAND: "cp -r {package}/pytoulbar2/tests ./ && pytest ./tests"
+
+
   pytb2-windows:
-    # if: false
-    name: pytoulbar2-windows
+
     runs-on: windows-latest
+
     steps:
-      - uses: actions/checkout@v4
 
-      - name: Build wheels
-        uses: pypa/cibuildwheel@v2.23.0
-        env:
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: git mingw-w64-ucrt-x86_64-gcc ucrt64/mingw-w64-ucrt-x86_64-cmake python ucrt64/mingw-w64-ucrt-x86_64-pybind11 ucrt64/mingw-w64-ucrt-x86_64-boost ucrt64/mingw-w64-ucrt-x86_64-bc ucrt64/mingw-w64-ucrt-x86_64-eigen3
 
-          CIBW_BEFORE_BUILD: "choco install choco install boost-msvc-14.2 -f -y && pip install pybind11[global]"
-          
-          HOMEBREW_NO_AUTO_UPDATE: 1
-          
-          # CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
-          CIBW_BUILD: "cp36-*"
-
-          CIBW_BUILD_VERBOSITY: 1
-
-          # CIBW_BEFORE_TEST: "python3 -c \"from distutils import util; print(util.get_platform())\" && pip install pytest"
-          # CIBW_TEST_COMMAND: "cp -r {package}/pytoulbar2/tests ./ && pytest ./tests"
+      - name: dep
+        run: pip install cibuildwheel
