@@ -141,7 +141,7 @@ jobs:
 
       - name: wheel test
         shell: msys2 {0}
-        run: pwd && mkdir ~/pytb2_test && cp ./pytoulbar2/test/test_pytoulbar2.py ~/pytb2_test && python -m venv ~/test_env && source ~/test_env/bin/activate && pip install ./wheelhouse/*.whl && cd ~/pytb2_test && python ./test_pytoulbar2.py
+        run: pwd && mkdir ~/pytb2_test && cp ./pytoulbar2/tests/test_pytoulbar2.py ~/pytb2_test && python -m venv ~/test_env && source ~/test_env/bin/activate && pip install ./wheelhouse/*.whl && cd ~/pytb2_test && python ./test_pytoulbar2.py
 
       - uses: actions/upload-artifact@v4
         with:
