@@ -137,7 +137,7 @@ jobs:
 
       - name: wheel repair
         shell: msys2 {0}
-        run: pip install delvewheel && delvewheel show ./wheelhouse/*.whl && delvewheel repair ./wheelhouse/*.whl
+        run: python -m venv dw_env && source ./dw_env/bin/activate && pip install delvewheel && delvewheel show ./wheelhouse/*.whl && delvewheel repair ./wheelhouse/*.whl
 
       - uses: actions/upload-artifact@v4
         with:
