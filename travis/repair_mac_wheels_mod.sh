@@ -3,6 +3,7 @@
 echo "custom wheel repair script" 
 
 wheel_file=$1
+dest_dir=$2
 
 echo "wheel file $wheel_file"
 
@@ -32,7 +33,7 @@ install_name_tool -change "@loader_path/$slibicudata" "@loader_path/$libicudata"
 install_name_tool -change "@loader_path/$slibicuuc" "@loader_path/$libicuuc" $libicui18n
 
 rm $wheel_file
-zip -r ./* -O $wheel_file
+zip -r ./* -O $dest_dir
 cd ..
 rm -rf wheel_repair_tmp
 
