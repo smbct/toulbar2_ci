@@ -11,7 +11,7 @@ mkdir wheel_repair_tmp
 cd wheel_repair_tmp
 unzip $1 -d .
 
-echo "inside wheel: $(ls ./*)"
+echo "inside wheel: $(ls -la ./*)"
 
 cd pytoulbar2/.dylibs
 
