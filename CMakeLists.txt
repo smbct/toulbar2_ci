@@ -310,7 +310,7 @@ IF(PYTB2)
 
   MESSAGE(STATUS "CMake version: ${CMAKE_VERSION}")
 
-  SET(Python3_SUFFIX "test")
+  SET(Python3_SUFFIX ".test")
 
   IF(CMAKE_VERSION VERSION_GREATER_EQUAL 3.27.0) ### New cmake and python and pybind11
 	FIND_PACKAGE(pybind11 REQUIRED)
