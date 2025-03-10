@@ -131,7 +131,7 @@ jobs:
 
       - name: dep
         shell: msys2 {0}
-        run: pip install cibuildwheel
+        run: pip3 install cibuildwheel
 
       - name: build pytb2
         shell: msys2 {0}
