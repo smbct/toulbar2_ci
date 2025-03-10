@@ -133,11 +133,11 @@ jobs:
 
       - name: build
         shell: msys2 {0}
-        run: "pip3 wheel ./ --no-deps -w wheelhouse -v"
+        run: "pip3 debug --verbose && pip3 wheel ./ --no-deps -w wheelhouse -v"
 
       - name: wheel repair
         shell: msys2 {0}
-        run: python3 -m venv dw_env && source ./dw_env/bin/activate && pip install delvewheel && delvewheel show ./wheelhouse/*.whl && delvewheel repair ./wheelhouse/*.whl
+        run: python3 -m venv dw_env && source ./dw_env/bin/activate && which python3 && pip3 debug --verbose && pip3 install delvewheel && delvewheel show ./wheelhouse/*.whl && delvewheel repair ./wheelhouse/*.whl
 
       - name: wheel test
         shell: msys2 {0}
