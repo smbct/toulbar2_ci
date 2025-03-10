@@ -129,6 +129,10 @@ jobs:
           update: true
           install: git mingw-w64-ucrt-x86_64-gcc ucrt64/mingw-w64-ucrt-x86_64-cmake python python-pip mingw-w64-python-wheel ucrt64/mingw-w64-ucrt-x86_64-pybind11 ucrt64/mingw-w64-ucrt-x86_64-boost ucrt64/mingw-w64-ucrt-x86_64-bc ucrt64/mingw-w64-ucrt-x86_64-eigen3
 
+      - name: test
+        shell: msys2 {0}
+        run: "pacman -S wheel"
+
       - name: build
         shell: msys2 {0}
         run: "pip3 wheel ./ --no-deps -w wheelhouse"
