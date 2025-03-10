@@ -133,7 +133,7 @@ jobs:
 
       - name: build
         shell: msys2 {0}
-        run: "pip3 debug --verbose && pip3 wheel ./ --no-deps -w wheelhouse -v"
+        run: " python3 -m venv build_env && source ./build_env/bin/activate && pip3 debug --verbose && pip3 wheel ./ --no-deps -w wheelhouse -v"
 
       - name: wheel repair
         shell: msys2 {0}
