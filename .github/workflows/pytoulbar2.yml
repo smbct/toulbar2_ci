@@ -97,11 +97,12 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.23.0
         env:
 
-          CIBW_BEFORE_BUILD: "pip install pybind11[global]"
+          CIBW_BEFORE_BUILD: "choco install choco install boost-msvc-14.2 -f -y && pip install pybind11[global]"
           
           HOMEBREW_NO_AUTO_UPDATE: 1
           
