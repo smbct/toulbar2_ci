@@ -121,6 +121,8 @@ jobs:
 
     steps:
 
+      - uses: actions/checkout@v4
+
       - uses: msys2/setup-msys2@v2
         with:
           msystem: UCRT64
@@ -129,3 +131,12 @@ jobs:
 
       - name: dep
         run: pip install cibuildwheel
+
+      - name: build pytb2
+
+        env:
+          # CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
+          CIBW_BUILD: "cp36-*"
+          CIBW_BUILD_VERBOSITY: 1
+        
+        run: "python3 -m cibuildwheel --output-dir wheelhouse"
