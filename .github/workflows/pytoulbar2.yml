@@ -41,8 +41,8 @@ jobs:
         uses: pypa/cibuildwheel@v2.23.0
         env:
           
-          CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=10.9
-          _PYTHON_HOST_PLATFORM: macosx-10.9-x86_64
+          # CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=10.9
+          # _PYTHON_HOST_PLATFORM: macosx-10.9-x86_64
 
           # with cpython 3.7, the min macos version cannot be 10.9
 
@@ -58,7 +58,7 @@ jobs:
 
           # CIBW_REPAIR_WHEEL_COMMAND: "pip3 install delocate --upgrade && delocate-listdeps --all {wheel} && export MACOSX_DEPLOYMENT_TARGET=13 && delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel}"
 
-          CIBW_REPAIR_WHEEL_COMMAND: "pip3 install delocate --upgrade && delocate-listdeps --all {wheel} && delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel}"
+          CIBW_REPAIR_WHEEL_COMMAND: "pip3 install delocate --upgrade && delocate-listdeps --all {wheel} && delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel} && export res=$({dest_dir}/*.whl) && mv $res ${res/13/10_9} && ls {dest_dir}"
 
 
           # CIBW_REPAIR_WHEEL_COMMAND: "bash {package}/travis/repair_mac_wheels_mod.sh {wheel}"
