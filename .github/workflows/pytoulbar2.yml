@@ -19,8 +19,8 @@ jobs:
           CIBW_BEFORE_BUILD: "yum -y install gmp-devel boost169-devel zlib-devel bzip2-devel xz-devel libxml2-devel eigen3-devel && pip install -r dev-requirements.txt"
           CIBW_ENVIRONMENT: BOOST_INCLUDEDIR=/usr/include/boost169 BOOST_LIBRARYDIR=/usr/lib64/boost169
           
-          CIBW_BUILD: "cp36-* cp37-* cp38-*"
-          # CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
+          # CIBW_BUILD: "cp36-* cp37-* cp38-*"
+          CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*"
 
           CIBW_SKIP: "*-manylinux_i686* *-musllinux*"
           CIBW_BUILD_VERBOSITY: 1
@@ -86,7 +86,7 @@ jobs:
 
 
   pytb2-macos-arm:
-    # if: false
+    if: false
     name: pytoulbar2-macos-arm
     runs-on: macos-14
     steps:
