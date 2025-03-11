@@ -42,6 +42,7 @@ jobs:
         env:
           
           CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=10.9
+          _PYTHON_HOST_PLATFORM: macosx-10.9-x86_64
 
           # with cpython 3.7, the min macos version cannot be 10.9
 
