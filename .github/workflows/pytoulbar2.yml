@@ -71,8 +71,8 @@ jobs:
           # CIBW_REPAIR_WHEEL_COMMAND: ""
 
 
-          CIBW_BEFORE_TEST: "MACOSX_DEPLOYMENT_TARGET=13 && pip3 debug --verbose && pip3 install pytest"
-          CIBW_TEST_COMMAND: "MACOSX_DEPLOYMENT_TARGET=13 && pip3 debug --verbose && cp -r {package}/pytoulbar2/tests ./ && pytest ./tests &"
+          CIBW_BEFORE_TEST: "export MACOSX_DEPLOYMENT_TARGET=13 && pip3 debug --verbose && pip3 install pytest"
+          CIBW_TEST_COMMAND: "export MACOSX_DEPLOYMENT_TARGET=13 && pip3 debug --verbose && cp -r {package}/pytoulbar2/tests ./ && pytest ./tests &"
 
 
       - uses: actions/upload-artifact@v4
