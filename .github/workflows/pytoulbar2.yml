@@ -61,7 +61,7 @@ jobs:
 
           # CIBW_REPAIR_WHEEL_COMMAND: "bash ./travis/repair_mac_wheels_mod.sh {wheel} {dest_dir}"
 
-          CIBW_REPAIR_WHEEL_COMMAND: ""
+          # CIBW_REPAIR_WHEEL_COMMAND: ""
 
           # CIBW_BEFORE_TEST: "pip install pytest"
 
