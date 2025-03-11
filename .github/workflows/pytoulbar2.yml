@@ -41,7 +41,8 @@ jobs:
         uses: pypa/cibuildwheel@v2.23.0
         env:
           
-          # CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=10.9
+          CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=13
+          
           # _PYTHON_HOST_PLATFORM: macosx-10.9-x86_64
 
           # with cpython 3.7, the min macos version cannot be 10.9
@@ -67,9 +68,10 @@ jobs:
 
           # CIBW_REPAIR_WHEEL_COMMAND: ""
 
-          # CIBW_BEFORE_TEST: "pip install pytest"
 
-          # CIBW_TEST_COMMAND: "cp -r {package}/pytoulbar2/tests ./ && pytest ./tests"
+          CIBW_BEFORE_TEST: "pip install pytest"
+          CIBW_TEST_COMMAND: "cp -r {package}/pytoulbar2/tests ./ && pytest ./tests"
+
 
       - uses: actions/upload-artifact@v4
         with:
