@@ -10,7 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     #runs-on: ubuntu-20.04
 
-    
+    container:
+      image: ghcr.io/smbct/toulbar2/toulbar2_docs
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.PACKAGE_PULL }}
+      volumes:
+        - ./:/docs
 
     steps:
 
@@ -28,13 +34,6 @@ jobs:
             ${{ runner.os }}-pip-
 
       - name: "Build docs"
-        container:
-          image: ghcr.io/smbct/toulbar2_ci/toulbar2_docs
-          credentials:
-            username: ${{ github.actor }}
-            password: ${{ secrets.PACKAGE_PULL }}
-        volumes:
-          - ./:/docs
         run: echo ""
 
       # - name: "Deploy on Github Pages (ghp-import)"
