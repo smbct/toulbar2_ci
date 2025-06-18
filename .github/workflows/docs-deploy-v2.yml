@@ -34,7 +34,7 @@ jobs:
             ${{ runner.os }}-pip-
 
       - name: "Build docs"
-        run: echo ""
+        uses: ghcr.io/smbct/toulbar2_ci/toulbar2_docs
 
       # - name: "Deploy on Github Pages (ghp-import)"
       #   run: | 
