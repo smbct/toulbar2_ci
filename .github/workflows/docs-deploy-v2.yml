@@ -11,7 +11,7 @@ jobs:
     #runs-on: ubuntu-20.04
 
     container:
-      image: ghcr.io/smbct/toulbar2/toulbar2_docs
+      image: ghcr.io/smbct/toulbar2_ci/toulbar2_docs
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.PACKAGE_PULL }}
