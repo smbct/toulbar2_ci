@@ -34,7 +34,10 @@ jobs:
             ${{ runner.os }}-pip-
 
       - name: "Build docs"
-        run: which sphinx-build
+        run: |
+          mkdir -p build && cd build
+          cmake -DBUILD_API_DOC=ON /docs && make doc
+          cd /docs/docs && make docs
 
       # - name: "Deploy on Github Pages (ghp-import)"
       #   run: | 
