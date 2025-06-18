@@ -37,7 +37,7 @@ jobs:
           - ./:/docs
         run: echo ""
 
-      - name: "Deploy on Github Pages (ghp-import)"
-        run: | 
-          ghp-import -n -p -f docs/_build/html
+      # - name: "Deploy on Github Pages (ghp-import)"
+      #   run: | 
+      #     ghp-import -n -p -f docs/_build/html
 
