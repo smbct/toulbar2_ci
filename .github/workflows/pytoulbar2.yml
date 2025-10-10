@@ -44,7 +44,8 @@ jobs:
         uses: pypa/cibuildwheel@v2.23.0
         env:
           
-          CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=10.9
+          CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=11
+          # CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=10.9
         
           # _PYTHON_HOST_PLATFORM: macosx-10.9-x86_64
 
@@ -74,8 +75,11 @@ jobs:
           # CIBW_REPAIR_WHEEL_COMMAND: ""
 
 
-          CIBW_BEFORE_TEST: "export MACOSX_DEPLOYMENT_TARGET=13 && pip3 debug --verbose && pip3 install pytest"
-          CIBW_TEST_COMMAND: "export MACOSX_DEPLOYMENT_TARGET=13 && pip3 debug --verbose && cp -r {package}/pytoulbar2/tests ./ && cp {package}/validation/default/example.wcsp ./ && pytest ./tests &"
+          # CIBW_BEFORE_TEST: "export MACOSX_DEPLOYMENT_TARGET=13 && pip3 debug --verbose && pip3 install pytest"
+          # CIBW_TEST_COMMAND: "export MACOSX_DEPLOYMENT_TARGET=13 && pip3 debug --verbose && cp -r {package}/pytoulbar2/tests ./ && cp {package}/validation/default/example.wcsp ./ && pytest ./tests &"
+
+          CIBW_BEFORE_TEST: "pip3 debug --verbose && pip3 install pytest"
+          CIBW_TEST_COMMAND: "pip3 debug --verbose && cp -r {package}/pytoulbar2/tests ./ && cp {package}/validation/default/example.wcsp ./ && pytest ./tests &"
 
 
       - uses: actions/upload-artifact@v4
