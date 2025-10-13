@@ -41,10 +41,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.23.0
+        uses: pypa/cibuildwheel@v3.2.1
         env:
           
-          CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=11
+          CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=13
           # CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=10.9
         
           # _PYTHON_HOST_PLATFORM: macosx-10.9-x86_64
