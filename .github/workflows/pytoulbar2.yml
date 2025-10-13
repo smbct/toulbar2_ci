@@ -66,7 +66,7 @@ jobs:
 
           # CIBW_REPAIR_WHEEL_COMMAND: "pip3 install delocate --upgrade && delocate-listdeps --all {wheel} && delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel} && export res=$({dest_dir}/*.whl) && mv $res ${res/13/10_9} && ls {dest_dir}"
 
-          CIBW_REPAIR_WHEEL_COMMAND: "for dep in $(delocate-listdeps --all {wheel}); do if [[ $dep =~ 'Cellar' ]]; then echo $dep; vtool -set-build-version macos $MACOSX_DEPLOYMENT_TARGET $MACOSX_DEPLOYMENT_TARGET -o $dep $dep; fi; done && pip3 install delocate --upgrade && delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel}"
+          # CIBW_REPAIR_WHEEL_COMMAND: "for dep in $(delocate-listdeps --all {wheel}); do if [[ $dep =~ 'Cellar' ]]; then echo $dep; vtool -set-build-version macos $MACOSX_DEPLOYMENT_TARGET $MACOSX_DEPLOYMENT_TARGET -o $dep $dep; fi; done && pip3 install delocate --upgrade && delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel}"
 
 
           # CIBW_REPAIR_WHEEL_COMMAND: "bash {package}/travis/repair_mac_wheels_mod.sh {wheel}"
