@@ -17,7 +17,7 @@ jobs:
           CIBW_BEFORE_BUILD: "yum -y install gmp-devel boost169-devel zlib-devel bzip2-devel xz-devel libxml2-devel eigen3-devel && pip install -r dev-requirements.txt"
           CIBW_ENVIRONMENT: BOOST_INCLUDEDIR=/usr/include/boost169 BOOST_LIBRARYDIR=/usr/lib64/boost169
           
-          CIBW_BUILD: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-* cp312-* cp313-* cp314-*"
+          CIBW_BUILD: "cp38-* cp39-* cp310-* cp311-* cp312-* cp313-* cp314-*"
 
           CIBW_SKIP: "*-manylinux_i686* *-musllinux*"
 
@@ -36,7 +36,7 @@ jobs:
 
   pytb2-macos-intel:
     if: false
-    name: pytoulbar2-macos-intel
+    name: pytoulbar2-macos-x86_64
     runs-on: macos-13
     steps:
       - uses: actions/checkout@v4
