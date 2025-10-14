@@ -115,7 +115,7 @@ jobs:
           CIBW_BUILD_VERBOSITY: 1
 
           CIBW_TEST_REQUIRES: pytest
-          CIBW_TEST_COMMAND: "cp -r {package}/pytoulbar2/tests ./ && cp {package}/validation/default/example.wcsp ./ && pytest ./tests &"
+          CIBW_TEST_COMMAND: "cp -r {package}/pytoulbar2/tests ./ && cp {package}/validation/default/example.wcsp ./ && touch ./tests/__init__.py && pytest ./tests"
 
       - uses: actions/upload-artifact@v4
         with:
