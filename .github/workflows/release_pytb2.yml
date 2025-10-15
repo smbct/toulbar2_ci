@@ -21,4 +21,4 @@ jobs:
            git config --global user.name 'smbct'
            git config --global user.email 'smbct@users.noreply.github.com'
            git commit -am "update pytb2 version tag"
-           git push
+           git push origin ci-cd
