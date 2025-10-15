@@ -21,7 +21,7 @@ jobs:
        - name: update ptb2 version
          run: |
            echo "Release name: ${{ github.event.release.name }} Description: ${{ github.event.release.body }}"
-           pytb2_version=$(echo ${{ github.event.release.body }}| grep -oP "(?<=pytoulbar2=).*")
+           pytb2_version=$(echo ${{ github.event.release.body }} |grep -oP "(?<=pytoulbar2=).*")
            echo "new pytb2 version: $pytb2_version"
            sed -i "s/version=.*/version=\"$pytb2_version\" # hash $(git rev-parse HEAD) /" setup.py
         
