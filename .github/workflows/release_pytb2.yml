@@ -15,4 +15,4 @@ jobs:
 
        - name: update ptb2 version
          run: |
-           cat ${{runner.workspace}}/toulbar2/setup.py
+           cat ${{runner.workspace}}/toulbar2_ci/setup.py
