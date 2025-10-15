@@ -1,8 +1,10 @@
 name: release_pytb2
 
 on:
-  release:
-    types: [published]
+
+  # release:
+  #   types: [published]
+  workflow_dispatch:
 
 jobs:
 
@@ -21,4 +23,4 @@ jobs:
            git config --global user.name 'smbct'
            git config --global user.email 'smbct@users.noreply.github.com'
            git commit -am "update pytb2 version tag"
-           git push origin ci-cd
+           git push origin HEAD
