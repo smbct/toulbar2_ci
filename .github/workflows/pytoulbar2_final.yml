@@ -40,7 +40,7 @@ jobs:
 
 
   pytb2-macos-intel:
-    if: false
+    if: true
     name: pytoulbar2-macos-x86_64
     runs-on: macos-13
     steps:
@@ -55,7 +55,8 @@ jobs:
 
           CIBW_BEFORE_BUILD: "pip install -r dev-requirements.txt"
 
-          CIBW_BUILD: "cp38-* cp39-* cp310-* cp311-* cp312-* cp313-* cp314-*"
+          # CIBW_BUILD: "cp38-* cp39-* cp310-* cp311-* cp312-* cp313-* cp314-*"
+          CIBW_BUILD: "cp38-* cp39-*"
 
           CIBW_BUILD_VERBOSITY: 1
 
