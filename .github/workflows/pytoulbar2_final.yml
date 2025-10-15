@@ -160,7 +160,7 @@ jobs:
 
       - shell: bash
         working-directory: artifacts
-        run: mkdir ${{runner.workspace}}/dist && mv */*.whl ${{runner.workspace}}/dist
+        run: mkdir ${{runner.workspace}}/dist && ln -s */*.whl ${{runner.workspace}}/dist
         # run: |
         #   for i in $( ls ); do
         #     cat $i/$ARTIFACT
