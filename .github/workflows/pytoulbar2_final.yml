@@ -1,14 +1,16 @@
 name: pytoulbar2_final
 
 on:
+  push:
+    tags:
+      - 'pytoulbar2*'  
   
   workflow_dispatch:
   
   # release:
   #   types: [published]
 
-  tag:
-    - 'pytoulbar2*'  
+  
 
 
 jobs:
