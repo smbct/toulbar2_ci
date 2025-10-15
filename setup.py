@@ -75,7 +75,7 @@ def read_version():
 
 setup(
     name="pytoulbar2",
-    version="1.0.5", # hash 647b0e197aa0b3da9184179f051c202d5ed8df8e 
+    version="1.0.6", # hash 8df9392715b6a3938dcea873ff6d4956076f0326 
     author="ToulBar2 team",
     author_email="thomas.schiex@inrae.fr",
     description="ToulBar2 Python package",
