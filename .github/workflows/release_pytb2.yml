@@ -15,6 +15,8 @@ jobs:
     steps:
 
        - uses: actions/checkout@v4
+         with:
+           ref: 'ci-cd'
 
        - name: update ptb2 version
          run: |
@@ -24,4 +26,4 @@ jobs:
            git config --global user.name 'smbct'
            git config --global user.email 'smbct@users.noreply.github.com'
            git commit -am "[auto] update pytb2 version tag"
-           git push origin HEAD
+           git push

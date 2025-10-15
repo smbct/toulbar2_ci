@@ -75,7 +75,11 @@ def read_version():
 
 setup(
     name="pytoulbar2",
+<<<<<<< Updated upstream
     version="0.0.0.5" # hash 9b60cccae4d6c7ac636b091880d19e39216332d0 
+=======
+    version="0.0.0.5" # hash a35c310e61f2abab1edd16651d3632d8bee1ea77 
+>>>>>>> Stashed changes
     author="ToulBar2 team",
     author_email="thomas.schiex@inrae.fr",
     description="ToulBar2 Python package",
