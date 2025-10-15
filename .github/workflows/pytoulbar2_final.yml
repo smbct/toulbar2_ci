@@ -153,6 +153,13 @@ jobs:
 
       - shell: bash
         working-directory: artifacts
+        run: |
+            ls *
+            ls */*.whl
+            pwd
+
+      - shell: bash
+        working-directory: artifacts
         run: mkdir ${{runner.workspace}}/dist && mv */*.whl ${{runner.workspace}}/dist
         # run: |
         #   for i in $( ls ); do
