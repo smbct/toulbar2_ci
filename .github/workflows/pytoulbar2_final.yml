@@ -3,7 +3,7 @@ name: pytoulbar2_final
 on:
   push:
     tags:
-      - 'pytoulbar2*'  
+      - 'pytb2*'  
   
   workflow_dispatch:
   
