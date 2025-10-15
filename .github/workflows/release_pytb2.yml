@@ -26,7 +26,7 @@ jobs:
            echo $content
            pytb2_version=$( echo $content | grep -oP "(?<=pytoulbar2=).*")
            echo "new pytb2 version: $pytb2_version"
-           sed -i "s/version=.*/version=\"$pytb2_version\" # hash $(git rev-parse HEAD) /" setup.py
+           sed -i "s/version=.*/version=\"$pytb2_version\", # hash $(git rev-parse HEAD) /" setup.py
         
        - name: push changes
          run: |
