@@ -21,9 +21,11 @@ jobs:
        - name: update ptb2 version
          run: |
            echo "Release name: ${{ github.event.release.name }} Description: ${{ github.event.release.body }}"
-           cat ${{runner.workspace}}/toulbar2_ci/setup.py
-           sed -i "s/version=.*/version=\"0.0.0.6\" # hash $(git rev-parse HEAD) /" setup.py
-           cat ${{runner.workspace}}/toulbar2_ci/setup.py
+           pytb2_version=$(echo ${{ github.event.release.body }}| grep -oP "(?<=pytoulbar2=).*")
+           echo "new pytb2 version: $pytb2_version"
+           sed -i "s/version=.*/version=\"$pytb2_version\" # hash $(git rev-parse HEAD) /" setup.py
+        
+       - name: push changes
            git config --global user.name 'smbct'
            git config --global user.email 'smbct@users.noreply.github.com'
            git commit -am "[auto] update pytb2 version tag"
