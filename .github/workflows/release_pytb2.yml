@@ -20,6 +20,7 @@ jobs:
 
        - name: update ptb2 version
          run: |
+           echo "Release name: ${{ github.event.release.name }} Description: ${{ github.event.release.body }}"
            cat ${{runner.workspace}}/toulbar2_ci/setup.py
            sed -i "s/version=.*/version=\"0.0.0.6\" # hash $(git rev-parse HEAD) /" setup.py
            cat ${{runner.workspace}}/toulbar2_ci/setup.py
