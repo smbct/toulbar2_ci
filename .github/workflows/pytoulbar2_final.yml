@@ -39,7 +39,7 @@ jobs:
 
 
 
-  pytb2-macos-intel:
+  pytb2-macos-x86_64:
     if: true
     name: pytoulbar2-macos-x86_64
     runs-on: macos-13
@@ -104,7 +104,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
-    needs: [pytb2-linux, pytoulbar2-macos-x86_64]
+    needs: [pytb2-linux, pytb2-macos-x86_64]
     steps:
       - uses: actions/download-artifact@v5
         with:
