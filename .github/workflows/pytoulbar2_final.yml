@@ -6,7 +6,7 @@ on:
 jobs:
 
   pytb2-linux:
-    if: false
+    # if: false
     name: pytoulbar2-linux
     runs-on: ubuntu-24.04
     steps:
@@ -21,7 +21,8 @@ jobs:
 
           CIBW_ENVIRONMENT: BOOST_INCLUDEDIR=/usr/include/boost169 BOOST_LIBRARYDIR=/usr/lib64/boost169
           
-          CIBW_BUILD: "cp38-* cp39-* cp310-* cp311-* cp312-* cp313-* cp314-*"
+          # CIBW_BUILD: "cp38-* cp39-* cp310-* cp311-* cp312-* cp313-* cp314-*"
+          CIBW_BUILD: "cp38-*"
 
           CIBW_SKIP: "*-manylinux_i686* *-musllinux*"
 
@@ -39,6 +40,7 @@ jobs:
 
 
   pytb2-macos-intel:
+    if: false
     name: pytoulbar2-macos-x86_64
     runs-on: macos-13
     steps:
@@ -69,6 +71,7 @@ jobs:
 
 
   pytb2-macos-arm:
+    if: false
     name: pytoulbar2-macos-arm
     runs-on: macos-14
     steps:
@@ -97,6 +100,21 @@ jobs:
         with:
           name: pytoulbar2-macos-arm
           path: ./wheelhouse/*.whl
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          path: artifacts
+
+      - shell: bash
+        working-directory: artifacts
+        run: |
+          for i in $( ls ); do
+            cat $i/$ARTIFACT
+          done
 
 
 
