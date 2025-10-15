@@ -16,4 +16,3 @@ jobs:
        - name: update ptb2 version
          run: |
            cat ${{runner.workspace}}/toulbar2/setup.py
-           echo ${{GITHUB_SHA}}
