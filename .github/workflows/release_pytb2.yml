@@ -16,3 +16,9 @@ jobs:
        - name: update ptb2 version
          run: |
            cat ${{runner.workspace}}/toulbar2_ci/setup.py
+           sed -i "s/version=.*/version=\"0.0.0.5\" # hash $(git rev-parse HEAD) /" setup.py
+           cat ${{runner.workspace}}/toulbar2_ci/setup.py
+           git config --global user.name 'smbct'
+           git config --global user.email 'smbct@users.noreply.github.com'
+           git commit -am "update pytb2 version tag"
+           git push
