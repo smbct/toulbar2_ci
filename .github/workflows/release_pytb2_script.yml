@@ -1,9 +1,9 @@
 name: release_pytb2_script
 
 on:
-  push:
-    tags:
-      - 'pytoulbar2*'  
+  # push:
+  #   tags:
+  #     - 'pytoulbar2*'  
 
   workflow_dispatch:
 
