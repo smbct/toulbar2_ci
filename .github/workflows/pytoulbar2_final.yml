@@ -153,18 +153,7 @@ jobs:
 
       - shell: bash
         working-directory: artifacts
-        run: |
-            ls *
-            ls */*.whl
-            pwd
-
-      - shell: bash
-        working-directory: artifacts
-        run: mkdir ../dist && ln -s */*.whl ../dist
-        # run: |
-        #   for i in $( ls ); do
-        #     cat $i/$ARTIFACT
-        #   done
+        run: mkdir ../dist && cp */*.whl ../dist
       
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
