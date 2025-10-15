@@ -3,8 +3,8 @@ name: release_pytb2
 on:
 
   release:
-    # types: [published]
-    types: [edited]
+    types: [published]
+    # types: [edited]
   
   # workflow_dispatch:
 
