@@ -26,6 +26,7 @@ jobs:
            sed -i "s/version=.*/version=\"$pytb2_version\" # hash $(git rev-parse HEAD) /" setup.py
         
        - name: push changes
+         run: |
            git config --global user.name 'smbct'
            git config --global user.email 'smbct@users.noreply.github.com'
            git commit -am "[auto] update pytb2 version tag"
