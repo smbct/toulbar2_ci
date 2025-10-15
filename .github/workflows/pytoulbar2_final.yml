@@ -1,12 +1,41 @@
 name: pytoulbar2_final
 
 on:
+  
   workflow_dispatch:
+  
+  # release:
+  #   types: [published]
+
+  tag:
+    - 'pytoulbar2*'  
+
 
 jobs:
 
+  create-release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release
+            - pytoulbar2
+            - test
+          draft: false
+          prerelease: false
+
   pytb2-linux:
-    if: false
+    # if: false
     name: pytoulbar2-linux
     runs-on: ubuntu-24.04
     steps:
@@ -40,7 +69,7 @@ jobs:
 
 
   pytb2-macos-x86_64:
-    if: true
+    # if: false
     name: pytoulbar2-macos-x86_64
     runs-on: macos-13
     steps:
@@ -72,7 +101,7 @@ jobs:
 
 
   pytb2-macos-arm:
-    if: false
+    # if: false
     name: pytoulbar2-macos-arm
     runs-on: macos-14
     steps:
@@ -90,12 +119,13 @@ jobs:
           
           HOMEBREW_NO_AUTO_UPDATE: 1
           
-          CIBW_BUILD: "cp39-* cp310-* cp311-* cp312-* cp313-* cp314-*"
+          # CIBW_BUILD: "cp39-* cp310-* cp311-* cp312-* cp313-* cp314-*"
+          CIBW_BUILD: "cp39-* cp314-*"
 
           CIBW_BUILD_VERBOSITY: 1
 
           CIBW_TEST_REQUIRES: pytest
-          CIBW_TEST_COMMAND: "cp -r {package}/pytoulbar2/tests ./ && cp {package}/validation/default/example.wcsp ./ && touch ./tests/__init__.py && pytest ./tests"
+          CIBW_TEST_COMMAND: "cp -r {package}/pytoulbar2/tests ./ && cp {package}/validation/default/example.wcsp ./ && pytest ./tests"
 
       - uses: actions/upload-artifact@v4
         with:
@@ -104,7 +134,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
-    needs: [pytb2-linux, pytb2-macos-x86_64]
+    needs: [pytb2-linux, pytb2-macos-x86_64, pytb2-macos-arm]
     steps:
       - uses: actions/download-artifact@v5
         with:
@@ -112,7 +142,7 @@ jobs:
 
       - shell: bash
         working-directory: artifacts
-        run: ls
+        run: ls */*
         # run: |
         #   for i in $( ls ); do
         #     cat $i/$ARTIFACT
