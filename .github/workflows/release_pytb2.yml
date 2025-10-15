@@ -1,0 +1,19 @@
+name: release_pytb2
+
+on:
+  release:
+    types: [published]
+
+jobs:
+
+  pytb2-release:
+    name: pytoulbar2-release
+    runs-on: ubuntu-latest
+    steps:
+
+       - uses: actions/checkout@v4
+
+       - name: update ptb2 version
+         run: |
+           cat ${{runner.workspace}}/toulbar2/setup.py
+           echo ${{GITHUB_SHA}}
