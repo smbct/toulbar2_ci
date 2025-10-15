@@ -21,7 +21,7 @@ class TestExtension(TestCase):
    # this test comes from the tutorial
    def test_3(self):
 
-      cfn = pytb2.CFN()
+      cfn = pytoulbar2.CFN()
 
       # variables
       for row in range(9):
