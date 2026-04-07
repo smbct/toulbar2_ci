@@ -154,8 +154,8 @@ jobs:
 
       - shell: bash
         working-directory: $GITHUB_WORKSPACE/artifacts
-        run: mkdir $GITHUB_WORKSPACE/dist && tree && $(cp */*.whl $GITHUB_WORKSPACE/dist 2>/dev/null | true) && $(cp *.whl $GITHUB_WORKSPACE/dist 2>/dev/null | true) 
-      
+        run: mkdir $GITHUB_WORKSPACE/dist && for elt in $(find . -name "*.whl"); do cp $elt $GITHUB_WORKSPACE/artifacts; done
+
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
